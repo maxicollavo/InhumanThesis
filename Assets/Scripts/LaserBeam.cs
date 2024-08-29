@@ -1,14 +1,23 @@
+using System.Collections;
 using UnityEngine;
 
 public class LaserBeam : MonoBehaviour
 {
-    public GameManager gm;
-    public GameObject laserPrefab;
-    public Camera playerCamera;
+    [SerializeField] LineRenderer lineRenderer;
+    [SerializeField] GameManager gm;
+    [SerializeField] Camera playerCamera;
+    [SerializeField] Transform laserSpawn;
+    [SerializeField] float gunRange = 50f;
+    [SerializeField] float fireRate = 0.2f;
+
+    private float _fireTimer;
+    private WaitForSeconds wfs = new WaitForSeconds(0.05f);
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        _fireTimer += Time.deltaTime;
+
+        if (Input.GetKeyDown(KeyCode.E) && _fireTimer > fireRate)
         {
             ActivatePower();
         }
@@ -16,6 +25,8 @@ public class LaserBeam : MonoBehaviour
 
     void ActivatePower()
     {
+        _fireTimer = 0;
+
         switch (gm.state)
         {
             case PowerStates.OnLaser:
@@ -28,27 +39,32 @@ public class LaserBeam : MonoBehaviour
 
     void ShootLaser()
     {
-        laserPrefab.SetActive(true);
-
-        Ray ray = playerCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+        lineRenderer.SetPosition(0, laserSpawn.position);
+        Vector3 rayOirigin = playerCamera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0));
         RaycastHit hit;
-        float maxDistance = 100f;
 
-        Debug.DrawRay(ray.origin, ray.direction * maxDistance, Color.red, 1.0f);
-
-        if (Physics.Raycast(ray, out hit, maxDistance))
+        if (Physics.Raycast(rayOirigin, playerCamera.transform.forward, out hit, gunRange))
         {
-            if (hit.collider.CompareTag("Switch"))
+            lineRenderer.SetPosition(1, hit.point);
+            var interactor = hit.collider.GetComponent<Interactor>();
+
+            if (interactor != null)
             {
-                Debug.Log("Switch hit by laser!");
+                interactor.Interact();
             }
         }
+        else
+        {
+            lineRenderer.SetPosition(1, rayOirigin + (playerCamera.transform.forward * gunRange));
+        }
 
-        Invoke("TurnOffLaser", 0.1f);
+        StartCoroutine(ShootLaserCor());
     }
 
-    void TurnOffLaser()
+    IEnumerator ShootLaserCor()
     {
-        laserPrefab.SetActive(false);
+        lineRenderer.enabled = true;
+        yield return wfs;
+        lineRenderer.enabled = false;
     }
 }
