@@ -16,7 +16,9 @@ public class GameManager : MonoBehaviour
     GameObject secretCode;
     [SerializeField]
     GameObject doorToOpen;
+    [SerializeField] GameObject pauseMenu;
 
+    public bool menuPressed;
     public static GameManager Instance { get; set; }
 
     private void Awake()
@@ -30,6 +32,26 @@ public class GameManager : MonoBehaviour
         codeCount = 0;
     }
 
+    public void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            menuPressed = !menuPressed;
+            pauseMenu.SetActive(menuPressed);
+            if (menuPressed)
+            {
+                Time.timeScale = 0;
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+            }
+            else
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+                Time.timeScale = 1;
+            }
+        }
+    }
     public void GetAllTorchs()
     {
         if (torchsLit.Count != torches.Count)

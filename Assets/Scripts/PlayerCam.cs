@@ -1,11 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerCam : MonoBehaviour
 {
     public float sensX;
     public float sensY;
+
+    public Slider SensX;
+    public Slider SensY;
 
     public Transform orientation;
     public Transform stone;
@@ -13,6 +17,8 @@ public class PlayerCam : MonoBehaviour
     float xRot;
     float yRot;
 
+    public bool menuPressed;
+    [SerializeField] GameObject pauseMenu;
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
@@ -21,6 +27,9 @@ public class PlayerCam : MonoBehaviour
 
     private void Update()
     {
+        sensX = SensX.value; 
+        sensY = SensY.value;
+
         float xMouse = Input.GetAxisRaw("Mouse X") * Time.deltaTime * sensX;
         float yMouse = Input.GetAxisRaw("Mouse Y") * Time.deltaTime * sensY;
 
