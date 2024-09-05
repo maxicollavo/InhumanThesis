@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641275, b: 0.5748172, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -241,7 +241,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7486d784350af12419813f75b0cda7e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itWorks: 1
+  isLit: 0
 --- !u!1 &10789472
 GameObject:
   m_ObjectHideFlags: 0
@@ -847,7 +847,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7486d784350af12419813f75b0cda7e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itWorks: 0
+  isLit: 0
 --- !u!1 &408432982
 GameObject:
   m_ObjectHideFlags: 0
@@ -1255,7 +1255,6 @@ GameObject:
   - component: {fileID: 489819174}
   - component: {fileID: 489819173}
   - component: {fileID: 489819172}
-  - component: {fileID: 489819171}
   m_Layer: 0
   m_Name: Cable
   m_TagString: Untagged
@@ -1263,27 +1262,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!65 &489819171
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 489819170}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &489819172
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1410,6 +1388,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   state: 0
+  torches:
+  - {fileID: 584589482}
+  - {fileID: 573604398}
+  - {fileID: 840973291}
+  - {fileID: 286572032}
+  - {fileID: 6958727}
+  - {fileID: 1538070343}
+  torchsLit: 
+  codeCount: 0
+  secretCode: {fileID: 1269362407}
+  doorToOpen: {fileID: 974557712}
 --- !u!4 &561103283
 Transform:
   m_ObjectHideFlags: 0
@@ -1679,7 +1668,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7486d784350af12419813f75b0cda7e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itWorks: 0
+  isLit: 0
 --- !u!1 &584589482
 GameObject:
   m_ObjectHideFlags: 0
@@ -1798,7 +1787,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7486d784350af12419813f75b0cda7e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itWorks: 1
+  isLit: 0
 --- !u!1 &587522458
 GameObject:
   m_ObjectHideFlags: 0
@@ -2436,7 +2425,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7486d784350af12419813f75b0cda7e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itWorks: 0
+  isLit: 0
 --- !u!1 &911801337
 GameObject:
   m_ObjectHideFlags: 0
@@ -2485,7 +2474,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -2569,7 +2558,7 @@ GameObject:
   - component: {fileID: 974557714}
   - component: {fileID: 974557713}
   m_Layer: 0
-  m_Name: Door (1)
+  m_Name: DoorSecretPuzzle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3799,7 +3788,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 7edfce4c85929714ebc812b93bb14068, type: 2}
+  - {fileID: 2100000, guid: 06fc98f5d8139e447a46834451f799e6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3994,7 +3983,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7486d784350af12419813f75b0cda7e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itWorks: 1
+  isLit: 0
 --- !u!1 &1631629778
 GameObject:
   m_ObjectHideFlags: 0
@@ -4055,7 +4044,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 7edfce4c85929714ebc812b93bb14068, type: 2}
+  - {fileID: 2100000, guid: 06fc98f5d8139e447a46834451f799e6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4346,7 +4335,7 @@ Transform:
   m_GameObject: {fileID: 1764430819}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.39, z: -20.7}
+  m_LocalPosition: {x: 0, y: 1.39, z: -21.04}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4615,7 +4604,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 7edfce4c85929714ebc812b93bb14068, type: 2}
+  - {fileID: 2100000, guid: 06fc98f5d8139e447a46834451f799e6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5380,10 +5369,10 @@ SceneRoots:
   - {fileID: 2110474967}
   - {fileID: 1001730189}
   - {fileID: 584589486}
-  - {fileID: 286572036}
   - {fileID: 573604402}
-  - {fileID: 6958731}
   - {fileID: 840973295}
+  - {fileID: 286572036}
+  - {fileID: 6958731}
   - {fileID: 1538070347}
   - {fileID: 1131954923}
   - {fileID: 1634197307}

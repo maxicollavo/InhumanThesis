@@ -7,20 +7,10 @@ public class CodeInteractor : MonoBehaviour, Interactor
     [HideInInspector]
     public bool isLit;
     private Renderer torchRenderer;
-    [HideInInspector]
-    public int torchIndex;
 
     private void Awake()
     {
         torchRenderer = GetComponent<Renderer>();
-
-        if (GameManager.Instance != null && GameManager.Instance.antorchas != null)
-        {
-            GameManager.Instance.antorchas.Add(gameObject);
-            torchIndex = GameManager.Instance.antorchas.Count - 1;
-
-            UpdateTorchState();
-        }
     }
 
     public void Interact()

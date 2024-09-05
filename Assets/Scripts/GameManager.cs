@@ -1,49 +1,69 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    [HideInInspector]
     public PowerStates state;
-    public List<GameObject> antorchas;
+    public List<GameObject> torches = new List<GameObject>();
+    [HideInInspector]
     public List<bool> torchsLit;
+    [HideInInspector]
     public int codeCount;
+    private int torchCounter;
+
+    [SerializeField]
+    GameObject secretCode;
+    [SerializeField]
+    GameObject doorToOpen;
 
     public static GameManager Instance { get; set; }
 
     private void Awake()
     {
         Instance = this;
-        antorchas = new List<GameObject>();
         torchsLit = new List<bool>();
     }
 
     private void Start()
     {
         codeCount = 0;
-
-        GetAllTorchs();
     }
 
     public void GetAllTorchs()
     {
-        for (int i = 0; i < antorchas.Count; i++) //Cambiar para que solo haga el GetComponent 1 vez y cada vez que lo llame chequee los bools
+        if (torchsLit.Count != torches.Count)
         {
-            torchsLit[i] = antorchas[i].GetComponent<CodeInteractor>().isLit;
+            torchsLit = new List<bool>(new bool[torches.Count]);
         }
 
-        CheckTorchStatus();
-    }
-
-    public void CheckTorchStatus()
-    {
-        bool n1Lit = torchsLit[0];
-        bool n5Lit = torchsLit[4];
-        bool n6Lit = torchsLit[5];
-
-        if (n1Lit && n5Lit && n6Lit)
+        for (int i = 0; i < torches.Count; i++)
         {
-            Debug.Log("Las antorchas 1, 5 y 6 están encendidas. ¡La puerta se abre!");
+            torchsLit[i] = torches[i].GetComponent<CodeInteractor>().isLit;
+        }
+
+        bool allTorchsLit = true;
+        for (int i = 0; i < torchsLit.Count; i++)
+        {
+            if (!torchsLit[i])
+            {
+                allTorchsLit = false;
+                break;
+            }
+        }
+
+        if (allTorchsLit)
+        {
+            secretCode.SetActive(true);
+        }
+        else
+        {
+            secretCode.SetActive(false);
+        }
+
+        if (torchsLit[0] && torchsLit[4] && torchsLit[5] && !torchsLit[1] && !torchsLit[2] && !torchsLit[3])
+        {
+            doorToOpen.SetActive(false);
         }
     }
 }
