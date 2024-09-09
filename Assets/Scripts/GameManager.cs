@@ -10,8 +10,7 @@ public class GameManager : MonoBehaviour
     public List<bool> torchsLit;
     [HideInInspector]
     public int codeCount;
-    private int torchCounter;
-
+    public int cableCounter;
     [SerializeField]
     GameObject secretCode;
     [SerializeField]
@@ -46,9 +45,9 @@ public class GameManager : MonoBehaviour
             }
             else
             {
+                Time.timeScale = 1;
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
-                Time.timeScale = 1;
             }
         }
     }

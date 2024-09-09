@@ -19,6 +19,7 @@ public class PlayerCam : MonoBehaviour
 
     public bool menuPressed;
     [SerializeField] GameObject pauseMenu;
+
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;

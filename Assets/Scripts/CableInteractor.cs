@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CableInteractor : MonoBehaviour, Interactor
@@ -10,6 +8,13 @@ public class CableInteractor : MonoBehaviour, Interactor
 
     public void Interact()
     {
-        objectToInteract.SetActive(false);
+        var coll = GetComponent<BoxCollider>();
+        if (coll != null)
+            coll.enabled = false;
+
+        GameManager.Instance.cableCounter++;
+
+        if (GameManager.Instance.cableCounter == 2)
+            objectToInteract.SetActive(false);
     }
 }
