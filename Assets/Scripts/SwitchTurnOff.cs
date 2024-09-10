@@ -5,14 +5,25 @@ using System.Collections;
 public class SwitchTurnOff : MonoBehaviour, Interactor
 {
     [SerializeField] GameObject objectToTurnOff;
-    public Animation Anim1;
-    public Animation Anim2;
+    public Animator Anim3;
+
+    private void Start()
+    {
+        Anim3 = gameObject.GetComponent<Animator>();
+    }
     public void Interact()
     {
-       //OpenDoor();
-         objectToTurnOff.SetActive(false);
+        //OpenDoor();
+        //objectToTurnOff.SetActive(false);
     }
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+         Anim3.SetBool("Istrue", true);
 
+        }
+    }
     /*public  IEnumerator OpenDoor() 
     {
        Anim1.Play();
@@ -20,7 +31,7 @@ public class SwitchTurnOff : MonoBehaviour, Interactor
        yield return new WaitForSeconds(1);
        objectToTurnOff.SetActive(false);
     }
-     */   
+     */
 }
 
 
