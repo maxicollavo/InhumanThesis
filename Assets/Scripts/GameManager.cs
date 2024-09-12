@@ -6,17 +6,20 @@ public class GameManager : MonoBehaviour
     [HideInInspector]
     public PowerStates state;
     public List<GameObject> torches = new List<GameObject>();
+    public List<bool> paintings = new List<bool>();
     [HideInInspector]
     public List<bool> torchsLit;
     [HideInInspector]
     public int codeCount;
     public int cableCounter;
+    public int paintCounter;
     [SerializeField]
     GameObject secretCode;
     [SerializeField]
     GameObject doorToOpen;
+    [SerializeField]
+    GameObject paintingsDoor;
     [SerializeField] GameObject pauseMenu;
-
     public bool menuPressed;
     public static GameManager Instance { get; set; }
 
@@ -51,6 +54,28 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+
+    public void UpdatePaintings(int index, bool value)
+    {
+        if (index >= 0 && index < paintings.Count)
+            paintings[index] = value;
+
+        foreach (var item in paintings)
+        {
+            if (!item)
+            {
+                paintCounter = 0;
+                return;
+            }
+
+            paintCounter++;
+            if (paintCounter == 4)
+            {
+                if (paintingsDoor.activeInHierarchy) paintingsDoor.SetActive(false);
+            }
+        }
+    }
+
     public void GetAllTorchs()
     {
         if (torchsLit.Count != torches.Count)
