@@ -3,8 +3,17 @@ using UnityEngine;
 public class CableInteractor : MonoBehaviour, Interactor
 {
     [SerializeField] GameObject objectToInteract;
-    public Animation Anim1;
-    public Animation Anim2;
+    [SerializeField] Animator anim;
+    [SerializeField] ParticleSystem part;
+
+    private void Update()
+    {
+        if (GameManager.Instance.cableCounter == 2)
+        {
+            objectToInteract.SetActive(false);
+            part.Stop();
+        }
+    }
 
     public void Interact()
     {
@@ -12,9 +21,12 @@ public class CableInteractor : MonoBehaviour, Interactor
         if (coll != null)
             coll.enabled = false;
 
-        GameManager.Instance.cableCounter++;
+        part.Play();
+        anim.SetBool("OnAction", true);
+    }
 
-        if (GameManager.Instance.cableCounter == 2)
-            objectToInteract.SetActive(false);
+    public void AnimFinish()
+    {
+        GameManager.Instance.cableCounter++;
     }
 }

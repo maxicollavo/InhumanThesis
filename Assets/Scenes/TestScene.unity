@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641275, b: 0.5748172, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -390,6 +390,7 @@ GameObject:
   - component: {fileID: 25048734}
   - component: {fileID: 25048733}
   - component: {fileID: 25048735}
+  - component: {fileID: 25048736}
   m_Layer: 0
   m_Name: Smoke
   m_TagString: Untagged
@@ -501,7 +502,7 @@ ParticleSystem:
   emitterVelocityMode: 1
   looping: 1
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   startDelay:
@@ -5229,6 +5230,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &25048736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 25048731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab3dbce86cda00a4391936e5d50e288a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ci: {fileID: 911801338}
 --- !u!1 &41816096
 GameObject:
   m_ObjectHideFlags: 0
@@ -6600,13 +6614,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 227250166}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0.50000036, y: 0.4999996, z: -0.49999985, w: 0.50000024}
+  m_LocalPosition: {x: 24.699335, y: 59.06437, z: 7.7374425}
+  m_LocalScale: {x: 8.563991, y: 1.3777113, z: 8.563991}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1675930913}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 782721004}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &286572032
 GameObject:
@@ -10200,7 +10214,7 @@ GameObject:
   - component: {fileID: 782721006}
   - component: {fileID: 782721005}
   m_Layer: 0
-  m_Name: Cable (13)
+  m_Name: CableNaranja2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10218,7 +10232,8 @@ Transform:
   m_LocalPosition: {x: 5.2468214, y: 4.1521497, z: -19.6741}
   m_LocalScale: {x: 0.116767995, y: 0.116767995, z: 0.7258415}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 227250167}
   m_Father: {fileID: 1001730189}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 90}
 --- !u!114 &782721005
@@ -10234,8 +10249,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectToInteract: {fileID: 808531908}
-  Anim1: {fileID: 0}
-  Anim2: {fileID: 0}
+  anim: {fileID: 1675930914}
+  part: {fileID: 1675930916}
 --- !u!65 &782721006
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -10968,7 +10983,7 @@ GameObject:
   - component: {fileID: 911801340}
   - component: {fileID: 911801338}
   m_Layer: 0
-  m_Name: Cable (2)
+  m_Name: CableNaranja1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10987,8 +11002,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectToInteract: {fileID: 808531908}
-  Anim1: {fileID: 0}
-  Anim2: {fileID: 0}
+  anim: {fileID: 25048735}
+  part: {fileID: 25048734}
 --- !u!65 &911801340
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -11072,7 +11087,8 @@ Transform:
   m_LocalPosition: {x: -9.191676, y: -1.4433986, z: -15.419175}
   m_LocalScale: {x: 0.116767995, y: 0.116767995, z: 0.7258415}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 2048789761}
   m_Father: {fileID: 1001730189}
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!1 &928612632
@@ -15659,6 +15675,7 @@ GameObject:
   - component: {fileID: 1675930916}
   - component: {fileID: 1675930915}
   - component: {fileID: 1675930914}
+  - component: {fileID: 1675930917}
   m_Layer: 0
   m_Name: Smoke
   m_TagString: Untagged
@@ -15691,7 +15708,7 @@ Animator:
   m_GameObject: {fileID: 1675930912}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 03393ece787842c49bbf43f7e0d44ff9, type: 2}
+  m_Controller: {fileID: 9100000, guid: 067e013c434e1ff4c9cf5c58da67c04e, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -15791,7 +15808,7 @@ ParticleSystem:
   emitterVelocityMode: 1
   looping: 1
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   startDelay:
@@ -20498,6 +20515,19 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
+--- !u!114 &1675930917
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1675930912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab3dbce86cda00a4391936e5d50e288a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ci: {fileID: 782721005}
 --- !u!1 &1762837447
 GameObject:
   m_ObjectHideFlags: 0
@@ -20690,7 +20720,7 @@ Transform:
   m_GameObject: {fileID: 1764430819}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.39, z: -18}
+  m_LocalPosition: {x: 0, y: 1.39, z: 3.82}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -22570,13 +22600,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2048789760}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: 0.70710635, z: -0, w: 0.7071073}
+  m_LocalPosition: {x: -11.739662, y: -0.17650567, z: -10.390256}
+  m_LocalScale: {x: 1.3777109, y: 8.563991, z: 8.563989}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 25048732}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 911801343}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2073688160
 GameObject:
@@ -23023,7 +23053,5 @@ SceneRoots:
   - {fileID: 1131954923}
   - {fileID: 1634197307}
   - {fileID: 1047208522}
-  - {fileID: 2048789761}
-  - {fileID: 227250167}
   - {fileID: 522506826}
   - {fileID: 506389625}
