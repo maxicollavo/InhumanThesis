@@ -14,16 +14,10 @@ public class SwitchTurnOff : MonoBehaviour, Interactor
     public void Interact()
     {
         //OpenDoor();
-        //objectToTurnOff.SetActive(false);
+        objectToTurnOff.SetActive(false);
+          Anim3.SetBool("Istrue", true);
     }
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-         Anim3.SetBool("Istrue", true);
-
-        }
-    }
+   
     /*public  IEnumerator OpenDoor() 
     {
        Anim1.Play();
