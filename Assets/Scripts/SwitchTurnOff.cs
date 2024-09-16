@@ -1,31 +1,20 @@
 using UnityEngine;
-using System;
-using System.Collections;
 
 public class SwitchTurnOff : MonoBehaviour, Interactor
 {
-    [SerializeField] GameObject objectToTurnOff;
-    public Animator Anim3;
+    public Animator Anim;
+    public Animator Anim2;
 
-    private void Start()
-    {
-        Anim3 = gameObject.GetComponent<Animator>();
-    }
     public void Interact()
     {
-        //OpenDoor();
-        objectToTurnOff.SetActive(false);
-          Anim3.SetBool("Istrue", true);
+        OpenDoor();
     }
-   
-    /*public  IEnumerator OpenDoor() 
+
+    public void OpenDoor()
     {
-       Anim1.Play();
-       Anim2.Play();
-       yield return new WaitForSeconds(1);
-       objectToTurnOff.SetActive(false);
+        Anim.SetBool("IsTrue", true);
+        Anim2.SetBool("IsTrue", true);
     }
-     */
 }
 
 
