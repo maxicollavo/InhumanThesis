@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class LaserBeam : MonoBehaviour
 {
@@ -19,7 +20,7 @@ public class LaserBeam : MonoBehaviour
     {
         _fireTimer += Time.deltaTime;
 
-        if (Input.GetKeyDown(KeyCode.E) && _fireTimer > fireRate)
+        if (Input.GetMouseButtonDown(0) && _fireTimer > fireRate)
         {
             ActivatePower();
         }
