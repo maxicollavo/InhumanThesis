@@ -5,4 +5,5 @@ using UnityEngine;
 public class SoundManager : MonoBehaviour
 {
     public AudioSource timerSound;
+    public AudioSource stepsSound;
 }

@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     public int codeCount;
     public int cableCounter;
     public int paintCounter;
+    public bool electricityIsRunning;
     bool allTorchsLit = true;
     [SerializeField]
     GameObject secretCode;

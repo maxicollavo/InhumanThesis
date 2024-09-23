@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class LaserBeam : MonoBehaviour
 {
@@ -16,11 +15,16 @@ public class LaserBeam : MonoBehaviour
     public float defaultLength = 50;
     public LayerMask mirrorLayer;
 
+    #region Shooting
+    bool canShoot = true;
+    [SerializeField] AudioSource laserSound;
+    #endregion Shooting
+
     void Update()
     {
         _fireTimer += Time.deltaTime;
 
-        if (Input.GetMouseButtonDown(0) && _fireTimer > fireRate)
+        if (Input.GetMouseButtonDown(0) && _fireTimer > fireRate && canShoot)
         {
             ActivatePower();
         }
@@ -42,6 +46,7 @@ public class LaserBeam : MonoBehaviour
 
     void ShootLaser()
     {
+        laserSound.Play();
         Vector3 rayOirigin = playerCamera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0));
         RaycastHit hit;
         if (Physics.Raycast(rayOirigin, playerCamera.transform.forward, out hit, gunRange))
@@ -55,6 +60,14 @@ public class LaserBeam : MonoBehaviour
         else hit.point = rayOirigin + playerCamera.transform.forward * 20f;
 
         StartCoroutine(ShootLaserCor(hit.point));
+        StartCoroutine(ShootTimer());
+    }
+
+    IEnumerator ShootTimer()
+    {
+        canShoot = false;
+        yield return new WaitForSeconds(0.25f);
+        canShoot = true;
     }
 
     IEnumerator ShootLaserCor(Vector3 hit)

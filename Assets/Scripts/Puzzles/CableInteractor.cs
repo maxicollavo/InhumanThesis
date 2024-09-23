@@ -2,7 +2,6 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 
-
 public class CableInteractor : MonoBehaviour, Interactor
 {
     [SerializeField] Animator anim;
@@ -16,6 +15,8 @@ public class CableInteractor : MonoBehaviour, Interactor
 
     #region Sounds
     [SerializeField] AudioSource timerSound;
+    [SerializeField] AudioSource electricSound;
+    [SerializeField] AudioSource openDoorSound;
     #endregion Sounds
 
     private void Start()
@@ -30,9 +31,9 @@ public class CableInteractor : MonoBehaviour, Interactor
 
         if (GameManager.Instance.cableCounter == 2)
         {
+            StartCoroutine(PlayElectricExplosion());
             counterText.color = new Color(counterText.color.r, counterText.color.g, counterText.color.b, 0);
-            StopAllCoroutines();
-            OpenDoor();
+            electricSound.Stop();
             part.Stop();
         }
 
@@ -44,14 +45,14 @@ public class CableInteractor : MonoBehaviour, Interactor
 
     public void Interact()
     {
-        timerSound.Play();
         part.Play();
+        electricSound.Play();
         anim.SetBool("OnAction", true);
-
     }
 
     void RestartSparkle()
     {
+        electricSound.Stop();
         counterText.color = new Color(counterText.color.r, counterText.color.g, counterText.color.b, 0);
         isDecreasing = false;
         counter = 5f;
@@ -64,6 +65,7 @@ public class CableInteractor : MonoBehaviour, Interactor
 
     void OpenDoor()
     {
+        Debug.Log("OpenDoor method called");
         door.SetBool("IsTrue", true);
         door2.SetBool("IsTrue", true);
     }
@@ -78,15 +80,28 @@ public class CableInteractor : MonoBehaviour, Interactor
 
     private IEnumerator DecreaseCableCounterAfterDelay()
     {
-        isDecreasing = true;
-        //Algun feedback del timer
-        yield return new WaitForSeconds(5f);
-        RestartSparkle();
-        yield break;
+        GameManager.Instance.electricityIsRunning = true;
+
+        if (!GameManager.Instance.electricityIsRunning)
+        {
+            isDecreasing = true;
+
+            while (counter > 0)
+            {
+                timerSound.Play();
+                yield return new WaitForSeconds(1f);
+                counter--;
+            }
+
+            RestartSparkle();
+            isDecreasing = false;
+        }
     }
 
-    public void StopCounterCoroutine()
+    private IEnumerator PlayElectricExplosion()
     {
-        StopCoroutine(DecreaseCableCounterAfterDelay());
+        openDoorSound.Play();
+        yield return new WaitForSeconds(1.9f);
+        OpenDoor();
     }
 }

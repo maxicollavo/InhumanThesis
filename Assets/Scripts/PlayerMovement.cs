@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public float mag;
+
     public float moveSpeed;
 
     public float groundDrag;
@@ -21,6 +23,10 @@ public class PlayerMovement : MonoBehaviour
 
     Rigidbody _rb;
 
+    #region Sounds
+    [SerializeField] AudioSource stepsSound;
+    #endregion Sounds
+
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();
@@ -29,6 +35,21 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        if (mag > 0.5f)
+        {
+            if (!stepsSound.isPlaying)
+            {
+                stepsSound.Play();
+            }
+        }
+        else
+        {
+            if (stepsSound.isPlaying)
+            {
+                stepsSound.Stop();
+            }
+        }
+
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
 
         MyInput();
@@ -53,6 +74,7 @@ public class PlayerMovement : MonoBehaviour
     private void MovePlayer()
     {
         moveDir = orientation.forward * verticalInput + orientation.right * horizontalInput;
+        mag = Vector3.Magnitude(moveDir);
 
         _rb.AddForce(moveDir.normalized * moveSpeed * 10f, ForceMode.Force);
     }
