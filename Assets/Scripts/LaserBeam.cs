@@ -71,31 +71,4 @@ public class LaserBeam : MonoBehaviour
         }
         lineRenderer.enabled = false;
     }
-
-    private void ReflectLaser()
-    {
-        reflectRay = new Ray(playerCamera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0)), playerCamera.transform.forward);
-        lineRenderer.positionCount = 1;
-        lineRenderer.SetPosition(0, laserSpawn.position);
-
-        float remainingLength = defaultLength;
-        RaycastHit hit;
-
-        for (int i = 0; i < numOfReflection; i++)
-        {
-            if (Physics.Raycast(reflectRay.origin, reflectRay.direction, out hit, remainingLength, mirrorLayer))
-            {
-                lineRenderer.positionCount += 1;
-                lineRenderer.SetPosition(lineRenderer.positionCount - 1, hit.point);
-                remainingLength -= Vector3.Distance(reflectRay.origin, hit.point);
-
-                reflectRay = new Ray(hit.point, Vector3.Reflect(reflectRay.direction, hit.normal));
-            }
-            else
-            {
-                lineRenderer.positionCount += 1;
-                lineRenderer.SetPosition(lineRenderer.positionCount - 1, reflectRay.origin + (reflectRay.direction * remainingLength));
-            }
-        }
-    }
 }

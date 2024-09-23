@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     public int codeCount;
     public int cableCounter;
     public int paintCounter;
+    bool allTorchsLit = true;
     [SerializeField]
     GameObject secretCode;
     [SerializeField]
@@ -22,6 +23,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject pauseMenu;
     public bool menuPressed;
     public static GameManager Instance { get; set; }
+
+    [SerializeField] Animator doorTorch;
+    [SerializeField] Animator doorTorchTwo;
 
     private void Awake()
     {
@@ -53,6 +57,27 @@ public class GameManager : MonoBehaviour
                 Cursor.visible = false;
             }
         }
+    }
+
+    private void OpenTorchDoor()
+    {
+        doorTorch.SetBool("IsTrue", true);
+        doorTorchTwo.SetBool("IsTrue", true);
+    }
+
+    private void ShowAndHideCode(bool areTorchLit)
+    {
+        secretCode.SetActive(areTorchLit);
+
+        if (areTorchLit)
+        {
+            //Sonido de prender códigos y algun sonido mas
+        }
+        else
+        {
+            //Sonido de apagar codigos
+        }
+
     }
 
     public void UpdatePaintings(int index, bool value)
@@ -98,18 +123,11 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        if (allTorchsLit)
-        {
-            secretCode.SetActive(true);
-        }
-        else
-        {
-            secretCode.SetActive(false);
-        }
+        ShowAndHideCode(allTorchsLit);
 
         if (torchsLit[0] && torchsLit[4] && torchsLit[5] && !torchsLit[1] && !torchsLit[2] && !torchsLit[3])
         {
-            doorToOpen.SetActive(false);
+            OpenTorchDoor();
         }
     }
 }
