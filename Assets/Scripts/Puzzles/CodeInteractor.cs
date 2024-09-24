@@ -1,4 +1,5 @@
 using UnityEngine;
+using TMPro;
 
 public class CodeInteractor : MonoBehaviour, Interactor
 {
@@ -8,6 +9,7 @@ public class CodeInteractor : MonoBehaviour, Interactor
     public Shader shader1;
     public Shader shader2;
     public ParticleSystem FireParticle;
+    public TextMeshPro numberText;
     private void Start()
     {
         FireParticle.Pause();
@@ -33,11 +35,13 @@ public class CodeInteractor : MonoBehaviour, Interactor
         if (isLit)
         {
             torchRenderer.material.shader = shader2;
+            numberText.color = Color.green;
             FireParticle.Play();
         }
         else
         {
             torchRenderer.material.shader = shader1;
+            numberText.color = Color.red;
             FireParticle.Stop();
         }
     }
