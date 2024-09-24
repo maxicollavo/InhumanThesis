@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class CodeInteractor : MonoBehaviour, Interactor
@@ -14,10 +11,12 @@ public class CodeInteractor : MonoBehaviour, Interactor
     private void Start()
     {
         FireParticle.Pause();
+        torchRenderer.material.shader = shader1;
     }
+
     private void Awake()
     {
-        torchRenderer = GetComponent<Renderer>();
+        torchRenderer = transform.parent.GetComponent<Renderer>();
     }
 
     public void Interact()
@@ -33,14 +32,12 @@ public class CodeInteractor : MonoBehaviour, Interactor
     {
         if (isLit)
         {
-            //torchRenderer.material.shader = shader1;
-          torchRenderer.material.color = Color.red;
+            torchRenderer.material.shader = shader2;
             FireParticle.Play();
         }
         else
         {
-           // torchRenderer.material.shader = shader2;
-            torchRenderer.material.color = Color.white;
+            torchRenderer.material.shader = shader1;
             FireParticle.Stop();
         }
     }
