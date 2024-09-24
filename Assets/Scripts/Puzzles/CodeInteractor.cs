@@ -9,7 +9,7 @@ public class CodeInteractor : MonoBehaviour, Interactor
     public Shader shader1;
     public Shader shader2;
     public ParticleSystem FireParticle;
-    public TextMeshPro numberText;
+    public TextMeshProUGUI numberText;
     private void Start()
     {
         FireParticle.Pause();
