@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -100,7 +101,7 @@ public class GameManager : MonoBehaviour
             paintCounter++;
             if (paintCounter == 4)
             {
-                if (paintingsDoor.activeInHierarchy) paintingsDoor.SetActive(false);
+                if (paintingsDoor.activeInHierarchy) SceneManager.LoadScene("EndDemoScene");
             }
         }
     }
