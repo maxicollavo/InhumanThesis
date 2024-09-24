@@ -10,6 +10,7 @@ public class CableInteractor : MonoBehaviour, Interactor
     [SerializeField] ParticleSystem part;
     [SerializeField] BoxCollider collider;
     [SerializeField] TextMeshProUGUI counterText;
+    [SerializeField] GameObject LightGO;
     bool isDecreasing;
     float counter = 5f;
 
@@ -97,6 +98,7 @@ public class CableInteractor : MonoBehaviour, Interactor
     private IEnumerator PlayElectricExplosion()
     {
         openDoorSound.Play();
+        LightGO.SetActive(false);
         yield return new WaitForSeconds(1.9f);
         OpenDoor();
     }
