@@ -10,7 +10,6 @@ public class CableInteractor : MonoBehaviour, Interactor
     [SerializeField] ParticleSystem part;
     [SerializeField] BoxCollider collider;
     [SerializeField] TextMeshProUGUI counterText;
-    [SerializeField] GameObject LightGO;
     bool isDecreasing;
     float counter = 5f;
 
@@ -32,15 +31,11 @@ public class CableInteractor : MonoBehaviour, Interactor
 
         if (GameManager.Instance.cableCounter == 2)
         {
+            StopCoroutine(DecreaseCableCounterAfterDelay());
             StartCoroutine(PlayElectricExplosion());
             counterText.color = new Color(counterText.color.r, counterText.color.g, counterText.color.b, 0);
             electricSound.Stop();
             part.Stop();
-        }
-
-        if (isDecreasing && counter > 0)
-        {
-            counter -= Time.deltaTime;
         }
     }
 
@@ -53,6 +48,7 @@ public class CableInteractor : MonoBehaviour, Interactor
 
     void RestartSparkle()
     {
+        GameManager.Instance.electricityIsRunning = false;
         electricSound.Stop();
         counterText.color = new Color(counterText.color.r, counterText.color.g, counterText.color.b, 0);
         isDecreasing = false;
@@ -66,7 +62,6 @@ public class CableInteractor : MonoBehaviour, Interactor
 
     void OpenDoor()
     {
-        Debug.Log("OpenDoor method called");
         door.SetBool("IsTrue", true);
         door2.SetBool("IsTrue", true);
     }
@@ -81,10 +76,10 @@ public class CableInteractor : MonoBehaviour, Interactor
 
     private IEnumerator DecreaseCableCounterAfterDelay()
     {
-        GameManager.Instance.electricityIsRunning = true;
 
         if (!GameManager.Instance.electricityIsRunning)
         {
+            GameManager.Instance.electricityIsRunning = true;
             isDecreasing = true;
 
             while (counter > 0)
@@ -102,7 +97,6 @@ public class CableInteractor : MonoBehaviour, Interactor
     private IEnumerator PlayElectricExplosion()
     {
         openDoorSound.Play();
-        LightGO.SetActive(false);
         yield return new WaitForSeconds(1.9f);
         OpenDoor();
     }

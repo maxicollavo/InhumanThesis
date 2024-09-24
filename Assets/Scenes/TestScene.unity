@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
+  m_IndirectSpecularColor: {r: 0.3731193, g: 0.38073996, b: 0.35872698, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -22179,6 +22179,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 270352d0f678c6940a62cf2c024f5692, type: 3}
       insertIndex: -1
       addedObject: {fileID: 753193928}
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 270352d0f678c6940a62cf2c024f5692, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1748314617}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 270352d0f678c6940a62cf2c024f5692, type: 3}
 --- !u!4 &764758768 stripped
@@ -22443,7 +22446,6 @@ MonoBehaviour:
   part: {fileID: 1675930916}
   collider: {fileID: 782721006}
   counterText: {fileID: 1901951097}
-  LightGO: {fileID: 1312246337}
   timerSound: {fileID: 333063385}
   electricSound: {fileID: 989905408}
   openDoorSound: {fileID: 1530209674}
@@ -25891,6 +25893,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: marco de puerta este (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 98355104d41df914bb04d552c2a080d8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1170970068873931921, guid: 98355104d41df914bb04d552c2a080d8, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -28230,8 +28236,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.1069806, y: 0.035110388, z: 0.049153805}
-  m_Center: {x: -0.001357276, y: 0.040631667, z: -0.0008174802}
+  m_Size: {x: 0.1069806, y: 0.013894844, z: 0.049153805}
+  m_Center: {x: -0.001357276, y: 0.051239256, z: -0.0008174802}
 --- !u!1 &1049052432
 GameObject:
   m_ObjectHideFlags: 0
@@ -38285,7 +38291,6 @@ MonoBehaviour:
   part: {fileID: 488472400}
   collider: {fileID: 1510417535}
   counterText: {fileID: 1901951097}
-  LightGO: {fileID: 1312246337}
   timerSound: {fileID: 333063385}
   electricSound: {fileID: 989905408}
   openDoorSound: {fileID: 1530209674}
@@ -38308,8 +38313,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 2.4340997, y: 3.2401917, z: 1.2239559}
-  m_Center: {x: 0.018756855, y: 2.0126984, z: 0.31829137}
+  m_Size: {x: 2.4340997, y: 4.3783803, z: 1.5362301}
+  m_Center: {x: 0.018756855, y: 2.5817938, z: 0.47442865}
 --- !u!23 &1510417536
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -39137,9 +39142,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 270352d0f678c6940a62cf2c024f5692, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2062747197}
-    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 270352d0f678c6940a62cf2c024f5692, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1748314617}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 270352d0f678c6940a62cf2c024f5692, type: 3}
 --- !u!4 &1533434040 stripped
@@ -40145,8 +40147,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.0100000035, y: 0.01, z: 0.009999999}
+  m_Center: {x: 0, y: 2.3283064e-10, z: 0}
 --- !u!23 &1615927697
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -46167,7 +46169,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 1533434040}
+    m_TransformParent: {fileID: 764758768}
     m_Modifications:
     - target: {fileID: 3000595043273208292, guid: 4661422ec87b8ca4db89e142587b6f8e, type: 3}
       propertyPath: m_LocalScale.x
@@ -46275,23 +46277,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3007076423518277910, guid: 4661422ec87b8ca4db89e142587b6f8e, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.01325933
+      value: 0.013259329
       objectReference: {fileID: 0}
     - target: {fileID: 3007076423518277910, guid: 4661422ec87b8ca4db89e142587b6f8e, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.01325933
+      value: 0.013259332
       objectReference: {fileID: 0}
     - target: {fileID: 3007076423518277910, guid: 4661422ec87b8ca4db89e142587b6f8e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.09565187
+      value: 0.14742908
       objectReference: {fileID: 0}
     - target: {fileID: 3007076423518277910, guid: 4661422ec87b8ca4db89e142587b6f8e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.03924761
+      value: -0.039247606
       objectReference: {fileID: 0}
     - target: {fileID: 3007076423518277910, guid: 4661422ec87b8ca4db89e142587b6f8e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.025497265
+      value: -0.034906007
       objectReference: {fileID: 0}
     - target: {fileID: 3007076423518277910, guid: 4661422ec87b8ca4db89e142587b6f8e, type: 3}
       propertyPath: m_LocalRotation.w
@@ -46303,11 +46305,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3007076423518277910, guid: 4661422ec87b8ca4db89e142587b6f8e, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.24312547
+      value: -0.24312545
       objectReference: {fileID: 0}
     - target: {fileID: 3007076423518277910, guid: 4661422ec87b8ca4db89e142587b6f8e, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.24312547
+      value: -0.24312545
       objectReference: {fileID: 0}
     - target: {fileID: 3007076423518277910, guid: 4661422ec87b8ca4db89e142587b6f8e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -47873,7 +47875,7 @@ Transform:
   m_GameObject: {fileID: 1764430819}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.39, z: -15.4}
+  m_LocalPosition: {x: 0, y: 1.39, z: -21.14}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -54601,8 +54603,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.010000005, y: 0.009999999, z: 0.010000003}
+  m_Center: {x: 0, y: 2.3283063e-10, z: 0}
 --- !u!23 &2110474965
 MeshRenderer:
   m_ObjectHideFlags: 0
