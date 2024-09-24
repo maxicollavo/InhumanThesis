@@ -10,6 +10,13 @@ public class CodeInteractor : MonoBehaviour, Interactor
     public Shader shader2;
     public ParticleSystem FireParticle;
     public TextMeshProUGUI numberText;
+
+    #region Sounds
+    [SerializeField] AudioSource torchUp;
+    [SerializeField] AudioSource torchDown;
+    [SerializeField] AudioSource fireSound;
+    #endregion Sounds
+
     private void Start()
     {
         FireParticle.Pause();
@@ -24,6 +31,18 @@ public class CodeInteractor : MonoBehaviour, Interactor
     public void Interact()
     {
         isLit = !isLit;
+
+        if (isLit)
+        {
+            torchUp.Play();
+            fireSound.Play();
+        }
+        else
+        {
+            torchDown.Play();
+            fireSound.Stop();
+        }
+
 
         UpdateTorchState();
 

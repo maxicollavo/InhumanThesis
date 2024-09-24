@@ -23,15 +23,20 @@ public class GameManager : MonoBehaviour
     GameObject paintingsDoor;
     [SerializeField] GameObject pauseMenu;
     public bool menuPressed;
+    public bool canPlaySound;
     public static GameManager Instance { get; set; }
 
     [SerializeField] Animator doorTorch;
     [SerializeField] Animator doorTorchTwo;
+    [SerializeField] AudioSource doorOpenSound;
+    [SerializeField] AudioSource codeSound;
+    [SerializeField] AudioSource paintSound;
 
     private void Awake()
     {
         Instance = this;
         torchsLit = new List<bool>();
+        paintSound.Stop();
     }
 
     private void Start()
@@ -62,6 +67,7 @@ public class GameManager : MonoBehaviour
 
     private void OpenTorchDoor()
     {
+        doorOpenSound.Play();
         doorTorch.SetBool("IsTrue", true);
         doorTorchTwo.SetBool("IsTrue", true);
     }
@@ -72,17 +78,14 @@ public class GameManager : MonoBehaviour
 
         if (areTorchLit)
         {
-            //Sonido de prender códigos y algun sonido mas
+            codeSound.Play();
         }
-        else
-        {
-            //Sonido de apagar codigos
-        }
-
     }
 
     public void UpdatePaintings(int index, bool value)
     {
+        paintSound.Play();
+
         if (index >= 0 && index < paintings.Count)
             paintings[index] = value;
 
