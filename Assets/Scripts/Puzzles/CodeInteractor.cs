@@ -1,5 +1,7 @@
 using UnityEngine;
 using TMPro;
+using System.Collections;
+using System.Collections.Generic;
 
 public class CodeInteractor : MonoBehaviour, Interactor
 {
@@ -12,8 +14,7 @@ public class CodeInteractor : MonoBehaviour, Interactor
     public TextMeshProUGUI numberText;
 
     #region Sounds
-    [SerializeField] AudioSource torchUp;
-    [SerializeField] AudioSource torchDown;
+    [SerializeField] AudioSource torchSound;
     [SerializeField] AudioSource fireSound;
     #endregion Sounds
 
@@ -34,12 +35,12 @@ public class CodeInteractor : MonoBehaviour, Interactor
 
         if (isLit)
         {
-            torchUp.Play();
+            torchSound.Play();
             fireSound.Play();
         }
         else
         {
-            torchDown.Play();
+            torchSound.Play();
             fireSound.Stop();
         }
 
@@ -65,4 +66,8 @@ public class CodeInteractor : MonoBehaviour, Interactor
         }
     }
 
+    public IEnumerable<bool> GetTorchesLitGenerator()
+    {
+        yield return isLit;
+    }
 }

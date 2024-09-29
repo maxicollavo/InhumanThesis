@@ -7,17 +7,16 @@ public class CableInteractor : MonoBehaviour, Interactor
     [SerializeField] Animator anim;
     [SerializeField] Animator door;
     [SerializeField] Animator door2;
-    [SerializeField] ParticleSystem part;
+    [SerializeField] ParticleSystem electricParticle;
     [SerializeField] BoxCollider collider;
     [SerializeField] TextMeshProUGUI counterText;
     [SerializeField] GameObject LightGO;
-    bool isDecreasing;
+    [SerializeField] int index;
     float counter = 5f;
 
     #region Sounds
     [SerializeField] AudioSource timerSound;
     [SerializeField] AudioSource electricSound;
-    [SerializeField] AudioSource openDoorSound;
     #endregion Sounds
 
     private void Start()
@@ -28,21 +27,22 @@ public class CableInteractor : MonoBehaviour, Interactor
     private void Update()
     {
         counterText.text = Mathf.FloorToInt(counter).ToString();
-        Debug.Log(GameManager.Instance.cableCounter);
 
-        if (GameManager.Instance.cableCounter == 2)
+        if (GameManager.Instance.allCablesArrived)
         {
             StopCoroutine(DecreaseCableCounterAfterDelay());
-            StartCoroutine(PlayElectricExplosion());
-            counterText.color = new Color(counterText.color.r, counterText.color.g, counterText.color.b, 0);
+            timerSound.Stop();
             electricSound.Stop();
-            part.Stop();
+            counterText.color = new Color(counterText.color.r, counterText.color.g, counterText.color.b, 0);
+            electricParticle.Stop();
+
+            StartCoroutine(PlayElectricExplosion());
         }
     }
 
     public void Interact()
     {
-        part.Play();
+        electricParticle.Play();
         electricSound.Play();
         anim.SetBool("OnAction", true);
     }
@@ -52,11 +52,10 @@ public class CableInteractor : MonoBehaviour, Interactor
         GameManager.Instance.electricityIsRunning = false;
         electricSound.Stop();
         counterText.color = new Color(counterText.color.r, counterText.color.g, counterText.color.b, 0);
-        isDecreasing = false;
         counter = 5f;
         anim.SetBool("OnAction", false);
         anim.Play("OnAction", -1, 0f);
-        part.Stop();
+        electricParticle.Stop();
         collider.enabled = true;
         GameManager.Instance.cableCounter--;
     }
@@ -72,16 +71,16 @@ public class CableInteractor : MonoBehaviour, Interactor
         GameManager.Instance.cableCounter++;
         counterText.color = new Color(counterText.color.r, counterText.color.g, counterText.color.b, 1);
 
+        GameManager.Instance.UpdateCableStatus(GameManager.Instance.cableCounter - 1, true);
+
         StartCoroutine(DecreaseCableCounterAfterDelay());
     }
 
     private IEnumerator DecreaseCableCounterAfterDelay()
     {
-
         if (!GameManager.Instance.electricityIsRunning)
         {
             GameManager.Instance.electricityIsRunning = true;
-            isDecreasing = true;
 
             while (counter > 0)
             {
@@ -91,15 +90,13 @@ public class CableInteractor : MonoBehaviour, Interactor
             }
 
             RestartSparkle();
-            isDecreasing = false;
         }
     }
 
     private IEnumerator PlayElectricExplosion()
     {
-        openDoorSound.Play();
         LightGO.SetActive(false);
-        yield return new WaitForSeconds(1.9f);
+        yield return new WaitForSeconds(3f);
         OpenDoor();
     }
 }

@@ -1,37 +1,59 @@
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    #region States
     [HideInInspector]
     public PowerStates state;
-    public List<GameObject> torches = new List<GameObject>();
-    public List<bool> paintings = new List<bool>();
-    [HideInInspector]
-    public List<bool> torchsLit;
-    [HideInInspector]
+    #endregion States
+
+    #region Ints
     public int codeCount;
     public int cableCounter;
     public int paintCounter;
-    public bool electricityIsRunning;
-    bool allTorchsLit = true;
-    [SerializeField]
-    GameObject secretCode;
-    [SerializeField]
-    GameObject doorToOpen;
-    [SerializeField]
-    GameObject paintingsDoor;
-    [SerializeField] GameObject pauseMenu;
-    public bool menuPressed;
-    public bool canPlaySound;
-    public static GameManager Instance { get; set; }
+    #endregion Ints
 
+    #region GameObjects
+    [SerializeField] GameObject secretCode;
+    [SerializeField] GameObject doorToOpen;
+    [SerializeField] GameObject paintingsDoor;
+    [SerializeField] GameObject pauseMenu;
+    #endregion GameObjects
+
+    #region Animators
     [SerializeField] Animator doorTorch;
     [SerializeField] Animator doorTorchTwo;
+    #endregion Animators
+
+    #region Bools
+    public bool electricityIsRunning;
+    public bool menuPressed;
+    public bool canPlaySound;
+    [HideInInspector]
+    public bool allCablesArrived;
+    #endregion Bools
+
+    #region Sounds
     [SerializeField] AudioSource doorOpenSound;
     [SerializeField] AudioSource codeSound;
     [SerializeField] AudioSource paintSound;
+    [SerializeField] AudioSource explosionSound;
+    #endregion Sounds
+
+    #region Lists
+    [HideInInspector]
+    public List<GameObject> torches = new List<GameObject>();
+    [HideInInspector]
+    public List<bool> torchsLit;
+    public List<bool> paintings = new List<bool>();
+    public List<bool> cablesStatus = new List<bool> { false, false };
+    #endregion Lists
+
+    public static GameManager Instance { get; set; }
 
     private void Awake()
     {
@@ -66,13 +88,8 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void OpenTorchDoor()
-    {
-        doorOpenSound.Play();
-        doorTorch.SetBool("IsTrue", true);
-        doorTorchTwo.SetBool("IsTrue", true);
-    }
-
+    #region Puzzles
+    #region TorchPuzzle
     private void ShowAndHideCode(bool areTorchLit)
     {
         secretCode.SetActive(areTorchLit);
@@ -80,29 +97,6 @@ public class GameManager : MonoBehaviour
         if (areTorchLit)
         {
             codeSound.Play();
-        }
-    }
-
-    public void UpdatePaintings(int index, bool value)
-    {
-        paintSound.Play();
-
-        if (index >= 0 && index < paintings.Count)
-            paintings[index] = value;
-
-        foreach (var item in paintings)
-        {
-            if (!item)
-            {
-                paintCounter = 0;
-                return;
-            }
-
-            paintCounter++;
-            if (paintCounter == 4)
-            {
-                if (paintingsDoor.activeInHierarchy) SceneManager.LoadScene("EndDemoScene");
-            }
         }
     }
 
@@ -118,26 +112,90 @@ public class GameManager : MonoBehaviour
             torchsLit[i] = torches[i].GetComponent<CodeInteractor>().isLit;
         }
 
-        bool allTorchsLit = true;
-        for (int i = 0; i < torchsLit.Count; i++)
-        {
-            if (!torchsLit[i])
-            {
-                allTorchsLit = false;
-                break;
-            }
-        }
+        var torchesWithIndex = GetTorchesLitGenerator()
+        .Select((isLit, index) => new { Index = index, IsLit = isLit })
+        .ToList();
+
+        bool allTorchsLit = torchesWithIndex
+            .Aggregate(true, (allLit, torch) => allLit && torch.IsLit);
 
         ShowAndHideCode(allTorchsLit);
 
-        if (torchsLit[0] && torchsLit[4] && torchsLit[5] && !torchsLit[1] && !torchsLit[2] && !torchsLit[3])
+        bool requiredTorches = torchesWithIndex
+        .Where(t => t.Index == 0 || t.Index == 4 || t.Index == 5)
+        .Aggregate(true, (result, torch) => result && torch.IsLit);
+
+        bool notRequiredTorches = torchesWithIndex
+        .Where(t => t.Index == 1 || t.Index == 2 || t.Index == 3)
+        .Aggregate(true, (result, torch) => result && !torch.IsLit);
+
+        if (requiredTorches && notRequiredTorches)
         {
             OpenTorchDoor();
         }
     }
+
+    public IEnumerable<bool> GetTorchesLitGenerator()
+    {
+        foreach (var state in torchsLit)
+        {
+            yield return state;
+        }
+    }
+
+    private void OpenTorchDoor()
+    {
+        doorOpenSound.Play();
+        doorTorch.SetBool("IsTrue", true);
+        doorTorchTwo.SetBool("IsTrue", true);
+    }
+    #endregion TorchPuzzle
+
+    #region CablePuzzle
+    public void UpdateCableStatus(int index, bool value)
+    {
+        if (index >= 0 && index < cablesStatus.Count)
+            cablesStatus[index] = value;
+
+        if (cablesStatus.Zip(cablesStatus, (first, second) => first && second).All(isConnected => isConnected))
+        {
+            StartCoroutine(OpenCableDoor());
+        }
+    }
+
+    private IEnumerator OpenCableDoor()
+    {
+        allCablesArrived = true;
+
+        explosionSound.Play();
+        yield return new WaitForSeconds(3f);
+        doorOpenSound.Play();
+    }
+    #endregion CablePuzzle
+
+    #region PaintPuzzle
+    public void UpdatePaintings(int index, bool value)
+    {
+        paintSound.Play();
+
+        if (index >= 0 && index < paintings.Count)
+            paintings[index] = value;
+
+        if (paintings.All(p => p))
+        {
+            WinPaintPuzzle();
+        }
+    }
+
+    public void WinPaintPuzzle()
+    {
+        SceneManager.LoadScene("EndDemoScene");
+    }
+    #endregion PaintPuzzle
+    #endregion Puzzles
 }
 
 public enum PowerStates
 {
-    OnLaser,
+    OnLaser
 }
