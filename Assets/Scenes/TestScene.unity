@@ -14,10 +14,10 @@ OcclusionCullingSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 9
-  m_Fog: 0
-  m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  m_Fog: 1
+  m_FogColor: {r: 0.12156863, g: 0.15358897, b: 0.18039216, a: 1}
   m_FogMode: 3
-  m_FogDensity: 0.01
+  m_FogDensity: 0.05
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
@@ -31176,7 +31176,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 9128863647d9e4c4aab3aa502440109e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -32277,8 +32277,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 2.091753, y: 4.801008, z: 1.3110006}
+  m_Center: {x: 0.5458766, y: 0.13293119, z: 0.15550025}
 --- !u!23 &782721007
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -42251,7 +42251,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1000
   m_WholeNumbers: 0
-  m_Value: 100
+  m_Value: 500
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -44724,7 +44724,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 9128863647d9e4c4aab3aa502440109e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -49391,7 +49391,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 9128863647d9e4c4aab3aa502440109e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -50165,7 +50165,7 @@ MonoBehaviour:
   m_MinValue: 50
   m_MaxValue: 1000
   m_WholeNumbers: 0
-  m_Value: 100
+  m_Value: 500
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -51489,7 +51489,7 @@ MonoBehaviour:
   m_DecalLayerMask: 1
   m_ScaleMode: 0
   m_Offset: {x: 0, y: 0, z: 1}
-  m_Size: {x: 2, y: 2, z: 2}
+  m_Size: {x: 10, y: 10, z: 2}
   m_FadeFactor: 1
 --- !u!4 &1313537573
 Transform:
@@ -51499,13 +51499,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1313537571}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.2967206, y: -0, z: -0, w: 0.95496434}
-  m_LocalPosition: {x: 0, y: -0.24, z: -4.21}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0.7033225, y: 0.004228753, z: 0.71079516, w: 0.009476285}
+  m_LocalPosition: {x: 12.39, y: 4.57, z: -8.18}
+  m_LocalScale: {x: 1.875, y: 1.875, z: 1.875}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: -34.522, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -1.108, y: -89.39, z: 179.569}
 --- !u!1 &1315873833
 GameObject:
   m_ObjectHideFlags: 0
@@ -52381,7 +52381,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 9128863647d9e4c4aab3aa502440109e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -55408,7 +55408,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 9128863647d9e4c4aab3aa502440109e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -57315,8 +57315,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 3.165454, y: 4.3783803, z: 1.53623}
-  m_Center: {x: 0.244028, y: 2.5817938, z: 0.47442865}
+  m_Size: {x: 6.4129686, y: 7.8221626, z: 1.7954135}
+  m_Center: {x: 0.16111629, y: 4.3036833, z: 0.60402054}
 --- !u!23 &1510417536
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -62063,7 +62063,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 9128863647d9e4c4aab3aa502440109e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
