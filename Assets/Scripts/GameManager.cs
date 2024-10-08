@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -28,6 +29,9 @@ public class GameManager : MonoBehaviour
     #region Animators
     [SerializeField] Animator doorTorch;
     [SerializeField] Animator doorTorchTwo;
+
+    [SerializeField] Animator doorPaint;
+    [SerializeField] Animator doorPaintTwo;
     #endregion Animators
 
     #region Bools
@@ -36,6 +40,8 @@ public class GameManager : MonoBehaviour
     private bool menuPressed;
     [HideInInspector]
     public bool canShoot;
+    [HideInInspector]
+    public bool ableToTeleport;
     [HideInInspector]
     public bool allCablesArrived;
     private bool activatingWheel;
@@ -53,9 +59,17 @@ public class GameManager : MonoBehaviour
     public List<GameObject> torches = new List<GameObject>();
     [HideInInspector]
     public List<bool> torchsLit;
-    public List<bool> paintings = new List<bool>();
+
+    public List<Transform> spawnerUpside = new List<Transform>();
+    public List<Transform> spawnerReal = new List<Transform>();
+
+    
     public List<bool> cablesStatus = new List<bool> { false, false };
+
+    public List<bool> paintings = new List<bool>();
     #endregion Lists
+
+    public Button teleportButton;
 
     public static GameManager Instance { get; set; }
 
@@ -69,6 +83,9 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         codeCount = 0;
+        canShoot = true;
+
+        teleportButton.enabled = false;
     }
 
     public void Update()
@@ -122,6 +139,7 @@ public class GameManager : MonoBehaviour
     }
 
     #region Puzzles
+
     #region TorchPuzzle
     private void ShowAndHideCode(bool areTorchLit)
     {
@@ -222,9 +240,14 @@ public class GameManager : MonoBehaviour
 
     public void WinPaintPuzzle()
     {
-        SceneManager.LoadScene("EndDemoScene");
+        doorPaint.SetBool("IsTrue", true);
+        doorPaintTwo.SetBool("IsTrue", true);
+
+        ableToTeleport = true;
+        teleportButton.enabled = true;
     }
     #endregion PaintPuzzle
+
     #endregion Puzzles
 }
 

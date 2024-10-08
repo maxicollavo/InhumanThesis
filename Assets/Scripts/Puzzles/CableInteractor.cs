@@ -12,6 +12,10 @@ public class CableInteractor : MonoBehaviour, Interactor
     [SerializeField] TextMeshProUGUI counterText;
     [SerializeField] GameObject LightGO;
     [SerializeField] int index;
+
+    [SerializeField] Renderer lightIndicatorMat;
+    [SerializeField] Material green;
+    [SerializeField] Material red;
     float counter = 5f;
 
     #region Sounds
@@ -30,6 +34,7 @@ public class CableInteractor : MonoBehaviour, Interactor
 
         if (GameManager.Instance.allCablesArrived)
         {
+            lightIndicatorMat.material = green;
             StopCoroutine(DecreaseCableCounterAfterDelay());
             timerSound.Stop();
             electricSound.Stop();
@@ -50,6 +55,7 @@ public class CableInteractor : MonoBehaviour, Interactor
     void RestartSparkle()
     {
         GameManager.Instance.electricityIsRunning = false;
+        lightIndicatorMat.material = red;
         electricSound.Stop();
         counterText.color = new Color(counterText.color.r, counterText.color.g, counterText.color.b, 0);
         counter = 5f;
@@ -69,6 +75,7 @@ public class CableInteractor : MonoBehaviour, Interactor
     public void AnimFinish()
     {
         GameManager.Instance.cableCounter++;
+        lightIndicatorMat.material = green;
         counterText.color = new Color(counterText.color.r, counterText.color.g, counterText.color.b, 1);
 
         GameManager.Instance.UpdateCableStatus(GameManager.Instance.cableCounter - 1, true);
