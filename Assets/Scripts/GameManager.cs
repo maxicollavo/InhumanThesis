@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject doorToOpen;
     [SerializeField] GameObject paintingsDoor;
     [SerializeField] GameObject pauseMenu;
+    [SerializeField] GameObject powerWheel;
     #endregion GameObjects
 
     #region Animators
@@ -30,11 +31,14 @@ public class GameManager : MonoBehaviour
     #endregion Animators
 
     #region Bools
+    [HideInInspector]
     public bool electricityIsRunning;
-    public bool menuPressed;
-    public bool canPlaySound;
+    private bool menuPressed;
+    [HideInInspector]
+    public bool canShoot;
     [HideInInspector]
     public bool allCablesArrived;
+    private bool activatingWheel;
     #endregion Bools
 
     #region Sounds
@@ -73,19 +77,48 @@ public class GameManager : MonoBehaviour
         {
             menuPressed = !menuPressed;
             pauseMenu.SetActive(menuPressed);
+
             if (menuPressed)
             {
+                canShoot = false;
                 Time.timeScale = 0;
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
             }
             else
             {
+                canShoot = true;
                 Time.timeScale = 1;
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            activatingWheel = !activatingWheel;
+            powerWheel.SetActive(activatingWheel);
+
+            if (activatingWheel)
+            {
+                canShoot = false;
+                Time.timeScale = 0;
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+            }
+            else
+            {
+                canShoot = true;
+                Time.timeScale = 1;
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+            }
+        }
+    }
+
+    public void ChangeState(PowerStates power)
+    {
+        state = power;
     }
 
     #region Puzzles
@@ -197,5 +230,6 @@ public class GameManager : MonoBehaviour
 
 public enum PowerStates
 {
-    OnLaser
+    OnLaser,
+    OnDimension
 }

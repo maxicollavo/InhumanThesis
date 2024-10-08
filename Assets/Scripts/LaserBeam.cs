@@ -17,7 +17,6 @@ public class LaserBeam : MonoBehaviour
     public LayerMask mirrorLayer;
 
     #region Shooting
-    bool canShoot = true;
     [SerializeField] AudioSource laserSound;
     #endregion Shooting
 
@@ -25,7 +24,7 @@ public class LaserBeam : MonoBehaviour
     {
         _fireTimer += Time.deltaTime;
 
-        if (Input.GetMouseButtonDown(0) && _fireTimer > fireRate && canShoot)
+        if (Input.GetMouseButtonDown(0) && _fireTimer > fireRate && gm.canShoot)
         {
             ActivatePower();
         }
@@ -39,6 +38,9 @@ public class LaserBeam : MonoBehaviour
         {
             case PowerStates.OnLaser:
                 ShootLaser();
+                break;
+            case PowerStates.OnDimension:
+                Debug.Log("Cambia de poder a dimension change");
                 break;
             default:
                 break;
@@ -66,9 +68,9 @@ public class LaserBeam : MonoBehaviour
 
     IEnumerator ShootTimer()
     {
-        canShoot = false;
+        gm.canShoot = false;
         yield return new WaitForSeconds(0.25f);
-        canShoot = true;
+        gm.canShoot = true;
     }
 
     IEnumerator ShootLaserCor(Vector3 hit)
