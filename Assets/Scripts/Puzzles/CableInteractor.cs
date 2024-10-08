@@ -12,7 +12,9 @@ public class CableInteractor : MonoBehaviour, Interactor
     [SerializeField] TextMeshProUGUI counterText;
     [SerializeField] GameObject LightGO;
     [SerializeField] int index;
+    public AudioSource TerrorSound;
     float counter = 5f;
+
 
     #region Sounds
     [SerializeField] AudioSource timerSound;
@@ -96,6 +98,7 @@ public class CableInteractor : MonoBehaviour, Interactor
     private IEnumerator PlayElectricExplosion()
     {
         LightGO.SetActive(false);
+        TerrorSound.Play();
         yield return new WaitForSeconds(3f);
         OpenDoor();
     }

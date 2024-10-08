@@ -42,6 +42,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] AudioSource codeSound;
     [SerializeField] AudioSource paintSound;
     [SerializeField] AudioSource explosionSound;
+    [SerializeField] AudioSource horrorSound;
+    [SerializeField] AudioSource TransitionHorrorDoor;
     #endregion Sounds
 
     #region Lists
@@ -146,6 +148,7 @@ public class GameManager : MonoBehaviour
     private void OpenTorchDoor()
     {
         doorOpenSound.Play();
+        TransitionHorrorDoor.Play();
         doorTorch.SetBool("IsTrue", true);
         doorTorchTwo.SetBool("IsTrue", true);
     }
@@ -190,6 +193,7 @@ public class GameManager : MonoBehaviour
     public void WinPaintPuzzle()
     {
         SceneManager.LoadScene("EndDemoScene");
+        horrorSound.Play();
     }
     #endregion PaintPuzzle
     #endregion Puzzles
