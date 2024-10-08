@@ -15,9 +15,9 @@ RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 9
   m_Fog: 1
-  m_FogColor: {r: 0.12156863, g: 0.15358897, b: 0.18039216, a: 1}
-  m_FogMode: 3
-  m_FogDensity: 0.05
+  m_FogColor: {r: 0.2735849, g: 0.2735849, b: 0.2735849, a: 1}
+  m_FogMode: 2
+  m_FogDensity: 0.06
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
@@ -3932,7 +3932,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &119241775
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7416,7 +7416,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 270352d0f678c6940a62cf2c024f5692, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 730444ad2a1ac1942a902f1f3ff6cf9e, type: 2}
+      objectReference: {fileID: 2100000, guid: 92eb931e7b194784b8f5ec5b15d77438, type: 2}
     - target: {fileID: -7511558181221131132, guid: 270352d0f678c6940a62cf2c024f5692, type: 3}
       propertyPath: m_Materials.Array.data[2]
       value: 
@@ -28746,7 +28746,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 685926640}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 948f4100a11a5c24981795d21301da5c, type: 3}
   m_Name: 
@@ -29068,7 +29068,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 4.7822504, w: 0}
+  m_margin: {x: -0.4206514, y: 0, z: 4.7822504, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -44818,7 +44818,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9128863647d9e4c4aab3aa502440109e, type: 2}
+  - {fileID: 2100000, guid: 9d82c3aca74580343a35c39b932138df, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -50031,7 +50031,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 270352d0f678c6940a62cf2c024f5692, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 730444ad2a1ac1942a902f1f3ff6cf9e, type: 2}
+      objectReference: {fileID: 2100000, guid: 9d82c3aca74580343a35c39b932138df, type: 2}
     - target: {fileID: -7511558181221131132, guid: 270352d0f678c6940a62cf2c024f5692, type: 3}
       propertyPath: m_Materials.Array.data[2]
       value: 
@@ -55502,7 +55502,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9128863647d9e4c4aab3aa502440109e, type: 2}
+  - {fileID: 2100000, guid: 92eb931e7b194784b8f5ec5b15d77438, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -55559,7 +55559,7 @@ Transform:
   m_GameObject: {fileID: 1436296944}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.06397978, y: -0.0054416656, z: -1.6418371}
+  m_LocalPosition: {x: -0.154, y: -0.0054416656, z: -1.364}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
