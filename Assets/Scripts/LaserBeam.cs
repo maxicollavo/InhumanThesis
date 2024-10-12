@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using System;
 
 public class LaserBeam : MonoBehaviour
 {
@@ -8,6 +7,9 @@ public class LaserBeam : MonoBehaviour
     [SerializeField] GameManager gm;
     [SerializeField] Camera playerCamera;
     [SerializeField] Transform laserSpawn;
+    [SerializeField] Transform playerSpawnOnUpside;
+    [SerializeField] Transform playerSpawnOnReal;
+    private bool playerOnUpside;
     [SerializeField] float gunRange = 20f;
     [SerializeField] float fireRate = 0.2f;
     private float _fireTimer;
@@ -15,9 +17,9 @@ public class LaserBeam : MonoBehaviour
     Ray reflectRay;
     public float defaultLength = 50;
     public LayerMask mirrorLayer;
+    public LayerMask limit4th;
 
     #region Shooting
-    bool canShoot = true;
     [SerializeField] AudioSource laserSound;
     #endregion Shooting
 
@@ -25,7 +27,7 @@ public class LaserBeam : MonoBehaviour
     {
         _fireTimer += Time.deltaTime;
 
-        if (Input.GetMouseButtonDown(0) && _fireTimer > fireRate && canShoot)
+        if (Input.GetMouseButtonDown(0) && _fireTimer > fireRate && gm.canShoot)
         {
             ActivatePower();
         }
@@ -40,9 +42,25 @@ public class LaserBeam : MonoBehaviour
             case PowerStates.OnLaser:
                 ShootLaser();
                 break;
+            case PowerStates.OnDimension:
+                TeleportPlayer();
+                break;
             default:
                 break;
         }
+    }
+
+    void TeleportPlayer()
+    {
+        if (!GameManager.Instance.ableToTeleport)
+            return;
+
+        if (!playerOnUpside)
+            transform.parent.position = playerSpawnOnUpside.position;
+        else
+            transform.parent.position = playerSpawnOnReal.position;
+
+        playerOnUpside = !playerOnUpside;
     }
 
     void ShootLaser()
@@ -50,15 +68,25 @@ public class LaserBeam : MonoBehaviour
         laserSound.Play();
         Vector3 rayOirigin = playerCamera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0));
         RaycastHit hit;
-        if (Physics.Raycast(rayOirigin, playerCamera.transform.forward, out hit, gunRange))
+
+        if (Physics.Raycast(rayOirigin, playerCamera.transform.forward, out hit, gunRange, ~limit4th))
         {
             var interactor = hit.collider.GetComponent<Interactor>();
             if (interactor != null)
             {
                 interactor.Interact();
             }
+
+            var teleportable = hit.collider.GetComponent<ITeleportable>();
+            if (teleportable != null)
+            {
+                teleportable.Interact();
+            }
         }
-        else hit.point = rayOirigin + playerCamera.transform.forward * 20f;
+        else
+        {
+            hit.point = rayOirigin + playerCamera.transform.forward * 20f;
+        }
 
         StartCoroutine(ShootLaserCor(hit.point));
         StartCoroutine(ShootTimer());
@@ -66,9 +94,9 @@ public class LaserBeam : MonoBehaviour
 
     IEnumerator ShootTimer()
     {
-        canShoot = false;
+        gm.canShoot = false;
         yield return new WaitForSeconds(0.25f);
-        canShoot = true;
+        gm.canShoot = true;
     }
 
     IEnumerator ShootLaserCor(Vector3 hit)

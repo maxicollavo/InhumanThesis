@@ -28,11 +28,6 @@ public class PaintPuzzle : MonoBehaviour, Interactor
     {
         isDone = newValue;
         GameManager.Instance.UpdatePaintings(boolIndex, isDone);
-
-        if (GameManager.Instance.paintCounter == 4)
-        {
-            GameManager.Instance.WinPaintPuzzle();
-        }
     }
 
     void CheckBools()
