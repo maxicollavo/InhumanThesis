@@ -78,6 +78,8 @@ public class TPManager : MonoBehaviour
 
     void OpenDoors()
     {
+        GameManager.Instance.CoroutinesStoper();
+
         openDoor.SetBool("IsTrue", true);
         openDoor2.SetBool("IsTrue", true);
     }

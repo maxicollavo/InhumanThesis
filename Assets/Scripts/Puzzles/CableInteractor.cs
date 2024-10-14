@@ -12,9 +12,14 @@ public class CableInteractor : MonoBehaviour, Interactor
     [SerializeField] TextMeshProUGUI counterText;
     [SerializeField] GameObject LightGO;
     [SerializeField] int index;
-    public AudioSource TerrorSound;
-    float counter = 5f;
 
+    private bool isActivated;
+
+    [SerializeField] Renderer lightIndicatorMat;
+    [SerializeField] Renderer electricBoxLightMat;
+    [SerializeField] Material green;
+    [SerializeField] Material red;
+    float counter = 5f;
 
     #region Sounds
     [SerializeField] AudioSource timerSound;
@@ -32,6 +37,9 @@ public class CableInteractor : MonoBehaviour, Interactor
 
         if (GameManager.Instance.allCablesArrived)
         {
+            isActivated = true;
+            lightIndicatorMat.material = green;
+            electricBoxLightMat.material = green;
             StopCoroutine(DecreaseCableCounterAfterDelay());
             timerSound.Stop();
             electricSound.Stop();
@@ -44,14 +52,19 @@ public class CableInteractor : MonoBehaviour, Interactor
 
     public void Interact()
     {
-        electricParticle.Play();
-        electricSound.Play();
-        anim.SetBool("OnAction", true);
+        if (!isActivated)
+        {
+            electricParticle.Play();
+            electricSound.Play();
+            anim.SetBool("OnAction", true);
+        }
     }
 
     void RestartSparkle()
     {
         GameManager.Instance.electricityIsRunning = false;
+        lightIndicatorMat.material = red;
+        electricBoxLightMat.material = red;
         electricSound.Stop();
         counterText.color = new Color(counterText.color.r, counterText.color.g, counterText.color.b, 0);
         counter = 5f;
@@ -71,6 +84,8 @@ public class CableInteractor : MonoBehaviour, Interactor
     public void AnimFinish()
     {
         GameManager.Instance.cableCounter++;
+        lightIndicatorMat.material = green;
+        electricBoxLightMat.material = green;
         counterText.color = new Color(counterText.color.r, counterText.color.g, counterText.color.b, 1);
 
         GameManager.Instance.UpdateCableStatus(GameManager.Instance.cableCounter - 1, true);
@@ -98,8 +113,7 @@ public class CableInteractor : MonoBehaviour, Interactor
     private IEnumerator PlayElectricExplosion()
     {
         LightGO.SetActive(false);
-        TerrorSound.Play();
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(1.5f);
         OpenDoor();
     }
 }

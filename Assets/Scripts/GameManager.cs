@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -22,19 +23,28 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject doorToOpen;
     [SerializeField] GameObject paintingsDoor;
     [SerializeField] GameObject pauseMenu;
+    [SerializeField] GameObject powerWheel;
     #endregion GameObjects
 
     #region Animators
     [SerializeField] Animator doorTorch;
     [SerializeField] Animator doorTorchTwo;
+
+    [SerializeField] Animator doorPaint;
+    [SerializeField] Animator doorPaintTwo;
     #endregion Animators
 
     #region Bools
+    [HideInInspector]
     public bool electricityIsRunning;
-    public bool menuPressed;
-    public bool canPlaySound;
+    private bool menuPressed;
+    [HideInInspector]
+    public bool canShoot;
+    [HideInInspector]
+    public bool ableToTeleport;
     [HideInInspector]
     public bool allCablesArrived;
+    private bool activatingWheel;
     #endregion Bools
 
     #region Sounds
@@ -42,8 +52,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] AudioSource codeSound;
     [SerializeField] AudioSource paintSound;
     [SerializeField] AudioSource explosionSound;
-    [SerializeField] AudioSource horrorSound;
-    [SerializeField] AudioSource TransitionHorrorDoor;
     #endregion Sounds
 
     #region Lists
@@ -51,9 +59,19 @@ public class GameManager : MonoBehaviour
     public List<GameObject> torches = new List<GameObject>();
     [HideInInspector]
     public List<bool> torchsLit;
-    public List<bool> paintings = new List<bool>();
+
+    public List<Transform> spawnerUpside = new List<Transform>();
+    public List<Transform> spawnerReal = new List<Transform>();
+
+    
     public List<bool> cablesStatus = new List<bool> { false, false };
+
+    public List<bool> paintings = new List<bool>();
     #endregion Lists
+
+    public Button teleportButton;
+
+    public float levelCounter = 60;
 
     public static GameManager Instance { get; set; }
 
@@ -67,6 +85,9 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         codeCount = 0;
+        canShoot = true;
+
+        teleportButton.enabled = false;
     }
 
     public void Update()
@@ -75,22 +96,57 @@ public class GameManager : MonoBehaviour
         {
             menuPressed = !menuPressed;
             pauseMenu.SetActive(menuPressed);
+
             if (menuPressed)
             {
+                canShoot = false;
                 Time.timeScale = 0;
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
             }
             else
             {
+                canShoot = true;
                 Time.timeScale = 1;
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            activatingWheel = !activatingWheel;
+            powerWheel.SetActive(activatingWheel);
+
+            if (activatingWheel)
+            {
+                canShoot = false;
+                Time.timeScale = 0;
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+            }
+            else
+            {
+                canShoot = true;
+                Time.timeScale = 1;
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+            }
+        }
+
+        if (levelCounter <= 0)
+        {
+            SceneManager.LoadScene("LostScene");
+        }
+    }
+
+    public void ChangeState(PowerStates power)
+    {
+        state = power;
     }
 
     #region Puzzles
+
     #region TorchPuzzle
     private void ShowAndHideCode(bool areTorchLit)
     {
@@ -148,7 +204,6 @@ public class GameManager : MonoBehaviour
     private void OpenTorchDoor()
     {
         doorOpenSound.Play();
-        TransitionHorrorDoor.Play();
         doorTorch.SetBool("IsTrue", true);
         doorTorchTwo.SetBool("IsTrue", true);
     }
@@ -169,10 +224,11 @@ public class GameManager : MonoBehaviour
     private IEnumerator OpenCableDoor()
     {
         allCablesArrived = true;
-
         explosionSound.Play();
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(1.5f);
         doorOpenSound.Play();
+
+        CoroutinesStoper();
     }
     #endregion CablePuzzle
 
@@ -192,14 +248,41 @@ public class GameManager : MonoBehaviour
 
     public void WinPaintPuzzle()
     {
-        SceneManager.LoadScene("EndDemoScene");
-        horrorSound.Play();
+        CoroutinesStoper();
+
+        doorPaint.SetBool("IsTrue", true);
+        doorPaintTwo.SetBool("IsTrue", true);
+
+        ableToTeleport = true;
+        teleportButton.enabled = true;
     }
     #endregion PaintPuzzle
+
     #endregion Puzzles
+
+    public void CoroutinesStoper()
+    {
+        StopAllCoroutines();
+    }
+
+    public void StartLevelTimer()
+    {
+        levelCounter = 60;
+        StartCoroutine(DecreaseLevelTime());
+    }
+
+    public IEnumerator DecreaseLevelTime()
+    {
+        while (levelCounter > 0)
+        {
+            yield return new WaitForSeconds(1f);
+            levelCounter--;
+        }
+    }
 }
 
 public enum PowerStates
 {
-    OnLaser
+    OnLaser,
+    OnDimension
 }

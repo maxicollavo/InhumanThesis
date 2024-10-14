@@ -5,6 +5,7 @@ public class ObjectTP : MonoBehaviour, ITeleportable
     private bool onTeleport;
 
     [SerializeField] TPColours assetColour;
+    [SerializeField] Transform spawnPoint;
 
     public void Interact()
     {
@@ -19,16 +20,10 @@ public class ObjectTP : MonoBehaviour, ITeleportable
         else
         {
             TPManager.Instance.coloursList.Remove(assetColour);
-            int randomIndex = GetRandomUpsideIndex();
-            transform.position = GameManager.Instance.spawnerUpside[randomIndex].position;
+            transform.position = spawnPoint.position;
         }
 
         TPManager.Instance.CheckForColours(onTeleport, assetColour);
-    }
-
-    int GetRandomUpsideIndex()
-    {
-        return Random.Range(0, GameManager.Instance.spawnerUpside.Count);
     }
 
     int GetRandomRealIndex()
