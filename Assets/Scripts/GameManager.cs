@@ -52,6 +52,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] AudioSource codeSound;
     [SerializeField] AudioSource paintSound;
     [SerializeField] AudioSource explosionSound;
+    [SerializeField] AudioSource first30Secs;
+    [SerializeField] AudioSource last30Secs;
     #endregion Sounds
 
     #region Lists
@@ -63,13 +65,27 @@ public class GameManager : MonoBehaviour
     public List<Transform> spawnerUpside = new List<Transform>();
     public List<Transform> spawnerReal = new List<Transform>();
 
-    
+
     public List<bool> cablesStatus = new List<bool> { false, false };
 
     public List<bool> paintings = new List<bool>();
     #endregion Lists
 
+    #region HeartBeat UI
+    public RectTransform heart;
+    private Vector3 heartSize;
+    public float initialBeatScale = 0.8f;
+    public float initialBeatDuration = 0.5f;
+    public float acceleratedBeatDuration = 0.25f;
+    #endregion HeartBeat UI
+
     public Button teleportButton;
+
+    public BoxCollider torchOpener;
+    public BoxCollider cableOpener;
+    public BoxCollider paintOpener;
+
+    public AudioSource winBell;
 
     public float levelCounter = 60;
 
@@ -86,6 +102,8 @@ public class GameManager : MonoBehaviour
     {
         codeCount = 0;
         canShoot = true;
+
+        heartSize = new Vector3(heart.transform.localScale.x, heart.transform.localScale.y, heart.transform.localScale.z);
 
         teleportButton.enabled = false;
     }
@@ -203,6 +221,8 @@ public class GameManager : MonoBehaviour
 
     private void OpenTorchDoor()
     {
+        winBell.Play();
+        torchOpener.enabled = true;
         doorOpenSound.Play();
         doorTorch.SetBool("IsTrue", true);
         doorTorchTwo.SetBool("IsTrue", true);
@@ -223,6 +243,8 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator OpenCableDoor()
     {
+        winBell.Play();
+        cableOpener.enabled = true;
         allCablesArrived = true;
         explosionSound.Play();
         yield return new WaitForSeconds(1.5f);
@@ -248,6 +270,8 @@ public class GameManager : MonoBehaviour
 
     public void WinPaintPuzzle()
     {
+        winBell.Play();
+        paintOpener.enabled = true;
         CoroutinesStoper();
 
         doorPaint.SetBool("IsTrue", true);
@@ -263,21 +287,46 @@ public class GameManager : MonoBehaviour
     public void CoroutinesStoper()
     {
         StopAllCoroutines();
+        LeanTween.cancel(heart);
+
+        first30Secs.Stop();
+        last30Secs.Stop();
     }
 
     public void StartLevelTimer()
     {
+        heart.localScale = heartSize;
         levelCounter = 60;
         StartCoroutine(DecreaseLevelTime());
     }
 
     public IEnumerator DecreaseLevelTime()
-    {
+    {   
+        first30Secs.Play(); bool last30 = false;
+
+        StartHeartBeat(initialBeatDuration);
+
         while (levelCounter > 0)
         {
             yield return new WaitForSeconds(1f);
             levelCounter--;
+
+            if (levelCounter <= 30 && !last30)
+            {
+                last30Secs.Play();
+                last30 = true;
+                StartHeartBeat(acceleratedBeatDuration);
+            }
         }
+    }
+
+    void StartHeartBeat(float beatDuration)
+    {
+        LeanTween.cancel(heart);
+
+        LeanTween.scale(heart, new Vector3(initialBeatScale, initialBeatScale, initialBeatScale), beatDuration)
+                 .setEase(LeanTweenType.easeInOutSine)
+                 .setLoopPingPong();
     }
 }
 

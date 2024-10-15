@@ -6,6 +6,9 @@ public class TPManager : MonoBehaviour
     [SerializeField] Animator openDoor;
     [SerializeField] Animator openDoor2;
 
+    public BoxCollider tpOpener;
+    public AudioSource winBell;
+
     public List<TPColours> coloursList;
 
     public List<TPColours> redList;
@@ -78,7 +81,9 @@ public class TPManager : MonoBehaviour
 
     void OpenDoors()
     {
+        tpOpener.enabled = true;
         GameManager.Instance.CoroutinesStoper();
+        winBell.Play();
 
         openDoor.SetBool("IsTrue", true);
         openDoor2.SetBool("IsTrue", true);

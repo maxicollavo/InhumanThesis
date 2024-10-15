@@ -7,18 +7,24 @@ public class DoorCloser : MonoBehaviour, ICloser
 
     [SerializeField] GameObject timerGO;
 
+    [SerializeField] AudioSource closeSound;
+
     public bool isActivated;
     public bool isFirst;
 
     public void Close()
     {
         if (!isActivated)
+        {
+            closeSound.Play();
             GameManager.Instance.StartLevelTimer();
+        }
 
         if (isFirst)
             timerGO.SetActive(true);
 
         isActivated = true;
+
 
         if (doorAnim.GetBool("IsTrue"))
             doorAnim.SetBool("IsTrue", false);
