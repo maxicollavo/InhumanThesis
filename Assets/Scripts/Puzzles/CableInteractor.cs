@@ -11,6 +11,7 @@ public class CableInteractor : MonoBehaviour, Interactor
     [SerializeField] BoxCollider collider;
     [SerializeField] TextMeshProUGUI counterText;
     [SerializeField] GameObject LightGO;
+    [SerializeField] GameObject LightGO2;
     [SerializeField] int index;
 
     private bool isActivated;
