@@ -12,6 +12,7 @@ public class CableInteractor : MonoBehaviour, Interactor
     [SerializeField] TextMeshProUGUI counterText;
     [SerializeField] GameObject LightGO;
     [SerializeField] GameObject LightGO2;
+    [SerializeField] GameObject LightGO3;
     [SerializeField] int index;
 
     private bool isActivated;
@@ -114,6 +115,8 @@ public class CableInteractor : MonoBehaviour, Interactor
     private IEnumerator PlayElectricExplosion()
     {
         LightGO.SetActive(false);
+        LightGO2.SetActive(false);
+        LightGO3.SetActive(false);
         yield return new WaitForSeconds(1.5f);
         OpenDoor();
     }
