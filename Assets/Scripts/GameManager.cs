@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
 
 public class GameManager : MonoBehaviour
 {
@@ -79,11 +80,10 @@ public class GameManager : MonoBehaviour
     public float acceleratedBeatDuration = 0.25f;
     #endregion HeartBeat UI
 
-    public Button teleportButton;
-
-    public BoxCollider torchOpener;
-    public BoxCollider cableOpener;
-    public BoxCollider paintOpener;
+    #region PowerSwitching
+    private int powerInt;
+    private int maxPowerInt;
+    #endregion PowerSwitching
 
     public AudioSource winBell;
 
@@ -100,16 +100,33 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        maxPowerInt = 1;
         codeCount = 0;
         canShoot = true;
 
         heartSize = new Vector3(heart.transform.localScale.x, heart.transform.localScale.y, heart.transform.localScale.z);
-
-        teleportButton.enabled = false;
     }
 
     public void Update()
     {
+        float scroll = Input.GetAxis("Mouse ScrollWheel");
+
+        if (scroll > 0f)
+        {
+            if (powerInt >= maxPowerInt || !ableToTeleport) return;
+            powerInt += 1;
+
+            PowerChange.Instance.PowerChangeCall(powerInt);
+        }
+        else if (scroll < 0f)
+        {
+            if (powerInt > 0)
+            {
+                powerInt -= 1;
+                PowerChange.Instance.PowerChangeCall(powerInt);
+            }
+        }
+
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             menuPressed = !menuPressed;
@@ -222,7 +239,6 @@ public class GameManager : MonoBehaviour
     private void OpenTorchDoor()
     {
         winBell.Play();
-        torchOpener.enabled = true;
         doorOpenSound.Play();
         doorTorch.SetBool("IsTrue", true);
         doorTorchTwo.SetBool("IsTrue", true);
@@ -244,7 +260,6 @@ public class GameManager : MonoBehaviour
     private IEnumerator OpenCableDoor()
     {
         winBell.Play();
-        cableOpener.enabled = true;
         allCablesArrived = true;
         explosionSound.Play();
         yield return new WaitForSeconds(1.5f);
@@ -271,14 +286,10 @@ public class GameManager : MonoBehaviour
     public void WinPaintPuzzle()
     {
         winBell.Play();
-        paintOpener.enabled = true;
         CoroutinesStoper();
 
         doorPaint.SetBool("IsTrue", true);
         doorPaintTwo.SetBool("IsTrue", true);
-
-        ableToTeleport = true;
-        teleportButton.enabled = true;
     }
     #endregion PaintPuzzle
 
@@ -327,6 +338,15 @@ public class GameManager : MonoBehaviour
         LeanTween.scale(heart, new Vector3(initialBeatScale, initialBeatScale, initialBeatScale), beatDuration)
                  .setEase(LeanTweenType.easeInOutSine)
                  .setLoopPingPong();
+    }
+
+    public void TorchSoundStop()
+    {
+        foreach (var torch in torches)
+        {
+            var sound = torch.GetComponent<CodeInteractor>();
+            sound.fireSound.Stop();
+        }
     }
 }
 

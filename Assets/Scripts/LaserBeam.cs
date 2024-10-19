@@ -16,7 +16,6 @@ public class LaserBeam : MonoBehaviour
     public int numOfReflection = 6;
     Ray reflectRay;
     public float defaultLength = 50;
-    public LayerMask mirrorLayer;
     public LayerMask limit4th;
 
     #region Shooting

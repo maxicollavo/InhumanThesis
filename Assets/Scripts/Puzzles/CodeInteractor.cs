@@ -15,7 +15,7 @@ public class CodeInteractor : MonoBehaviour, Interactor
 
     #region Sounds
     [SerializeField] AudioSource torchSound;
-    [SerializeField] AudioSource fireSound;
+    public AudioSource fireSound;
     #endregion Sounds
 
     private void Start()

@@ -11,6 +11,9 @@ public class DoorCloser : MonoBehaviour, ICloser
 
     public bool isActivated;
     public bool isFirst;
+    public bool isDimension;
+
+    public bool isTorchShutting;
 
     public void Close()
     {
@@ -22,6 +25,14 @@ public class DoorCloser : MonoBehaviour, ICloser
 
         if (isFirst)
             timerGO.SetActive(true);
+
+        if (isDimension)
+            GameManager.Instance.ableToTeleport = true;
+
+        if (isTorchShutting)
+        {
+            GameManager.Instance.TorchSoundStop();
+        }
 
         isActivated = true;
 
