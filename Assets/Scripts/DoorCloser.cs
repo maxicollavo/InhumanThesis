@@ -18,6 +18,8 @@ public class DoorCloser : MonoBehaviour, ICloser
 
     public void Close()
     {
+        var boxColl = GetComponent<BoxCollider>();
+
         if (!isActivated)
         {
             closeSound.Play();
@@ -36,7 +38,10 @@ public class DoorCloser : MonoBehaviour, ICloser
         }
 
         if (countsForTP)
+        {
             LaserBeam.Instance.tpCounter++;
+            boxColl.enabled = false;
+        }
 
         isActivated = true;
 
