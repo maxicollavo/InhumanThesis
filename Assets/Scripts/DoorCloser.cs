@@ -12,6 +12,7 @@ public class DoorCloser : MonoBehaviour, ICloser
     public bool isActivated;
     public bool isFirst;
     public bool isDimension;
+    public bool countsForTP;
 
     public bool isTorchShutting;
 
@@ -33,6 +34,9 @@ public class DoorCloser : MonoBehaviour, ICloser
         {
             GameManager.Instance.TorchSoundStop();
         }
+
+        if (countsForTP)
+            LaserBeam.Instance.tpCounter++;
 
         isActivated = true;
 

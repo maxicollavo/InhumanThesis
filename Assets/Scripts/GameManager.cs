@@ -148,27 +148,6 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Tab))
-        {
-            activatingWheel = !activatingWheel;
-            powerWheel.SetActive(activatingWheel);
-
-            if (activatingWheel)
-            {
-                canShoot = false;
-                Time.timeScale = 0;
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
-            }
-            else
-            {
-                canShoot = true;
-                Time.timeScale = 1;
-                Cursor.lockState = CursorLockMode.Locked;
-                Cursor.visible = false;
-            }
-        }
-
         if (levelCounter <= 0)
         {
             SceneManager.LoadScene("LostScene");

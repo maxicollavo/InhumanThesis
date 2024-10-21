@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class LaserBeam : MonoBehaviour
@@ -9,6 +10,9 @@ public class LaserBeam : MonoBehaviour
     [SerializeField] Transform laserSpawn;
     [SerializeField] Transform playerSpawnOnUpside;
     [SerializeField] Transform playerSpawnOnReal;
+    public List<Transform> realTP = new List<Transform>();
+    public List<Transform> upsideTP = new List<Transform>();
+    public int tpCounter;
     private bool playerOnUpside;
     [SerializeField] float gunRange = 20f;
     [SerializeField] float fireRate = 0.2f;
@@ -22,6 +26,8 @@ public class LaserBeam : MonoBehaviour
     [SerializeField] AudioSource laserSound;
     #endregion Shooting
 
+    public static LaserBeam Instance { get; private set; }
+
     void Update()
     {
         _fireTimer += Time.deltaTime;
@@ -30,6 +36,11 @@ public class LaserBeam : MonoBehaviour
         {
             ActivatePower();
         }
+    }
+
+    private void Awake()
+    {
+        Instance = this;
     }
 
     void ActivatePower()
@@ -55,9 +66,9 @@ public class LaserBeam : MonoBehaviour
             return;
 
         if (!playerOnUpside)
-            transform.parent.position = playerSpawnOnUpside.position;
+            transform.parent.position = upsideTP[tpCounter].position;
         else
-            transform.parent.position = playerSpawnOnReal.position;
+            transform.parent.position = realTP[tpCounter].position;
 
         playerOnUpside = !playerOnUpside;
     }
