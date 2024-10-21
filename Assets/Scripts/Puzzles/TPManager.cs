@@ -81,8 +81,8 @@ public class TPManager : MonoBehaviour
     void OpenDoors()
     {
         GameManager.Instance.CoroutinesStoper();
+        GameManager.Instance.colorButton.enabled = true;
         winBell.Play();
-
         openDoor.SetBool("IsTrue", true);
         openDoor2.SetBool("IsTrue", true);
     }

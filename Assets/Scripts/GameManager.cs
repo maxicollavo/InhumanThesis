@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
-using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
 
 public class GameManager : MonoBehaviour
 {
@@ -70,6 +68,8 @@ public class GameManager : MonoBehaviour
     public List<bool> cablesStatus = new List<bool> { false, false };
 
     public List<bool> paintings = new List<bool>();
+
+    public List<bool> rail = new List<bool>();
     #endregion Lists
 
     #region HeartBeat UI
@@ -84,6 +84,12 @@ public class GameManager : MonoBehaviour
     private int powerInt;
     private int maxPowerInt;
     #endregion PowerSwitching
+
+    public BoxCollider torchButton;
+    public BoxCollider cableButton;
+    public BoxCollider paintButton;
+    public BoxCollider colorButton;
+    public BoxCollider railButton;
 
     public AudioSource winBell;
 
@@ -217,6 +223,7 @@ public class GameManager : MonoBehaviour
 
     private void OpenTorchDoor()
     {
+        torchButton.enabled = true;
         winBell.Play();
         doorOpenSound.Play();
         doorTorch.SetBool("IsTrue", true);
@@ -238,6 +245,7 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator OpenCableDoor()
     {
+        cableButton.enabled = true;
         winBell.Play();
         allCablesArrived = true;
         explosionSound.Play();
@@ -264,6 +272,7 @@ public class GameManager : MonoBehaviour
 
     public void WinPaintPuzzle()
     {
+        paintButton.enabled = true;
         winBell.Play();
         CoroutinesStoper();
 
@@ -291,7 +300,7 @@ public class GameManager : MonoBehaviour
     }
 
     public IEnumerator DecreaseLevelTime()
-    {   
+    {
         first30Secs.Play(); bool last30 = false;
 
         StartHeartBeat(initialBeatDuration);

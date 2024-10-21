@@ -8,8 +8,6 @@ public class LaserBeam : MonoBehaviour
     [SerializeField] GameManager gm;
     [SerializeField] Camera playerCamera;
     [SerializeField] Transform laserSpawn;
-    [SerializeField] Transform playerSpawnOnUpside;
-    [SerializeField] Transform playerSpawnOnReal;
     public List<Transform> realTP = new List<Transform>();
     public List<Transform> upsideTP = new List<Transform>();
     public int tpCounter;
