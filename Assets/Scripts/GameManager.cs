@@ -121,7 +121,6 @@ public class GameManager : MonoBehaviour
         {
             if (powerInt >= maxPowerInt || !ableToTeleport) return;
             powerInt += 1;
-
             PowerChange.Instance.PowerChangeCall(powerInt);
         }
         else if (scroll < 0f)
