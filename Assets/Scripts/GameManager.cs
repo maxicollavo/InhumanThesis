@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
     #region Animators
     [SerializeField] Animator doorTorch;
     [SerializeField] Animator doorTorchTwo;
-
+    //[SerializeField] Animator stoneAnim;
     [SerializeField] Animator doorPaint;
     [SerializeField] Animator doorPaintTwo;
     #endregion Animators
@@ -116,7 +116,10 @@ public class GameManager : MonoBehaviour
     public void Update()
     {
         float scroll = Input.GetAxis("Mouse ScrollWheel");
-
+       // if (ableToTeleport == true)
+       // {
+       //     stoneAnim.SetBool("IsTrue", true);
+       // }
         if (scroll > 0f)
         {
             if (powerInt >= maxPowerInt || !ableToTeleport) return;
