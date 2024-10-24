@@ -6,7 +6,7 @@ public class ShowNote : MonoBehaviour, Interactor
     [SerializeField]
     GameObject noteToShow;
     bool isShowing;
-    public GameObject HWPGO;
+    public bool givesNewPower;
     [SerializeField] Animator stoneAnim;
 
     public bool isOpener;
@@ -19,13 +19,7 @@ public class ShowNote : MonoBehaviour, Interactor
     {
         noteCollider = GetComponent<BoxCollider>();
     }
-    private void Update()
-    {
-       if (HWPGO.activeInHierarchy) 
-       {
-           stoneAnim.SetBool("IsTrue", true);
-       }
-    }
+
     public void Interact()
     {
         if (isShowing) return;
@@ -34,6 +28,11 @@ public class ShowNote : MonoBehaviour, Interactor
             StartCoroutine(ShowNoteAndOpenCoroutine());
         else
             StartCoroutine(ShowNoteCoroutine());
+
+        if (givesNewPower)
+        {
+            stoneAnim.SetTrigger("isNewPower");
+        }
     }
 
     private IEnumerator ShowNoteAndOpenCoroutine()

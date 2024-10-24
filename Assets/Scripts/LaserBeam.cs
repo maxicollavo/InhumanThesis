@@ -15,9 +15,6 @@ public class LaserBeam : MonoBehaviour
     [SerializeField] float gunRange = 20f;
     [SerializeField] float fireRate = 0.2f;
     private float _fireTimer;
-    public int numOfReflection = 6;
-    Ray reflectRay;
-    public float defaultLength = 50;
     public LayerMask limit4th;
 
     #region Shooting
