@@ -31,7 +31,7 @@ public class DoorCloser : MonoBehaviour, ICloser
 
         if (isDimension)
             GameManager.Instance.ableToTeleport = true;
-        Debug.Log("esta en el otro mundo");
+             Debug.Log("esta en el otro mundo");
 
         if (isTorchShutting)
         {
