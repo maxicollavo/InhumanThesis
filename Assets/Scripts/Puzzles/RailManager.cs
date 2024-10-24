@@ -4,6 +4,7 @@ public class RailManager : MonoBehaviour
 {
     [SerializeField] Animator rightDoor;
     [SerializeField] Animator leftDoor;
+    public AudioSource winBell;
 
     private int counter;
     public void CheckWin()
@@ -20,6 +21,7 @@ public class RailManager : MonoBehaviour
                     GameManager.Instance.railButton.enabled = true;
                     rightDoor.SetBool("IsTrue", true);
                     leftDoor.SetBool("IsTrue", true);
+                    winBell.Play();
                 }
             }
             else
