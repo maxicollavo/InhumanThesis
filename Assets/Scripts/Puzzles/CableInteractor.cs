@@ -7,6 +7,7 @@ public class CableInteractor : MonoBehaviour, Interactor
     [SerializeField] Animator anim;
     [SerializeField] Animator door;
     [SerializeField] Animator door2;
+    [SerializeField] Animator LightFlash;
     [SerializeField] ParticleSystem electricParticle;
     [SerializeField] BoxCollider collider;
     [SerializeField] TextMeshProUGUI counterText;
@@ -47,7 +48,6 @@ public class CableInteractor : MonoBehaviour, Interactor
             electricSound.Stop();
             counterText.color = new Color(counterText.color.r, counterText.color.g, counterText.color.b, 0);
             electricParticle.Stop();
-
             StartCoroutine(PlayElectricExplosion());
         }
     }
@@ -86,6 +86,8 @@ public class CableInteractor : MonoBehaviour, Interactor
     public void AnimFinish()
     {
         GameManager.Instance.cableCounter++;
+        LightFlash.SetBool("LightIsTrue", true);
+        Debug.Log("entro aca");
         lightIndicatorMat.material = green;
         electricBoxLightMat.material = green;
         counterText.color = new Color(counterText.color.r, counterText.color.g, counterText.color.b, 1);
