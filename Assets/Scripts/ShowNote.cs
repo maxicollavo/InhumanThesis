@@ -8,6 +8,7 @@ public class ShowNote : MonoBehaviour, Interactor
     bool isShowing;
     public bool givesNewPower;
     [SerializeField] Animator stoneAnim;
+    [SerializeField] Animator idleAnim;
 
     public bool isOpener;
     WaitForSeconds wfs = new WaitForSeconds(3f);
@@ -32,6 +33,7 @@ public class ShowNote : MonoBehaviour, Interactor
         if (givesNewPower)
         {
             stoneAnim.SetTrigger("isNewPower");
+            stoneAnim.SetBool("isIdle", true);
         }
     }
 
