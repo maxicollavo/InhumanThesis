@@ -1,34 +1,32 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class ObjectTP : MonoBehaviour, ITeleportable
 {
-    private bool onTeleport;
+    private bool onStation;
 
-    [SerializeField] TPColours assetColour;
     [SerializeField] Transform spawnPoint;
+
+    [SerializeField] ColorSpotChecker spotChecker;
+    [SerializeField] List<ColorSpotChecker> checkerList = new List<ColorSpotChecker>();
+
+    public int actualSpot;
+
+    public TPColours color;
 
     public void Interact()
     {
-        onTeleport = !onTeleport;
+        onStation = !onStation;
 
-        if (onTeleport)
+        if (onStation)
         {
-            TPManager.Instance.coloursList.Add(assetColour);
-            int randomIndex = GetRandomRealIndex();
-            transform.position = GameManager.Instance.spawnerReal[randomIndex].position;
+            spotChecker.Check(this.gameObject);
         }
         else
         {
-            TPManager.Instance.coloursList.Remove(assetColour);
             transform.position = spawnPoint.position;
+            checkerList[actualSpot].CanReceiveBoolChange();
+            actualSpot = 0;
         }
-
-        TPManager.Instance.CheckForColours(onTeleport, assetColour);
-    }
-
-    int GetRandomRealIndex()
-    {
-        return Random.Range(0, GameManager.Instance.spawnerReal.Count);
-
     }
 }

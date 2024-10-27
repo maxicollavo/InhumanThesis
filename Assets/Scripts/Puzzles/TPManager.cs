@@ -6,75 +6,68 @@ public class TPManager : MonoBehaviour
     [SerializeField] Animator openDoor;
     [SerializeField] Animator openDoor2;
 
+    [HideInInspector]
+    public bool stageOneDone;
+    [HideInInspector]
+    public bool stageTwoDone;
+    [HideInInspector]
+    public bool stageThreeDone;
+
     public AudioSource winBell;
 
-    public List<TPColours> coloursList;
+    public int spotCounter;
 
-    public List<TPColours> redList;
-    public List<TPColours> blueList;
-    public List<TPColours> greenList;
+    public List<TPColours> colorList;
 
     public static TPManager Instance { get; private set; }
 
     private void Awake()
     {
         Instance = this;
-
-        coloursList = new List<TPColours>();
-
-        redList = new List<TPColours>();
-        blueList = new List<TPColours>();
-        greenList = new List<TPColours>();
     }
 
-    private void Start()
+    public void StageCompleted(int stage)
     {
-        Debug.Log(coloursList.Count);
+        if (stage == 1) stageOneDone = true;
+        else if (stage == 2) stageTwoDone = true;
+        else if (stage == 3) stageThreeDone = true;
+
+        colorList.Clear();
     }
 
-    public void CheckForColours(bool onTeleport, TPColours colour)
+    public void ColorChecker()
     {
-        CheckColoursList(onTeleport, colour);
-
-        var redAmount = redList.Count;
-        var blueAmount = blueList.Count;
-        var greenAmount = greenList.Count;
-
-        if (redAmount == 3 && blueAmount == 2 && greenAmount == 3)
-            OpenDoors();
-    }
-
-    void CheckColoursList(bool onTeleport, TPColours colour)
-    {
-        if (onTeleport)
+        if (stageOneDone)
         {
-            if (colour == TPColours.Red)
+            if (colorList[0] == TPColours.Yellow && colorList[1] == TPColours.Blue || colorList[0] == TPColours.Blue && colorList[1] == TPColours.Yellow)
             {
-                redList.Add(colour);
-            }
-            else if (colour == TPColours.Green)
-            {
-                greenList.Add(colour);
-            }
-            else if (colour == TPColours.Blue)
-            {
-                blueList.Add(colour);
+                StageCompleted(1);
             }
         }
         else
         {
-            if (colour == TPColours.Red)
+            if (stageTwoDone)
             {
-                redList.Remove(colour);
+                if (colorList[0] == TPColours.Blue && colorList[1] == TPColours.Red || colorList[0] == TPColours.Red && colorList[1] == TPColours.Blue)
+                {
+                    StageCompleted(2);
+                }
             }
-            else if (colour == TPColours.Green)
+            else
             {
-                greenList.Remove(colour);
+                if (stageThreeDone)
+                {
+                    if (colorList[0] == TPColours.Yellow && colorList[1] == TPColours.Red || colorList[0] == TPColours.Red && colorList[1] == TPColours.Yellow)
+                    {
+                        StageCompleted(3);
+                    }
+                }
             }
-            else if (colour == TPColours.Blue)
-            {
-                blueList.Remove(colour);
-            }
+        }
+
+        if (stageThreeDone)
+        {
+            OpenDoors();
         }
     }
 
@@ -92,5 +85,5 @@ public enum TPColours
 {
     Red,
     Blue,
-    Green
+    Yellow
 }
