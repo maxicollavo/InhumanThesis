@@ -18,6 +18,8 @@ public class TPManager : MonoBehaviour
     public int spotCounter;
 
     public List<TPColours> colorList;
+    public List<BoxCollider> objList;
+    public List<Rigidbody> rbList;
 
     public static TPManager Instance { get; private set; }
 
@@ -26,48 +28,68 @@ public class TPManager : MonoBehaviour
         Instance = this;
     }
 
-    public void StageCompleted(int stage)
+    public void StageCompleted(int stage, Rigidbody rb)
     {
-        if (stage == 1) stageOneDone = true;
-        else if (stage == 2) stageTwoDone = true;
-        else if (stage == 3) stageThreeDone = true;
+        foreach (var obj in objList)
+        {
+            obj.enabled = false;
+        }
+        foreach (var rigid in rbList)
+        {
+            rigid.constraints = RigidbodyConstraints.FreezePosition;
+        }
+
+        if (stage == 1)
+        {
+            stageOneDone = true;
+        }
+        else if (stage == 2)
+        {
+            stageTwoDone = true;
+        }
+        else if (stage == 3)
+        {
+            stageThreeDone = true;
+        }
 
         colorList.Clear();
+        objList.Clear();
+        rbList.Clear();
     }
 
-    public void ColorChecker()
+    public void ColorChecker(BoxCollider obj, Rigidbody rb)
     {
-        if (stageOneDone)
+        objList.Add(obj);
+        rbList.Add(rb);
+
+        if (spotCounter == 2)
         {
-            if (colorList[0] == TPColours.Yellow && colorList[1] == TPColours.Blue || colorList[0] == TPColours.Blue && colorList[1] == TPColours.Yellow)
+            if (!stageOneDone)
             {
-                StageCompleted(1);
+                if (colorList[0] == TPColours.Yellow && colorList[1] == TPColours.Blue || colorList[0] == TPColours.Blue && colorList[1] == TPColours.Yellow)
+                {
+                    StageCompleted(1, rb);
+                }
             }
-        }
-        else
-        {
-            if (stageTwoDone)
+            else if (!stageTwoDone)
             {
                 if (colorList[0] == TPColours.Blue && colorList[1] == TPColours.Red || colorList[0] == TPColours.Red && colorList[1] == TPColours.Blue)
                 {
-                    StageCompleted(2);
+                    StageCompleted(2, rb);
                 }
             }
-            else
+            else if (!stageThreeDone)
             {
-                if (stageThreeDone)
+                if (colorList[0] == TPColours.Yellow && colorList[1] == TPColours.Red || colorList[0] == TPColours.Red && colorList[1] == TPColours.Yellow)
                 {
-                    if (colorList[0] == TPColours.Yellow && colorList[1] == TPColours.Red || colorList[0] == TPColours.Red && colorList[1] == TPColours.Yellow)
-                    {
-                        StageCompleted(3);
-                    }
+                    StageCompleted(3, rb);
                 }
             }
-        }
 
-        if (stageThreeDone)
-        {
-            OpenDoors();
+            if (stageThreeDone)
+            {
+                OpenDoors();
+            }
         }
     }
 
