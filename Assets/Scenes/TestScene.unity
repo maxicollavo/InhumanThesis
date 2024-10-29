@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12731749, g: 0.13414757, b: 0.1210787, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731715, g: 0.13414735, b: 0.121078536, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1641,11 +1641,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93d9a0e41da6dd04d99a6fac79b1e7d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canReceive: 0
+  canReceive: 1
   isLast: 0
-  spot: 2
+  spot: 3
   stationPos: {fileID: 1092741144}
-  nextStationPos: {fileID: 1415950698}
 --- !u!1 &18942083
 GameObject:
   m_ObjectHideFlags: 0
@@ -2298,7 +2297,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnPoint: {fileID: 1719833703}
-  spotChecker: {fileID: 36588229}
   checkerList:
   - {fileID: 36588229}
   - {fileID: 501455843}
@@ -2676,11 +2674,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93d9a0e41da6dd04d99a6fac79b1e7d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canReceive: 0
+  canReceive: 1
   isLast: 0
   spot: 1
   stationPos: {fileID: 1747804278}
-  nextStationPos: {fileID: 1648475133}
 --- !u!1 &36737172
 GameObject:
   m_ObjectHideFlags: 0
@@ -3458,6 +3455,8 @@ MonoBehaviour:
   winBell: {fileID: 900485580}
   spotCounter: 0
   colorList: 
+  objList: []
+  rbList: []
 --- !u!1 &45983189
 GameObject:
   m_ObjectHideFlags: 0
@@ -4369,11 +4368,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93d9a0e41da6dd04d99a6fac79b1e7d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canReceive: 0
+  canReceive: 1
   isLast: 0
-  spot: 3
+  spot: 5
   stationPos: {fileID: 1735237985}
-  nextStationPos: {fileID: 717299800}
 --- !u!1 &64276056
 GameObject:
   m_ObjectHideFlags: 0
@@ -23338,7 +23336,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnPoint: {fileID: 1823360342}
-  spotChecker: {fileID: 36588229}
   checkerList:
   - {fileID: 36588229}
   - {fileID: 501455843}
@@ -27620,7 +27617,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnPoint: {fileID: 2089959136}
-  spotChecker: {fileID: 36588229}
   checkerList:
   - {fileID: 36588229}
   - {fileID: 501455843}
@@ -36346,7 +36342,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnPoint: {fileID: 95493234}
-  spotChecker: {fileID: 36588229}
   checkerList:
   - {fileID: 36588229}
   - {fileID: 501455843}
@@ -43136,7 +43131,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnPoint: {fileID: 1990587086}
-  spotChecker: {fileID: 36588229}
   checkerList:
   - {fileID: 36588229}
   - {fileID: 501455843}
@@ -43714,7 +43708,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnPoint: {fileID: 2127338407}
-  spotChecker: {fileID: 36588229}
   checkerList:
   - {fileID: 36588229}
   - {fileID: 501455843}
@@ -70213,11 +70206,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93d9a0e41da6dd04d99a6fac79b1e7d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canReceive: 0
+  canReceive: 1
   isLast: 0
-  spot: 4
+  spot: 2
   stationPos: {fileID: 1648475133}
-  nextStationPos: {fileID: 1092741144}
 --- !u!1 &501633725
 GameObject:
   m_ObjectHideFlags: 0
@@ -72210,11 +72202,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93d9a0e41da6dd04d99a6fac79b1e7d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canReceive: 0
+  canReceive: 1
   isLast: 1
   spot: 6
   stationPos: {fileID: 717299800}
-  nextStationPos: {fileID: 717299800}
 --- !u!1 &533227122
 GameObject:
   m_ObjectHideFlags: 0
@@ -81761,7 +81752,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnPoint: {fileID: 420766220}
-  spotChecker: {fileID: 36588229}
   checkerList:
   - {fileID: 36588229}
   - {fileID: 501455843}
@@ -104481,7 +104471,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnPoint: {fileID: 60714052}
-  spotChecker: {fileID: 36588229}
   checkerList:
   - {fileID: 36588229}
   - {fileID: 501455843}
@@ -119398,11 +119387,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93d9a0e41da6dd04d99a6fac79b1e7d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canReceive: 0
+  canReceive: 1
   isLast: 0
-  spot: 5
+  spot: 4
   stationPos: {fileID: 1415950698}
-  nextStationPos: {fileID: 1735237985}
 --- !u!1 &919424187
 GameObject:
   m_ObjectHideFlags: 0
@@ -123580,7 +123568,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnPoint: {fileID: 1177296765}
-  spotChecker: {fileID: 36588229}
   checkerList:
   - {fileID: 36588229}
   - {fileID: 501455843}
@@ -165943,7 +165930,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnPoint: {fileID: 916496271}
-  spotChecker: {fileID: 36588229}
   checkerList:
   - {fileID: 36588229}
   - {fileID: 501455843}
@@ -187357,7 +187343,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnPoint: {fileID: 1508313828}
-  spotChecker: {fileID: 36588229}
   checkerList:
   - {fileID: 36588229}
   - {fileID: 501455843}
@@ -230413,7 +230398,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnPoint: {fileID: 239188694}
-  spotChecker: {fileID: 36588229}
   checkerList:
   - {fileID: 36588229}
   - {fileID: 501455843}
@@ -246714,7 +246698,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnPoint: {fileID: 1285695263}
-  spotChecker: {fileID: 36588229}
   checkerList:
   - {fileID: 36588229}
   - {fileID: 501455843}
@@ -256528,7 +256511,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnPoint: {fileID: 892607646}
-  spotChecker: {fileID: 36588229}
   checkerList:
   - {fileID: 36588229}
   - {fileID: 501455843}
@@ -257040,7 +257022,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnPoint: {fileID: 1480439843}
-  spotChecker: {fileID: 36588229}
   checkerList:
   - {fileID: 36588229}
   - {fileID: 501455843}
