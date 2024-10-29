@@ -9,7 +9,7 @@ public class ShowNote : MonoBehaviour, Interactor
     public bool givesNewPower;
     [SerializeField] Animator stoneAnim;
     [SerializeField] Animator idleAnim;
-
+    public AudioSource havePower;
     public bool isOpener;
     WaitForSeconds wfs = new WaitForSeconds(3f);
 
@@ -33,6 +33,7 @@ public class ShowNote : MonoBehaviour, Interactor
         if (givesNewPower)
         {
             stoneAnim.SetTrigger("isNewPower");
+            havePower.Play();
             stoneAnim.SetBool("isIdle", true);
         }
     }
