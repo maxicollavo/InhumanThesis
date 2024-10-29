@@ -1,32 +1,74 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ObjectTP : MonoBehaviour, ITeleportable
 {
-    private bool onStation;
+    private bool onStation = true;
 
     [SerializeField] Transform spawnPoint;
 
-    [SerializeField] ColorSpotChecker spotChecker;
     [SerializeField] List<ColorSpotChecker> checkerList = new List<ColorSpotChecker>();
 
     public int actualSpot;
 
     public TPColours color;
 
+    private BoxCollider objBC;
+    private Rigidbody objRB;
+
+    private void Start()
+    {
+        objBC = GetComponent<BoxCollider>();
+        objRB = GetComponent<Rigidbody>();
+    }
+
     public void Interact()
     {
-        onStation = !onStation;
-
         if (onStation)
         {
-            spotChecker.Check(this.gameObject);
+            var moved = PutCubeToSpot(this.gameObject);
+
+            if (moved)
+            {
+                onStation = !onStation;
+            }
         }
         else
         {
             transform.position = spawnPoint.position;
-            checkerList[actualSpot].CanReceiveBoolChange();
+            onStation = !onStation;
+            checkerList.Find(x => x.spot == actualSpot).CanReceiveBoolChange();
+            TPManager.Instance.colorList.RemoveAt(actualSpot - 1); //Error al devolver el cubo de los primeros spots
             actualSpot = 0;
+            TPManager.Instance.spotCounter--;
         }
+    }
+
+    public bool PutCubeToSpot(GameObject cube)
+    {
+        foreach (var spot in checkerList)
+        {
+            if (spot.canReceive)
+            {
+                spot.TeleportCube(cube, objBC, objRB);
+                return true;
+            }
+
+            if (spot.spot == 2 && !TPManager.Instance.stageOneDone)
+            {
+                return false;
+            }
+            else if (spot.spot == 4 && !TPManager.Instance.stageTwoDone)
+            {
+                return false;
+            }
+            else if (spot.spot == 6 && !TPManager.Instance.stageThreeDone)
+            {
+                return false;
+            }
+        }
+
+        return default;
     }
 }
