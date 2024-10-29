@@ -7,7 +7,9 @@ public class CableInteractor : MonoBehaviour, Interactor
     [SerializeField] Animator anim;
     [SerializeField] Animator door;
     [SerializeField] Animator door2;
+    [SerializeField] Animator clockAnim;
     [SerializeField] Animator LightFlash;
+    [SerializeField] Animator LightFlash2;
     [SerializeField] ParticleSystem electricParticle;
     [SerializeField] BoxCollider collider;
     [SerializeField] TextMeshProUGUI counterText;
@@ -79,6 +81,7 @@ public class CableInteractor : MonoBehaviour, Interactor
 
     void OpenDoor()
     {
+        clockAnim.speed = 0;
         door.SetBool("IsTrue", true);
         door2.SetBool("IsTrue", true);
     }
@@ -87,6 +90,7 @@ public class CableInteractor : MonoBehaviour, Interactor
     {
         GameManager.Instance.cableCounter++;
         LightFlash.SetBool("LightIsTrue", true);
+        LightFlash2.SetBool("LightIsTrue", true);
         Debug.Log("entro aca");
         lightIndicatorMat.material = green;
         electricBoxLightMat.material = green;

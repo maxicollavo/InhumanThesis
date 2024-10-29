@@ -15,17 +15,10 @@ public class OpenHallwayDoor : MonoBehaviour
     private Material thisMat;
     [SerializeField] Material newMat;
 
-    public TextMeshProUGUI counterText;
-
     private void Start()
     {
         objectRenderer = GetComponent<Renderer>();
         thisMat = objectRenderer.material;
-    }
-
-    void Update()
-    {
-        counterText.text = Mathf.FloorToInt(GameManager.Instance.levelCounter).ToString();
     }
 
     public void Interact()

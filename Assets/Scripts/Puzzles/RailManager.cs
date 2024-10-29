@@ -4,6 +4,7 @@ public class RailManager : MonoBehaviour
 {
     [SerializeField] Animator rightDoor;
     [SerializeField] Animator leftDoor;
+    [SerializeField] Animator clockAnim;
     public AudioSource winBell;
 
     private int counter;
@@ -17,10 +18,10 @@ public class RailManager : MonoBehaviour
 
                 if (counter == 3)
                 {
-                    GameManager.Instance.CoroutinesStoper();
                     GameManager.Instance.railButton.enabled = true;
                     rightDoor.SetBool("IsTrue", true);
                     leftDoor.SetBool("IsTrue", true);
+                    clockAnim.speed = 0;
                     winBell.Play();
                 }
             }

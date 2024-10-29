@@ -31,6 +31,7 @@ public class GameManager : MonoBehaviour
     //[SerializeField] Animator stoneAnim;
     [SerializeField] Animator doorPaint;
     [SerializeField] Animator doorPaintTwo;
+    [SerializeField] Animator clockAnim;
     #endregion Animators
 
     #region Bools
@@ -109,17 +110,12 @@ public class GameManager : MonoBehaviour
         maxPowerInt = 1;
         codeCount = 0;
         canShoot = true;
-
-        heartSize = new Vector3(heart.transform.localScale.x, heart.transform.localScale.y, heart.transform.localScale.z);
     }
 
     public void Update()
     {
         float scroll = Input.GetAxis("Mouse ScrollWheel");
-       // if (ableToTeleport == true)
-       // {
-       //     stoneAnim.SetBool("IsTrue", true);
-       // }
+
         if (scroll > 0f)
         {
             if (powerInt >= maxPowerInt || !ableToTeleport) return;
@@ -253,8 +249,6 @@ public class GameManager : MonoBehaviour
         explosionSound.Play();
         yield return new WaitForSeconds(1.5f);
         doorOpenSound.Play();
-
-        CoroutinesStoper();
     }
     #endregion CablePuzzle
 
@@ -276,30 +270,14 @@ public class GameManager : MonoBehaviour
     {
         paintButton.enabled = true;
         winBell.Play();
-        CoroutinesStoper();
 
+        clockAnim.speed = 0;
         doorPaint.SetBool("IsTrue", true);
         doorPaintTwo.SetBool("IsTrue", true);
     }
     #endregion PaintPuzzle
 
     #endregion Puzzles
-
-    public void CoroutinesStoper()
-    {
-        StopAllCoroutines();
-        LeanTween.cancel(heart);
-
-        first30Secs.Stop();
-        last30Secs.Stop();
-    }
-
-    public void StartLevelTimer()
-    {
-        heart.localScale = heartSize;
-        levelCounter = 60;
-        StartCoroutine(DecreaseLevelTime());
-    }
 
     public IEnumerator DecreaseLevelTime()
     {

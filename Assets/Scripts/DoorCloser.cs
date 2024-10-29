@@ -4,13 +4,11 @@ public class DoorCloser : MonoBehaviour, ICloser
 {
     [SerializeField] Animator doorAnim;
     [SerializeField] Animator doorAnimTwo;
-
-    [SerializeField] GameObject timerGO;
+    [SerializeField] Animator clockAnim;
 
     [SerializeField] AudioSource closeSound;
 
     public bool isActivated;
-    public bool isFirst;
     public bool isDimension;
     public bool countsForTP;
 
@@ -23,11 +21,7 @@ public class DoorCloser : MonoBehaviour, ICloser
         if (!isActivated)
         {
             closeSound.Play();
-            GameManager.Instance.StartLevelTimer();
         }
-
-        if (isFirst)
-            timerGO.SetActive(true);
 
         if (isDimension)
             GameManager.Instance.ableToTeleport = true;
@@ -45,6 +39,7 @@ public class DoorCloser : MonoBehaviour, ICloser
 
         isActivated = true;
 
+        clockAnim.SetBool("IsTrue", true);
 
         if (doorAnim.GetBool("IsTrue"))
             doorAnim.SetBool("IsTrue", false);

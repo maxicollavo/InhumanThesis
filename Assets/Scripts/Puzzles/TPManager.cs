@@ -5,6 +5,7 @@ public class TPManager : MonoBehaviour
 {
     [SerializeField] Animator openDoor;
     [SerializeField] Animator openDoor2;
+    [SerializeField] Animator clockAnim;
 
     [HideInInspector]
     public bool stageOneDone;
@@ -95,11 +96,11 @@ public class TPManager : MonoBehaviour
 
     void OpenDoors()
     {
-        GameManager.Instance.CoroutinesStoper();
         GameManager.Instance.colorButton.enabled = true;
         winBell.Play();
         openDoor.SetBool("IsTrue", true);
         openDoor2.SetBool("IsTrue", true);
+        clockAnim.speed = 0;
     }
 }
 
