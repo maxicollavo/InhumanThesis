@@ -1,5 +1,4 @@
 using System.Collections;
-using TMPro;
 using UnityEngine;
 
 public class CableInteractor : MonoBehaviour, Interactor
@@ -12,7 +11,6 @@ public class CableInteractor : MonoBehaviour, Interactor
     [SerializeField] Animator LightFlash2;
     [SerializeField] ParticleSystem electricParticle;
     [SerializeField] BoxCollider collider;
-    [SerializeField] TextMeshProUGUI counterText;
     [SerializeField] GameObject LightGO;
     [SerializeField] GameObject LightGO2;
     [SerializeField] GameObject LightGO3;
@@ -31,15 +29,8 @@ public class CableInteractor : MonoBehaviour, Interactor
     [SerializeField] AudioSource electricSound;
     #endregion Sounds
 
-    private void Start()
-    {
-        counterText.color = new Color(counterText.color.r, counterText.color.g, counterText.color.b, 0);
-    }
-
     private void Update()
     {
-        counterText.text = Mathf.FloorToInt(counter).ToString();
-
         if (GameManager.Instance.allCablesArrived)
         {
             isActivated = true;
@@ -48,7 +39,6 @@ public class CableInteractor : MonoBehaviour, Interactor
             StopCoroutine(DecreaseCableCounterAfterDelay());
             timerSound.Stop();
             electricSound.Stop();
-            counterText.color = new Color(counterText.color.r, counterText.color.g, counterText.color.b, 0);
             electricParticle.Stop();
             StartCoroutine(PlayElectricExplosion());
         }
@@ -70,7 +60,6 @@ public class CableInteractor : MonoBehaviour, Interactor
         lightIndicatorMat.material = red;
         electricBoxLightMat.material = red;
         electricSound.Stop();
-        counterText.color = new Color(counterText.color.r, counterText.color.g, counterText.color.b, 0);
         counter = 5f;
         anim.SetBool("OnAction", false);
         anim.Play("OnAction", -1, 0f);
@@ -94,7 +83,6 @@ public class CableInteractor : MonoBehaviour, Interactor
         Debug.Log("entro aca");
         lightIndicatorMat.material = green;
         electricBoxLightMat.material = green;
-        counterText.color = new Color(counterText.color.r, counterText.color.g, counterText.color.b, 1);
 
         GameManager.Instance.UpdateCableStatus(GameManager.Instance.cableCounter - 1, true);
 
