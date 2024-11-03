@@ -41044,7 +41044,7 @@ Transform:
   m_GameObject: {fileID: 189777615}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -37.560158, y: 36.61485, z: -2.9078312}
+  m_LocalPosition: {x: -37.56, y: 36.61485, z: -2.84}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -46208,9 +46208,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 227250166}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.50000036, y: 0.4999996, z: -0.49999985, w: 0.50000024}
-  m_LocalPosition: {x: 24.699335, y: 59.06437, z: 7.7374425}
-  m_LocalScale: {x: 8.563991, y: 1.3777113, z: 8.563991}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1675930913}
@@ -65761,7 +65761,7 @@ MonoBehaviour:
   LightGO3: {fileID: 1935357968}
   index: 0
   lightIndicatorMat: {fileID: 1766487570}
-  electricBoxLightMat: {fileID: 842606398}
+  electricBoxLightMat: {fileID: 1313651269}
   green: {fileID: 2100000, guid: 5b5528bd990aead459d8de8a8b7118bd, type: 2}
   red: {fileID: 2100000, guid: 38a90a702d06f064994f5247b8d2897e, type: 2}
   timerSound: {fileID: 333063385}
@@ -87962,7 +87962,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: ab3803ce65aa59a489c0b5f4984b35c8, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -100190,8 +100190,8 @@ Transform:
   m_GameObject: {fileID: 488472395}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.816, y: 5.287, z: -2.861}
-  m_LocalScale: {x: 0.6796416, y: 0.8022534, z: 0.8503299}
+  m_LocalPosition: {x: 4.24, y: 13.75, z: -9.972}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 573733319}
@@ -100208,7 +100208,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab3dbce86cda00a4391936e5d50e288a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ci: {fileID: 0}
+  ci: {fileID: 1671170648}
 --- !u!95 &488472398
 Animator:
   serializedVersion: 5
@@ -122343,9 +122343,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 573733318}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.50000036, y: 0.4999996, z: -0.49999985, w: 0.50000024}
-  m_LocalPosition: {x: 24.699335, y: 59.06437, z: 7.7374425}
-  m_LocalScale: {x: 8.563991, y: 1.3777113, z: 8.563991}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -148.1, y: -13.66, z: -20.36}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 488472396}
@@ -347819,7 +347819,7 @@ MonoBehaviour:
   door2: {fileID: 1593221487}
   clockAnim: {fileID: 1591318577}
   LightFlash: {fileID: 1006287914}
-  LightFlash2: {fileID: 0}
+  LightFlash2: {fileID: 1345707650}
   electricParticle: {fileID: 488472400}
   collider: {fileID: 1510417535}
   LightGO: {fileID: 1374940629}
@@ -347827,7 +347827,7 @@ MonoBehaviour:
   LightGO3: {fileID: 1935357968}
   index: 1
   lightIndicatorMat: {fileID: 981769396}
-  electricBoxLightMat: {fileID: 0}
+  electricBoxLightMat: {fileID: 842606398}
   green: {fileID: 2100000, guid: 5b5528bd990aead459d8de8a8b7118bd, type: 2}
   red: {fileID: 2100000, guid: 38a90a702d06f064994f5247b8d2897e, type: 2}
   timerSound: {fileID: 333063385}
@@ -348639,13 +348639,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1675930912}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.02076761, y: 0.6938022, z: -0.000044264365, w: 0.7198662}
-  m_LocalPosition: {x: 6.88, y: 5.41, z: -2.77}
-  m_LocalScale: {x: 0.6796416, y: 0.8022534, z: 0.8503299}
+  m_LocalRotation: {x: 0.000000029802319, y: -0, z: -0.18255544, w: 0.98319554}
+  m_LocalPosition: {x: 524.75, y: -245.09976, z: 1.0699997}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 227250167}
-  m_LocalEulerAnglesHint: {x: -1.71, y: 87.912, z: -1.656}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -21.037}
 --- !u!95 &1675930914
 Animator:
   serializedVersion: 5
@@ -353475,7 +353475,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab3dbce86cda00a4391936e5d50e288a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ci: {fileID: 0}
+  ci: {fileID: 326105357}
 --- !u!1 &1675999317
 GameObject:
   m_ObjectHideFlags: 0
@@ -366458,7 +366458,7 @@ Transform:
   m_GameObject: {fileID: 1764430819}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 182.51, y: 1.39, z: -42.2}
+  m_LocalPosition: {x: 263.4, y: 1.39, z: -8.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -403937,13 +403937,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1984188752}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 19.439842, y: 36.61485, z: 12.092169}
+  m_LocalRotation: {x: -0.0030654399, y: 0.007982014, z: -0.0017162247, w: 0.999962}
+  m_LocalPosition: {x: 19.439674, y: 36.61485, z: 12.092478}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1912935027}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -0.35, y: 0.915, z: -0.199}
 --- !u!23 &1984188754
 MeshRenderer:
   m_ObjectHideFlags: 0
