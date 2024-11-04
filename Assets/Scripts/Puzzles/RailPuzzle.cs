@@ -44,12 +44,19 @@ public class RailPuzzle : MonoBehaviour
 
         CheckPos();
     }
+
     private void CheckPos()
     {
         if (posCounter == winPos)
+        {
+            Debug.Log("La posicion es la correcta");
             GameManager.Instance.rail[railNum] = true;
+        }
         else
+        {
+            Debug.Log("La posicion es la incorrecta");
             GameManager.Instance.rail[railNum] = false;
+        }
 
         manager.CheckWin();
     }

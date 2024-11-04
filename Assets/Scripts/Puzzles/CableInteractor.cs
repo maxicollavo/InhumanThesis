@@ -22,6 +22,11 @@ public class CableInteractor : MonoBehaviour, Interactor
     [SerializeField] Renderer electricBoxLightMat;
     [SerializeField] Material green;
     [SerializeField] Material red;
+
+    [SerializeField] Material railRed;
+    [SerializeField] Material railBlue;
+    [SerializeField] Material railYellow;
+    [SerializeField] Material railGreen;
     float counter = 5f;
 
     #region Sounds
@@ -40,7 +45,7 @@ public class CableInteractor : MonoBehaviour, Interactor
             timerSound.Stop();
             electricSound.Stop();
             electricParticle.Stop();
-            StartCoroutine(PlayElectricExplosion());
+            TurnRailOn();
         }
     }
 
@@ -68,11 +73,46 @@ public class CableInteractor : MonoBehaviour, Interactor
         GameManager.Instance.cableCounter--;
     }
 
-    void OpenDoor()
+    void TurnRailOn()
     {
-        clockAnim.speed = 0;
-        door.SetBool("IsTrue", true);
-        door2.SetBool("IsTrue", true);
+        //clockAnim.speed = 0;
+        foreach (var redRail in GameManager.Instance.redRailList)
+        {
+            var renderer = redRail.GetComponent<Renderer>();
+            if (renderer != null)
+            {
+                renderer.material = railRed;
+            }
+        }
+        foreach (var greenRail in GameManager.Instance.greenRailList)
+        {
+            var renderer = greenRail.GetComponent<Renderer>();
+            if (renderer != null)
+            {
+                renderer.material = railGreen;
+            }
+        }
+        foreach (var yellowRail in GameManager.Instance.yellowRailList)
+        {
+            var renderer = yellowRail.GetComponent<Renderer>();
+            if (renderer != null)
+            {
+                renderer.material = railYellow;
+            }
+        }
+        foreach (var blueRail in GameManager.Instance.blueRailList)
+        {
+            var renderer = blueRail.GetComponent<Renderer>();
+            if (renderer != null)
+            {
+                renderer.material = railBlue;
+            }
+        }
+        foreach (var button in GameManager.Instance.railButtons)
+        {
+            var coll = button.GetComponent<BoxCollider>();
+            coll.enabled = true;
+        }
     }
 
     public void AnimFinish()
@@ -80,7 +120,6 @@ public class CableInteractor : MonoBehaviour, Interactor
         GameManager.Instance.cableCounter++;
         LightFlash.SetBool("LightIsTrue", true);
         LightFlash2.SetBool("LightIsTrue", true);
-        Debug.Log("entro aca");
         lightIndicatorMat.material = green;
         electricBoxLightMat.material = green;
 
@@ -101,17 +140,7 @@ public class CableInteractor : MonoBehaviour, Interactor
                 yield return new WaitForSeconds(1f);
                 counter--;
             }
-
             RestartSparkle();
         }
-    }
-
-    private IEnumerator PlayElectricExplosion()
-    {
-        LightGO.SetActive(false);
-        LightGO2.SetActive(false);
-        LightGO3.SetActive(false);
-        yield return new WaitForSeconds(1.5f);
-        OpenDoor();
     }
 }

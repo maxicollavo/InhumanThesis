@@ -16,6 +16,7 @@ public class LaserBeam : MonoBehaviour
     [SerializeField] float fireRate = 0.2f;
     private float _fireTimer;
     public LayerMask limit4th;
+    private float cooldown;
 
     #region Shooting
     [SerializeField] AudioSource laserSound;
@@ -60,12 +61,21 @@ public class LaserBeam : MonoBehaviour
         if (!GameManager.Instance.ableToTeleport)
             return;
 
+        StartCoroutine(TeleportCooldown());
+
         if (!playerOnUpside)
             transform.parent.position = upsideTP[tpCounter].position;
         else
             transform.parent.position = realTP[tpCounter].position;
 
         playerOnUpside = !playerOnUpside;
+    }
+
+    IEnumerator TeleportCooldown()
+    {
+        GameManager.Instance.ableToTeleport = false;
+        yield return new WaitForSeconds(1f);
+        GameManager.Instance.ableToTeleport = true;
     }
 
     void ShootLaser()

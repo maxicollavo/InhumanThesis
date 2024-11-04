@@ -1,4 +1,6 @@
+using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class RailManager : MonoBehaviour
 {
@@ -8,6 +10,7 @@ public class RailManager : MonoBehaviour
     public AudioSource winBell;
 
     private int counter;
+
     public void CheckWin()
     {
         foreach (var item in GameManager.Instance.rail)
@@ -18,11 +21,7 @@ public class RailManager : MonoBehaviour
 
                 if (counter == 3)
                 {
-                    GameManager.Instance.railButton.enabled = true;
-                    rightDoor.SetBool("IsTrue", true);
-                    leftDoor.SetBool("IsTrue", true);
-                    clockAnim.speed = 0;
-                    winBell.Play();
+                    Win();
                 }
             }
             else
@@ -31,5 +30,16 @@ public class RailManager : MonoBehaviour
                 return;
             }
         }
+    }
+
+    private IEnumerator Win()
+    {
+        //GameManager.Instance.railButton.enabled = true;
+        //rightDoor.SetBool("IsTrue", true);
+        //leftDoor.SetBool("IsTrue", true);
+        clockAnim.speed = 0;
+        winBell.Play();
+        yield return new WaitForSeconds(2f);
+        SceneManager.LoadScene("EndDemoScene");
     }
 }

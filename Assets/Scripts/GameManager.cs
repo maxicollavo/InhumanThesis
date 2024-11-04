@@ -18,7 +18,8 @@ public class GameManager : MonoBehaviour
     #endregion Ints
 
     #region GameObjects
-    [SerializeField] GameObject secretCode;
+    [SerializeField] GameObject torchSecretCode;
+    [SerializeField] GameObject railSecretCode;
     [SerializeField] GameObject doorToOpen;
     [SerializeField] GameObject paintingsDoor;
     [SerializeField] GameObject pauseMenu;
@@ -40,7 +41,6 @@ public class GameManager : MonoBehaviour
     private bool menuPressed;
     [HideInInspector]
     public bool canShoot;
-    [HideInInspector]
     public bool ableToTeleport;
     [HideInInspector]
     public bool allCablesArrived;
@@ -57,10 +57,14 @@ public class GameManager : MonoBehaviour
     #endregion Sounds
 
     #region Lists
-    [HideInInspector]
     public List<GameObject> torches = new List<GameObject>();
     [HideInInspector]
     public List<bool> torchsLit;
+    public List<GameObject> redRailList;
+    public List<GameObject> blueRailList;
+    public List<GameObject> yellowRailList;
+    public List<GameObject> greenRailList;
+    public List<GameObject> railButtons;
 
     public List<Transform> spawnerUpside = new List<Transform>();
     public List<Transform> spawnerReal = new List<Transform>();
@@ -101,7 +105,6 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        torchsLit = new List<bool>();
         paintSound.Stop();
     }
 
@@ -166,7 +169,7 @@ public class GameManager : MonoBehaviour
     #region Puzzles
 
     #region TorchPuzzle
-    private void ShowAndHideCode(bool areTorchLit)
+    private void ShowAndHideSecretCode(bool areTorchLit, GameObject secretCode)
     {
         secretCode.SetActive(areTorchLit);
 
@@ -189,25 +192,31 @@ public class GameManager : MonoBehaviour
         }
 
         var torchesWithIndex = GetTorchesLitGenerator()
-        .Select((isLit, index) => new { Index = index, IsLit = isLit })
-        .ToList();
+                                .Select((isLit, index) => new { Index = index, IsLit = isLit })
+                                .ToList();
 
         bool allTorchsLit = torchesWithIndex
-            .Aggregate(true, (allLit, torch) => allLit && torch.IsLit);
+                                .Aggregate(true, (allLit, torch) => allLit && torch.IsLit);
 
-        ShowAndHideCode(allTorchsLit);
+        ShowAndHideSecretCode(allTorchsLit, torchSecretCode);
 
         bool requiredTorches = torchesWithIndex
-        .Where(t => t.Index == 0 || t.Index == 4 || t.Index == 5)
-        .Aggregate(true, (result, torch) => result && torch.IsLit);
+                                .Where(t => t.Index == 0 || t.Index == 4 || t.Index == 5)
+                                .Aggregate(true, (result, torch) => result && torch.IsLit);
 
         bool notRequiredTorches = torchesWithIndex
-        .Where(t => t.Index == 1 || t.Index == 2 || t.Index == 3)
-        .Aggregate(true, (result, torch) => result && !torch.IsLit);
+                                .Where(t => t.Index == 1 || t.Index == 2 || t.Index == 3)
+                                .Aggregate(true, (result, torch) => result && !torch.IsLit);
 
         if (requiredTorches && notRequiredTorches)
         {
-            OpenTorchDoor();
+            Debug.Log("antorchas requeridas encendidas");
+            ShowAndHideSecretCode(true, railSecretCode);
+        }
+        else
+        {
+            Debug.Log("antorchas requeridas apagadas");
+            ShowAndHideSecretCode(false, railSecretCode);
         }
     }
 
@@ -237,18 +246,16 @@ public class GameManager : MonoBehaviour
 
         if (cablesStatus.Zip(cablesStatus, (first, second) => first && second).All(isConnected => isConnected))
         {
-            StartCoroutine(OpenCableDoor());
+            AllCablesArrived();
         }
     }
 
-    private IEnumerator OpenCableDoor()
+    private void AllCablesArrived()
     {
         cableButton.enabled = true;
         winBell.Play();
         allCablesArrived = true;
         explosionSound.Play();
-        yield return new WaitForSeconds(1.5f);
-        doorOpenSound.Play();
     }
     #endregion CablePuzzle
 
