@@ -6,17 +6,17 @@ public class RailInteractor : MonoBehaviour, Interactor
 {
     [SerializeField] bool isForward;
 
-    [SerializeField] RailPuzzle railPuzzle;
+    [SerializeField] RailPuzzle statue;
 
     public void Interact()
     {
         if (isForward)
         {
-            railPuzzle.GoForward();
+            statue.GoForward();
         }
         else
         {
-            railPuzzle.GoBackwards();
+            statue.GoBackwards();
         }
     }
 }

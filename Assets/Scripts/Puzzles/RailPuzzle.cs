@@ -24,6 +24,7 @@ public class RailPuzzle : MonoBehaviour
         if (posCounter == 4) return;
 
         posCounter++;
+        Debug.Log($"La posicion es {posCounter} y la estatua va hacia adelante");
 
         var newPos = posInRail[posCounter].position;
 
@@ -37,6 +38,7 @@ public class RailPuzzle : MonoBehaviour
         if (posCounter == 0) return;
 
         posCounter--;
+        Debug.Log($"La posicion es {posCounter} y la estatua va hacia atrás");
 
         var newPos = posInRail[posCounter].position;
 
@@ -49,12 +51,10 @@ public class RailPuzzle : MonoBehaviour
     {
         if (posCounter == winPos)
         {
-            Debug.Log("La posicion es la correcta");
             GameManager.Instance.rail[railNum] = true;
         }
         else
         {
-            Debug.Log("La posicion es la incorrecta");
             GameManager.Instance.rail[railNum] = false;
         }
 

@@ -21,7 +21,7 @@ public class RailManager : MonoBehaviour
 
                 if (counter == 3)
                 {
-                    Win();
+                    StartCoroutine(Win());
                 }
             }
             else
@@ -37,6 +37,7 @@ public class RailManager : MonoBehaviour
         //GameManager.Instance.railButton.enabled = true;
         //rightDoor.SetBool("IsTrue", true);
         //leftDoor.SetBool("IsTrue", true);
+        Debug.Log("Se gana");
         clockAnim.speed = 0;
         winBell.Play();
         yield return new WaitForSeconds(2f);
