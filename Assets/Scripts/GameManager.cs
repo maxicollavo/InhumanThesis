@@ -210,12 +210,10 @@ public class GameManager : MonoBehaviour
 
         if (requiredTorches && notRequiredTorches)
         {
-            Debug.Log("antorchas requeridas encendidas");
             ShowAndHideSecretCode(true, railSecretCode);
         }
         else
         {
-            Debug.Log("antorchas requeridas apagadas");
             ShowAndHideSecretCode(false, railSecretCode);
         }
     }

@@ -12,23 +12,32 @@ public class RailPuzzle : MonoBehaviour
     [SerializeField] int winPos;
     [SerializeField] int railNum;
 
+    private Transform childTransform;
+
+    [SerializeField] AudioSource statueSound;
+
     [SerializeField] RailManager manager;
 
     private void Awake()
     {
+        childTransform = transform.GetChild(0);
         GameManager.Instance.rail.Add(state);
     }
 
     public void GoForward()
     {
-        if (posCounter == 4) return;
+        if (posCounter == 4)
+        {
+            //Sonido de NO SE PUEDE
+            return;
+        }
 
+        statueSound.Play();
         posCounter++;
-        Debug.Log($"La posicion es {posCounter} y la estatua va hacia adelante");
 
         var newPos = posInRail[posCounter].position;
 
-        transform.position = newPos;
+        childTransform.position = newPos;
 
         CheckPos();
     }
@@ -37,12 +46,12 @@ public class RailPuzzle : MonoBehaviour
     {
         if (posCounter == 0) return;
 
+        statueSound.Play();
         posCounter--;
-        Debug.Log($"La posicion es {posCounter} y la estatua va hacia atrás");
 
         var newPos = posInRail[posCounter].position;
 
-        transform.position = newPos;
+        childTransform.position = newPos;
 
         CheckPos();
     }

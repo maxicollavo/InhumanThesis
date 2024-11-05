@@ -53,6 +53,7 @@ public class CableInteractor : MonoBehaviour, Interactor
     {
         if (!isActivated)
         {
+            isActivated = true;
             electricParticle.Play();
             electricSound.Play();
             anim.SetBool("OnAction", true);
@@ -62,15 +63,16 @@ public class CableInteractor : MonoBehaviour, Interactor
     void RestartSparkle()
     {
         GameManager.Instance.electricityIsRunning = false;
+        GameManager.Instance.cableCounter--;
         lightIndicatorMat.material = red;
         electricBoxLightMat.material = red;
-        electricSound.Stop();
-        counter = 5f;
+        electricParticle.Stop();
         anim.SetBool("OnAction", false);
         anim.Play("OnAction", -1, 0f);
-        electricParticle.Stop();
+        counter = 5f;
+        electricSound.Stop();
+        isActivated = false;
         collider.enabled = true;
-        GameManager.Instance.cableCounter--;
     }
 
     void TurnRailOn()
@@ -140,6 +142,7 @@ public class CableInteractor : MonoBehaviour, Interactor
                 yield return new WaitForSeconds(1f);
                 counter--;
             }
+
             RestartSparkle();
         }
     }
