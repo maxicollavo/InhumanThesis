@@ -1,9 +1,11 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class RailPuzzle : MonoBehaviour
 {
     public List<Transform> posInRail = new List<Transform>();
+    public List<GameObject> thisButtons = new List<GameObject>();
 
     public int posCounter;
 
@@ -37,7 +39,7 @@ public class RailPuzzle : MonoBehaviour
 
         var newPos = posInRail[posCounter].position;
 
-        childTransform.position = newPos;
+        StartCoroutine(MoveChildTransform(newPos));
 
         CheckPos();
     }
@@ -51,7 +53,7 @@ public class RailPuzzle : MonoBehaviour
 
         var newPos = posInRail[posCounter].position;
 
-        childTransform.position = newPos;
+        StartCoroutine(MoveChildTransform(newPos));
 
         CheckPos();
     }
@@ -68,5 +70,33 @@ public class RailPuzzle : MonoBehaviour
         }
 
         manager.CheckWin();
+    }
+
+    private IEnumerator MoveChildTransform(Vector3 targetPosition)
+    {
+        foreach (var button in thisButtons)
+        {
+            var coll = button.GetComponent<BoxCollider>();
+            coll.enabled = false;
+        }
+
+        float time = 0;
+        Vector3 startPosition = childTransform.position;
+
+        while (time < 1)
+        {
+            time += Time.deltaTime;
+            childTransform.position = Vector3.Lerp(startPosition, targetPosition, time);
+            yield return null;
+        }
+
+        childTransform.position = targetPosition;
+        yield return new WaitForSeconds(0.25f);
+
+        foreach (var button in thisButtons)
+        {
+            var coll = button.GetComponent<BoxCollider>();
+            coll.enabled = true;
+        }
     }
 }

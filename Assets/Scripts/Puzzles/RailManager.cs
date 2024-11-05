@@ -37,6 +37,7 @@ public class RailManager : MonoBehaviour
         //GameManager.Instance.railButton.enabled = true;
         //rightDoor.SetBool("IsTrue", true);
         //leftDoor.SetBool("IsTrue", true);
+        Timer.Instance.hasWon = true;
         clockAnim.speed = 0;
         winBell.Play();
         yield return new WaitForSeconds(2f);

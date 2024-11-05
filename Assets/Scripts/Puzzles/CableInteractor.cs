@@ -17,6 +17,7 @@ public class CableInteractor : MonoBehaviour, Interactor
     [SerializeField] int index;
 
     private bool isActivated;
+    private bool hasDone;
 
     [SerializeField] Renderer lightIndicatorMat;
     [SerializeField] Renderer electricBoxLightMat;
@@ -36,7 +37,7 @@ public class CableInteractor : MonoBehaviour, Interactor
 
     private void Update()
     {
-        if (GameManager.Instance.allCablesArrived)
+        if (GameManager.Instance.allCablesArrived && !hasDone)
         {
             isActivated = true;
             lightIndicatorMat.material = green;
@@ -115,6 +116,7 @@ public class CableInteractor : MonoBehaviour, Interactor
             var coll = button.GetComponent<BoxCollider>();
             coll.enabled = true;
         }
+        hasDone = true;
     }
 
     public void AnimFinish()

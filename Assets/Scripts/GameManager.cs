@@ -94,7 +94,6 @@ public class GameManager : MonoBehaviour
     public BoxCollider cableButton;
     public BoxCollider paintButton;
     public BoxCollider colorButton;
-    public BoxCollider railButton;
 
     public AudioSource winBell;
 
