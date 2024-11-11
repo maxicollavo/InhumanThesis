@@ -77,14 +77,6 @@ public class GameManager : MonoBehaviour
     public List<bool> rail = new List<bool>();
     #endregion Lists
 
-    #region HeartBeat UI
-    public RectTransform heart;
-    private Vector3 heartSize;
-    public float initialBeatScale = 0.8f;
-    public float initialBeatDuration = 0.5f;
-    public float acceleratedBeatDuration = 0.25f;
-    #endregion HeartBeat UI
-
     #region PowerSwitching
     private int powerInt;
     private int maxPowerInt;
@@ -96,8 +88,6 @@ public class GameManager : MonoBehaviour
     public BoxCollider colorButton;
 
     public AudioSource winBell;
-
-    public float levelCounter = 60;
 
     public static GameManager Instance { get; set; }
 
@@ -154,7 +144,7 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        if (levelCounter <= 0)
+        if (Timer.Instance.remainingTime <= 1)
         {
             SceneManager.LoadScene("LostScene");
         }
@@ -285,31 +275,20 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator DecreaseLevelTime()
     {
-        first30Secs.Play(); bool last30 = false;
+        first30Secs.Play();
+        bool last30 = false;
 
-        StartHeartBeat(initialBeatDuration);
-
-        while (levelCounter > 0)
+        while (Timer.Instance.remainingTime > 0)
         {
             yield return new WaitForSeconds(1f);
-            levelCounter--;
+            Timer.Instance.remainingTime--;
 
-            if (levelCounter <= 30 && !last30)
+            if (Timer.Instance.remainingTime <= 30 && !last30)
             {
                 last30Secs.Play();
                 last30 = true;
-                StartHeartBeat(acceleratedBeatDuration);
             }
         }
-    }
-
-    void StartHeartBeat(float beatDuration)
-    {
-        LeanTween.cancel(heart);
-
-        LeanTween.scale(heart, new Vector3(initialBeatScale, initialBeatScale, initialBeatScale), beatDuration)
-                 .setEase(LeanTweenType.easeInOutSine)
-                 .setLoopPingPong();
     }
 
     public void TorchSoundStop()

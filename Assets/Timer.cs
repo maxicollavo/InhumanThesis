@@ -4,7 +4,7 @@ using UnityEngine;
 public class Timer : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI timerText;
-    [SerializeField] float remainingTime;
+    public float remainingTime;
 
     public bool hasWon;
 
@@ -14,6 +14,7 @@ public class Timer : MonoBehaviour
     {
         Instance = this;
     }
+
     void Update()
     {
         if (!hasWon)
