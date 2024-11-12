@@ -6,6 +6,14 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    [HideInInspector]
+    public bool canMove = true;
+
+    [SerializeField]
+    Transform jumpscare;
+
+    private Transform cameraTransform;
+
     #region States
     [HideInInspector]
     public PowerStates state;
@@ -99,6 +107,8 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        cameraTransform = Camera.main.transform;
+
         maxPowerInt = 1;
         codeCount = 0;
         canShoot = true;
@@ -106,6 +116,12 @@ public class GameManager : MonoBehaviour
 
     public void Update()
     {
+        if (!canMove)
+        {
+            Debug.Log("Se detiene el GameManager");
+            return;
+        }
+
         float scroll = Input.GetAxis("Mouse ScrollWheel");
 
         if (scroll > 0f)
@@ -146,7 +162,9 @@ public class GameManager : MonoBehaviour
 
         if (Timer.Instance.remainingTime <= 1)
         {
-            SceneManager.LoadScene("LostScene");
+            Debug.Log("empieza la corutina de mirar al bicho");
+
+            StartCoroutine(JumpscareLookAt());
         }
     }
 
@@ -272,6 +290,24 @@ public class GameManager : MonoBehaviour
     #endregion PaintPuzzle
 
     #endregion Puzzles
+
+    public IEnumerator JumpscareLookAt()
+    {
+        canMove = false;
+        yield return new WaitForSeconds(1f);
+
+        float rotationSpeed = 1f;
+        Quaternion targetRotation = Quaternion.LookRotation(jumpscare.position - cameraTransform.position);
+
+        while (Quaternion.Angle(cameraTransform.rotation, targetRotation) > 0.1f)
+        {
+            cameraTransform.rotation = Quaternion.RotateTowards(cameraTransform.rotation, targetRotation, rotationSpeed);
+            yield return null;
+        }
+
+        yield return new WaitForSeconds(3f);
+        SceneManager.LoadScene("LostScene");
+    }
 
     public IEnumerator DecreaseLevelTime()
     {

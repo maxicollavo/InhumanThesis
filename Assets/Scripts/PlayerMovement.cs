@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -35,6 +33,12 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        if (!GameManager.Instance.canMove)
+        {
+            StopPlayer();
+            return;
+        }
+
         if (mag > 0.5f)
         {
             if (!stepsSound.isPlaying)
@@ -57,11 +61,18 @@ public class PlayerMovement : MonoBehaviour
 
         if (grounded)
             _rb.drag = groundDrag;
-        else _rb.drag = 0;
+        else
+            _rb.drag = 0;
     }
 
     private void FixedUpdate()
     {
+        if (!GameManager.Instance.canMove)
+        {
+            Debug.Log("El jugador no puede moverse con sus fisicas");
+            return;
+        }
+
         MovePlayer();
     }
 
@@ -69,6 +80,15 @@ public class PlayerMovement : MonoBehaviour
     {
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
+    }
+
+    private void StopPlayer()
+    {
+        Debug.Log("Se llama método StopPlayer");
+
+        _rb.velocity = Vector3.zero;
+        _rb.angularVelocity = Vector3.zero;
+        stepsSound.Stop();
     }
 
     private void MovePlayer()

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -28,7 +26,13 @@ public class PlayerCam : MonoBehaviour
 
     private void LateUpdate()
     {
-        sensX = SensX.value; 
+        if (!GameManager.Instance.canMove)
+        {
+            Debug.Log("Se detiene la cámara");
+            return;
+        }
+
+        sensX = SensX.value;
         sensY = SensY.value;
 
         float xMouse = Input.GetAxisRaw("Mouse X") * Time.deltaTime * sensX;
