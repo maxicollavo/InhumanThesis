@@ -74,6 +74,8 @@ public class GameManager : MonoBehaviour
     public List<GameObject> greenRailList;
     public List<GameObject> railButtons;
 
+    public List<GameObject> pumpkins;
+
     public List<Transform> spawnerUpside = new List<Transform>();
     public List<Transform> spawnerReal = new List<Transform>();
 
@@ -323,6 +325,10 @@ public class GameManager : MonoBehaviour
             {
                 last30Secs.Play();
                 last30 = true;
+                foreach (var item in pumpkins)
+                {
+                    item.SetActive(true);
+                }
             }
         }
     }
