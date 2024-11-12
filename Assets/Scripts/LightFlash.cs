@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class LightFlash : MonoBehaviour
 {
-    private float timeDelay;
+    public float timeDelay;
     public Light floorSpotlight;
     public Light sealingSpotlight;
 
@@ -22,11 +22,11 @@ public class LightFlash : MonoBehaviour
         {
             floorSpotlight.enabled = false;
             sealingSpotlight.enabled = false;
-            timeDelay = Random.Range(0.01f, 0.2f);
+            timeDelay = Random.Range(0.03f, 0.5f);
             yield return new WaitForSeconds(timeDelay);
             floorSpotlight.enabled = true;
             sealingSpotlight.enabled = true;
-            timeDelay = Random.Range(0.01f, 0.2f);
+            timeDelay = Random.Range(0.03f, 0.5f);
             yield return new WaitForSeconds(timeDelay);
         }
     }
