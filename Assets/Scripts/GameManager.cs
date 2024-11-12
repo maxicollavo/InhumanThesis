@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Rendering.PostProcessing;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
@@ -11,6 +12,9 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     Transform jumpscare;
+
+    [SerializeField]
+    Transform jumpscareUpside;
 
     private Transform cameraTransform;
 
@@ -99,6 +103,9 @@ public class GameManager : MonoBehaviour
 
     public AudioSource winBell;
 
+    public PostProcessProfile profile;
+    private UnityEngine.Rendering.PostProcessing.ChromaticAberration ca;
+
     public static GameManager Instance { get; set; }
 
     private void Awake()
@@ -111,6 +118,9 @@ public class GameManager : MonoBehaviour
     {
         cameraTransform = Camera.main.transform;
 
+        ca = profile.GetSetting<UnityEngine.Rendering.PostProcessing.ChromaticAberration>();
+        ca.intensity.Override(0);
+
         maxPowerInt = 1;
         codeCount = 0;
         canShoot = true;
@@ -118,6 +128,15 @@ public class GameManager : MonoBehaviour
 
     public void Update()
     {
+        if (LaserBeam.Instance.playerOnUpside)
+        {
+            ca.intensity.Override(1);
+        }
+        else
+        {
+            ca.intensity.Override(0);
+        }
+
         if (!canMove)
         {
             Debug.Log("Se detiene el GameManager");
@@ -165,8 +184,14 @@ public class GameManager : MonoBehaviour
         if (Timer.Instance.remainingTime <= 1)
         {
             Debug.Log("empieza la corutina de mirar al bicho");
-
-            StartCoroutine(JumpscareLookAt());
+            if (!LaserBeam.Instance.playerOnUpside)
+            {
+                StartCoroutine(JumpscareLookAt(jumpscare));
+            }
+            else
+            {
+                StartCoroutine(JumpscareLookAt(jumpscareUpside));
+            }
         }
     }
 
@@ -293,7 +318,7 @@ public class GameManager : MonoBehaviour
 
     #endregion Puzzles
 
-    public IEnumerator JumpscareLookAt()
+    public IEnumerator JumpscareLookAt(Transform jumpscare)
     {
         canMove = false;
         yield return new WaitForSeconds(1f);

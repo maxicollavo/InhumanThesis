@@ -11,7 +11,7 @@ public class LaserBeam : MonoBehaviour
     public List<Transform> realTP = new List<Transform>();
     public List<Transform> upsideTP = new List<Transform>();
     public int tpCounter;
-    private bool playerOnUpside;
+    public bool playerOnUpside;
     [SerializeField] float gunRange = 20f;
     [SerializeField] float fireRate = 0.2f;
     private float _fireTimer;

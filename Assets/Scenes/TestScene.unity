@@ -2670,7 +2670,7 @@ Transform:
   m_GameObject: {fileID: 21799845}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.70710677, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 259.5, y: -7.28, z: 89.37}
+  m_LocalPosition: {x: 259.5, y: -4.5, z: 89.37}
   m_LocalScale: {x: 2.3688445, y: 1, z: 1.7864075}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -35797,6 +35797,37 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 166814715}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &167138920
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 167138921}
+  m_Layer: 0
+  m_Name: TransformUpside
+  m_TagString: Untagged
+  m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &167138921
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 167138920}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 50.13, y: 4.4, z: 7.613}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 471908568}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &167762749
 GameObject:
   m_ObjectHideFlags: 0
@@ -83568,6 +83599,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2105274163}
+  - {fileID: 167138921}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &471953828
@@ -103190,6 +103222,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canMove: 1
   jumpscare: {fileID: 2105274163}
+  jumpscareUpside: {fileID: 167138921}
   state: 0
   codeCount: 0
   cableCounter: 0
@@ -103327,6 +103360,7 @@ MonoBehaviour:
   paintButton: {fileID: 236839200}
   colorButton: {fileID: 381863260}
   winBell: {fileID: 900485580}
+  profile: {fileID: 11400000, guid: c25ce4df98fd5504580fbba2a9fc024c, type: 2}
 --- !u!4 &561103283
 Transform:
   m_ObjectHideFlags: 0
@@ -202667,6 +202701,7 @@ MonoBehaviour:
   upsideTP:
   - {fileID: 589225721}
   tpCounter: 0
+  playerOnUpside: 0
   gunRange: 50
   fireRate: 0.05
   limit4th:
@@ -282126,7 +282161,7 @@ Animator:
   m_GameObject: {fileID: 1675930912}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 067e013c434e1ff4c9cf5c58da67c04e, type: 2}
+  m_Controller: {fileID: 9100000, guid: 03393ece787842c49bbf43f7e0d44ff9, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -286945,7 +286980,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab3dbce86cda00a4391936e5d50e288a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ci: {fileID: 0}
+  ci: {fileID: 920273402}
 --- !u!1 &1675999317
 GameObject:
   m_ObjectHideFlags: 0
@@ -323734,7 +323769,7 @@ Transform:
   m_GameObject: {fileID: 1975028831}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.70710677, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 175.22, y: -8.13, z: 84.1}
+  m_LocalPosition: {x: 175.22, y: -4.5, z: 84.1}
   m_LocalScale: {x: 1.1846, y: 1, z: 1.7864075}
   m_ConstrainProportionsScale: 0
   m_Children: []
