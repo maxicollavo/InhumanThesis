@@ -106,6 +106,8 @@ public class GameManager : MonoBehaviour
     public PostProcessProfile profile;
     private UnityEngine.Rendering.PostProcessing.ChromaticAberration ca;
 
+    public CameraShake cameraShake;
+
     public static GameManager Instance { get; set; }
 
     private void Awake()

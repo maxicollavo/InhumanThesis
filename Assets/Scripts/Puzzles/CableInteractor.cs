@@ -47,6 +47,7 @@ public class CableInteractor : MonoBehaviour, Interactor
             electricSound.Stop();
             electricParticle.Stop();
             TurnRailOn();
+            GameManager.Instance.cameraShake.TriggerShake();
         }
     }
 
@@ -140,12 +141,17 @@ public class CableInteractor : MonoBehaviour, Interactor
 
             while (counter > 0)
             {
+                if (GameManager.Instance.allCablesArrived) break;
+
                 timerSound.Play();
                 yield return new WaitForSeconds(1f);
                 counter--;
             }
 
-            RestartSparkle();
+            if (!GameManager.Instance.allCablesArrived)
+            {
+                RestartSparkle();
+            }
         }
     }
 }
