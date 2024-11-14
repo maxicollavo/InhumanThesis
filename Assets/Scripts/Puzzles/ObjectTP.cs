@@ -39,7 +39,7 @@ public class ObjectTP : MonoBehaviour, ITeleportable
             transform.position = spawnPoint.position;
             onStation = !onStation;
             checkerList.Find(x => x.spot == actualSpot).CanReceiveBoolChange();
-            TPManager.Instance.colorList.RemoveAt(actualSpot); //Error al devolver el cubo de los primeros spots
+            TPManager.Instance.colorList.RemoveAt(actualSpot); 
             actualSpot = 0;
             TPManager.Instance.spotCounter--;
         }

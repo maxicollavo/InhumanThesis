@@ -16,6 +16,12 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     Transform jumpscareUpside;
 
+    [SerializeField]
+    ScreamerTeleport realScreamer;
+
+    [SerializeField]
+    ScreamerTeleport upsideScreamer;
+
     private Transform cameraTransform;
 
     #region States
@@ -39,12 +45,12 @@ public class GameManager : MonoBehaviour
     #endregion GameObjects
 
     #region Animators
-    [SerializeField] Animator doorTorch;
-    [SerializeField] Animator doorTorchTwo;
-    //[SerializeField] Animator stoneAnim;
-    [SerializeField] Animator doorPaint;
-    [SerializeField] Animator doorPaintTwo;
     [SerializeField] Animator clockAnim;
+
+    [SerializeField] Animator firstPuzzleRealLeftDoor;
+    [SerializeField] Animator firstPuzzleRealRightDoor;
+    [SerializeField] Animator firstPuzzleUpsideLeftDoor;
+    [SerializeField] Animator firstPuzzleUpsideRightDoor;
     #endregion Animators
 
     #region Bools
@@ -64,8 +70,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] AudioSource codeSound;
     [SerializeField] AudioSource paintSound;
     [SerializeField] AudioSource explosionSound;
-    [SerializeField] AudioSource first30Secs;
+    [SerializeField] AudioSource firstBeats;
     [SerializeField] AudioSource last30Secs;
+    [SerializeField] AudioSource mirror;
     #endregion Sounds
 
     #region Lists
@@ -267,8 +274,6 @@ public class GameManager : MonoBehaviour
         torchButton.enabled = true;
         winBell.Play();
         doorOpenSound.Play();
-        doorTorch.SetBool("IsTrue", true);
-        doorTorchTwo.SetBool("IsTrue", true);
     }
     #endregion TorchPuzzle
 
@@ -313,8 +318,6 @@ public class GameManager : MonoBehaviour
         winBell.Play();
 
         clockAnim.speed = 0;
-        doorPaint.SetBool("IsTrue", true);
-        doorPaintTwo.SetBool("IsTrue", true);
     }
     #endregion PaintPuzzle
 
@@ -323,7 +326,7 @@ public class GameManager : MonoBehaviour
     public IEnumerator JumpscareLookAt(Transform jumpscare)
     {
         canMove = false;
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
 
         float rotationSpeed = 1f;
         Quaternion targetRotation = Quaternion.LookRotation(jumpscare.position - cameraTransform.position);
@@ -334,28 +337,56 @@ public class GameManager : MonoBehaviour
             yield return null;
         }
 
-        yield return new WaitForSeconds(3f);
+        //Abrir puertas
+        if (LaserBeam.Instance.playerOnUpside)
+        {
+            firstPuzzleUpsideLeftDoor.SetBool("IsTrue", true);
+            firstPuzzleUpsideRightDoor.SetBool("IsTrue", true);
+        }
+        else
+        {
+            firstPuzzleRealLeftDoor.SetBool("IsTrue", true);
+            firstPuzzleRealRightDoor.SetBool("IsTrue", true);
+        }
+
+        //Sonido de abrir puertas
+        doorOpenSound.Play();
+        yield return new WaitForSeconds(0.5f);
+
+
+        //Sonido fuerte
+        //Shake de camera
+        //Efecto estática de camera
+        //Bicho hacia el jugador, solo el que comparta mundo, el otro dejarlo quieto
+        if (LaserBeam.Instance.playerOnUpside)
+        {
+            upsideScreamer.TeleportToPlayer();
+        }
+        else
+        {
+            realScreamer.TeleportToPlayer();
+        }
+
+        yield return new WaitForSeconds(2f);
         SceneManager.LoadScene("LostScene");
     }
 
-    public IEnumerator DecreaseLevelTime()
+    public void DecreaseLevelTime()
     {
-        first30Secs.Play();
-        bool last30 = false;
+        firstBeats.Play();
 
-        while (Timer.Instance.remainingTime > 0)
+        if (Timer.Instance.last30)
         {
-            yield return new WaitForSeconds(1f);
-            Timer.Instance.remainingTime--;
+            firstBeats.Stop();
+            last30Secs.Play();
+            mirror.Play();
 
-            if (Timer.Instance.remainingTime <= 30 && !last30)
+            foreach (var item in pumpkins)
             {
-                last30Secs.Play();
-                last30 = true;
-                foreach (var item in pumpkins)
-                {
-                    item.SetActive(true);
-                }
+                item.SetActive(true);
+                //Sonido de aviso de miedo
+                //Algun mini shake de camera
+                //Algun efecto en la cámara como de estática
             }
         }
     }
