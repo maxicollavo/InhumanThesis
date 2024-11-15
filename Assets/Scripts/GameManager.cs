@@ -73,6 +73,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] AudioSource firstBeats;
     [SerializeField] AudioSource last30Secs;
     [SerializeField] AudioSource mirror;
+    [SerializeField] AudioSource jumpscareSound;
     #endregion Sounds
 
     #region Lists
@@ -354,8 +355,8 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
 
 
-        //Sonido fuerte
         //Shake de camera
+        cameraShake.TriggerShake(4f);
         //Efecto estática de camera
         //Bicho hacia el jugador, solo el que comparta mundo, el otro dejarlo quieto
         if (LaserBeam.Instance.playerOnUpside)
@@ -366,6 +367,8 @@ public class GameManager : MonoBehaviour
         {
             realScreamer.TeleportToPlayer();
         }
+        //Sonido fuerte
+        jumpscareSound.Play();
 
         yield return new WaitForSeconds(2f);
         SceneManager.LoadScene("LostScene");

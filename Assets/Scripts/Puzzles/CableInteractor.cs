@@ -47,7 +47,7 @@ public class CableInteractor : MonoBehaviour, Interactor
             electricSound.Stop();
             electricParticle.Stop();
             TurnRailOn();
-            GameManager.Instance.cameraShake.TriggerShake();
+            GameManager.Instance.cameraShake.TriggerShake(2f);
         }
     }
 

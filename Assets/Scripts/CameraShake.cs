@@ -3,7 +3,6 @@ using System.Collections;
 
 public class CameraShake : MonoBehaviour
 {
-    public float shakeDuration = 0.5f;
     public float shakeMagnitude = 0.3f;
     public float dampingSpeed = 1.0f;
 
@@ -15,7 +14,7 @@ public class CameraShake : MonoBehaviour
         initialPosition = transform.localPosition;
     }
 
-    public void TriggerShake()
+    public void TriggerShake(float shakeDuration)
     {
         currentShakeDuration = shakeDuration;
     }
