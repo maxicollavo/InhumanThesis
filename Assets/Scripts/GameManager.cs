@@ -113,6 +113,7 @@ public class GameManager : MonoBehaviour
 
     public PostProcessProfile profile;
     private UnityEngine.Rendering.PostProcessing.ChromaticAberration ca;
+    private UnityEngine.Rendering.PostProcessing.ColorGrading cg;
 
     public CameraShake cameraShake;
 
@@ -129,8 +130,9 @@ public class GameManager : MonoBehaviour
         cameraTransform = Camera.main.transform;
 
         ca = profile.GetSetting<UnityEngine.Rendering.PostProcessing.ChromaticAberration>();
+        cg = profile.GetSetting<UnityEngine.Rendering.PostProcessing.ColorGrading>();
         ca.intensity.Override(0);
-
+        cg.active = false;
         maxPowerInt = 1;
         codeCount = 0;
         canShoot = true;
@@ -141,10 +143,12 @@ public class GameManager : MonoBehaviour
         if (LaserBeam.Instance.playerOnUpside)
         {
             ca.intensity.Override(1);
+            cg.active = true;
         }
         else
         {
             ca.intensity.Override(0);
+            cg.active = false;
         }
 
         if (!canMove)
