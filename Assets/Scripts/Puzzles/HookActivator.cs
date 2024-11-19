@@ -10,6 +10,7 @@ public class HookActivator : MonoBehaviour, Interactor
         foreach (var hook in hooks)
         {
             hook.Mover();
+            hook.WinChecker();
         }
     }
 }

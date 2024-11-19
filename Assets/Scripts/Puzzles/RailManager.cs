@@ -11,6 +11,13 @@ public class RailManager : MonoBehaviour
 
     private int counter;
 
+    public static RailManager Instance { get; private set; }
+
+    private void Awake()
+    {
+        Instance = this;
+    }
+
     public void CheckWin()
     {
         foreach (var item in GameManager.Instance.rail)

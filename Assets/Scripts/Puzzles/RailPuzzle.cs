@@ -18,8 +18,6 @@ public class RailPuzzle : MonoBehaviour
 
     [SerializeField] AudioSource statueSound;
 
-    [SerializeField] RailManager manager;
-
     private void Awake()
     {
         childTransform = transform.GetChild(0);
@@ -69,7 +67,7 @@ public class RailPuzzle : MonoBehaviour
             GameManager.Instance.rail[railNum] = false;
         }
 
-        manager.CheckWin();
+        RailManager.Instance.CheckWin();
     }
 
     private IEnumerator MoveChildTransform(Vector3 targetPosition)
