@@ -17,11 +17,13 @@ public class PlayerCam : MonoBehaviour
 
     public bool menuPressed;
     [SerializeField] GameObject pauseMenu;
+    public GameObject Camera2;
 
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        Camera2.SetActive(true);
     }
 
     private void LateUpdate()

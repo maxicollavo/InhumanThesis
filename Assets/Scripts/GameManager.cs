@@ -247,8 +247,10 @@ public class GameManager : MonoBehaviour
         }
 
         bool isWinningCondition = sumOfLitTorches == 11;
-
-        ShowRailColorsSolved();
+        if (isWinningCondition)
+        {
+            ShowRailColorsSolved();
+        }
     }
 
     public IEnumerable<bool> GetTorchesLitGenerator()
