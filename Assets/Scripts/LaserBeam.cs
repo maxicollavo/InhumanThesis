@@ -24,6 +24,11 @@ public class LaserBeam : MonoBehaviour
 
     public static LaserBeam Instance { get; private set; }
 
+    private void Awake()
+    {
+        Instance = this;
+    }
+
     void Update()
     {
         _fireTimer += Time.deltaTime;
@@ -32,11 +37,6 @@ public class LaserBeam : MonoBehaviour
         {
             ActivatePower();
         }
-    }
-
-    private void Awake()
-    {
-        Instance = this;
     }
 
     void ActivatePower()

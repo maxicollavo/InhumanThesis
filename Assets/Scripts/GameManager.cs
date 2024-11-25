@@ -85,8 +85,9 @@ public class GameManager : MonoBehaviour
     public List<GameObject> yellowRailList;
     public List<GameObject> greenRailList;
     public List<GameObject> railButtons;
+    public List<GameObject> railSolved;
 
-    public List<GameObject> pumpkins;
+    public List<GameObject> screamers;
 
     public List<Transform> spawnerUpside = new List<Transform>();
     public List<Transform> spawnerReal = new List<Transform>();
@@ -217,13 +218,12 @@ public class GameManager : MonoBehaviour
     #region Puzzles
 
     #region TorchPuzzle
-    private void ShowAndHideSecretCode(bool areTorchLit, GameObject secretCode)
+    private void ShowRailColorsSolved()
     {
-        secretCode.SetActive(areTorchLit);
-
-        if (areTorchLit)
+        foreach (var item in railSolved)
         {
-            codeSound.Play();
+            var rail = item.GetComponent<RailSolvedColor>();
+            rail.Interactor();
         }
     }
 
@@ -234,36 +234,21 @@ public class GameManager : MonoBehaviour
             torchsLit = new List<bool>(new bool[torches.Count]);
         }
 
+        int sumOfLitTorches = 0;
+
         for (int i = 0; i < torches.Count; i++)
         {
             torchsLit[i] = torches[i].GetComponent<CodeInteractor>().isLit;
+
+            if (torchsLit[i])
+            {
+                sumOfLitTorches += i + 1;
+            }
         }
 
-        var torchesWithIndex = GetTorchesLitGenerator()
-                                .Select((isLit, index) => new { Index = index, IsLit = isLit })
-                                .ToList();
+        bool isWinningCondition = sumOfLitTorches == 11;
 
-        bool allTorchsLit = torchesWithIndex
-                                .Aggregate(true, (allLit, torch) => allLit && torch.IsLit);
-
-        ShowAndHideSecretCode(allTorchsLit, torchSecretCode);
-
-        bool requiredTorches = torchesWithIndex
-                                .Where(t => t.Index == 0 || t.Index == 4 || t.Index == 5)
-                                .Aggregate(true, (result, torch) => result && torch.IsLit);
-
-        bool notRequiredTorches = torchesWithIndex
-                                .Where(t => t.Index == 1 || t.Index == 2 || t.Index == 3)
-                                .Aggregate(true, (result, torch) => result && !torch.IsLit);
-
-        if (requiredTorches && notRequiredTorches)
-        {
-            ShowAndHideSecretCode(true, railSecretCode);
-        }
-        else
-        {
-            ShowAndHideSecretCode(false, railSecretCode);
-        }
+        ShowRailColorsSolved();
     }
 
     public IEnumerable<bool> GetTorchesLitGenerator()
@@ -272,13 +257,6 @@ public class GameManager : MonoBehaviour
         {
             yield return state;
         }
-    }
-
-    private void OpenTorchDoor()
-    {
-        torchButton.enabled = true;
-        winBell.Play();
-        doorOpenSound.Play();
     }
     #endregion TorchPuzzle
 
@@ -388,7 +366,7 @@ public class GameManager : MonoBehaviour
             last30Secs.Play();
             mirror.Play();
 
-            foreach (var item in pumpkins)
+            foreach (var item in screamers)
             {
                 item.SetActive(true);
                 //Sonido de aviso de miedo
@@ -412,4 +390,12 @@ public enum PowerStates
 {
     OnLaser,
     OnDimension
+}
+
+public enum RailColors
+{
+    Red,
+    Blue,
+    Yellow,
+    Green
 }

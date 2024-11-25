@@ -4,9 +4,8 @@ using UnityEngine.SceneManagement;
 
 public class RailManager : MonoBehaviour
 {
-    [SerializeField] Animator rightDoor;
-    [SerializeField] Animator leftDoor;
-    [SerializeField] Animator clockAnim;
+    [SerializeField] Animator rightWinDoorLvlOne;
+    [SerializeField] Animator leftWinDoorLvlOne;
     public AudioSource winBell;
 
     private int counter;
@@ -41,13 +40,10 @@ public class RailManager : MonoBehaviour
 
     private IEnumerator Win()
     {
-        //GameManager.Instance.railButton.enabled = true;
-        //rightDoor.SetBool("IsTrue", true);
-        //leftDoor.SetBool("IsTrue", true);
         Timer.Instance.hasWon = true;
-        clockAnim.speed = 0;
         winBell.Play();
         yield return new WaitForSeconds(2f);
-        SceneManager.LoadScene("EndDemoScene");
+        rightWinDoorLvlOne.SetBool("IsTrue", true);
+        leftWinDoorLvlOne.SetBool("IsTrue", true);
     }
 }

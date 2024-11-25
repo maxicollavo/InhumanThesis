@@ -60,6 +60,7 @@ public class HookBehaviour : MonoBehaviour
 
         RailManager.Instance.CheckWin();
     }
+
     public void AnimatorChanger()
     {
         canMove = true;
