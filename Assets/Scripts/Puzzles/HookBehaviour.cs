@@ -47,14 +47,12 @@ public class HookBehaviour : MonoBehaviour
 
         if (index == winPos)
         {
-            Debug.Log($"El bool {GameManager.Instance.rail[bodyNum - 1]} se vuelve true");
             GameManager.Instance.rail[bodyNum - 1] = true;
         }
         else
         {
             if (!GameManager.Instance.rail[index]) return;
 
-            Debug.Log($"El bool {GameManager.Instance.rail[bodyNum - 1]} se vuelve false");
             GameManager.Instance.rail[bodyNum - 1] = false;
         }
 
