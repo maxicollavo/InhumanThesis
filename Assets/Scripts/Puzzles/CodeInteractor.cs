@@ -10,6 +10,7 @@ public class CodeInteractor : MonoBehaviour, Interactor
     private Renderer torchRenderer;
     public Shader shader1;
     public Shader shader2;
+    public Shader shader3;
     public ParticleSystem FireParticle;
     public TextMeshProUGUI numberText;
 
@@ -57,6 +58,13 @@ public class CodeInteractor : MonoBehaviour, Interactor
             torchRenderer.material.shader = shader2;
             numberText.color = Color.green;
             FireParticle.Play();
+
+            if (GameManager.Instance.torchWin)
+            {
+                torchRenderer.material.shader = shader3;
+                numberText.color = Color.magenta;
+
+            }
         }
         else
         {

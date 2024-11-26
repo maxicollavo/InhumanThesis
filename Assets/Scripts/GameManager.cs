@@ -24,6 +24,8 @@ public class GameManager : MonoBehaviour
 
     private Transform cameraTransform;
 
+    public bool torchWin;
+
     #region States
     [HideInInspector]
     public PowerStates state;
@@ -207,6 +209,15 @@ public class GameManager : MonoBehaviour
                 StartCoroutine(JumpscareLookAt(jumpscareUpside));
             }
         }
+
+        if (torchWin)
+        {
+            foreach (var item in torches)
+            {
+                var boxColl = item.GetComponent<BoxCollider>();
+                boxColl.enabled = false;
+            }
+        }
     }
 
     public void ChangeState(PowerStates power)
@@ -219,6 +230,7 @@ public class GameManager : MonoBehaviour
     #region TorchPuzzle
     private void ShowRailColorsSolved()
     {
+        torchWin = true;
         winBell.Play();
         cameraShake.TriggerShake(2f);
         foreach (var item in railSolved)
