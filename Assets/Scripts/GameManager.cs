@@ -198,7 +198,6 @@ public class GameManager : MonoBehaviour
 
         if (Timer.Instance.remainingTime <= 1)
         {
-            Debug.Log("empieza la corutina de mirar al bicho");
             if (!LaserBeam.Instance.playerOnUpside)
             {
                 StartCoroutine(JumpscareLookAt(jumpscare));
@@ -220,10 +219,11 @@ public class GameManager : MonoBehaviour
     #region TorchPuzzle
     private void ShowRailColorsSolved()
     {
+        winBell.Play();
+        cameraShake.TriggerShake(2f);
         foreach (var item in railSolved)
         {
-            var rail = item.GetComponent<RailSolvedColor>();
-            rail.Interactor();
+            item.SetActive(true);
         }
     }
 
@@ -246,10 +246,9 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        bool isWinningCondition = sumOfLitTorches == 11;
-        if (isWinningCondition)
+        if (sumOfLitTorches == 11)
         {
-            //ShowRailColorsSolved();
+            ShowRailColorsSolved();
         }
     }
 
@@ -339,7 +338,6 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
 
 
-        //Shake de camera
         cameraShake.TriggerShake(4f);
         //Efecto estática de camera
         //Bicho hacia el jugador, solo el que comparta mundo, el otro dejarlo quieto
