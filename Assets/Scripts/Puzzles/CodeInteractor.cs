@@ -30,6 +30,16 @@ public class CodeInteractor : MonoBehaviour, Interactor
         torchRenderer = transform.parent.GetComponent<Renderer>();
     }
 
+    private void Update()
+    {
+        if (GameManager.Instance.torchWin && isLit)
+        {
+            Debug.Log("Entra al Torch State");
+            torchRenderer.material.shader = shader3;
+            numberText.color = Color.magenta;
+        }
+    }
+
     public void Interact()
     {
         isLit = !isLit;
@@ -58,13 +68,6 @@ public class CodeInteractor : MonoBehaviour, Interactor
             torchRenderer.material.shader = shader2;
             numberText.color = Color.green;
             FireParticle.Play();
-
-            if (GameManager.Instance.torchWin)
-            {
-                torchRenderer.material.shader = shader3;
-                numberText.color = Color.magenta;
-
-            }
         }
         else
         {
