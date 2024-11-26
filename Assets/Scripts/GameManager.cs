@@ -249,7 +249,7 @@ public class GameManager : MonoBehaviour
         bool isWinningCondition = sumOfLitTorches == 11;
         if (isWinningCondition)
         {
-            ShowRailColorsSolved();
+            //ShowRailColorsSolved();
         }
     }
 

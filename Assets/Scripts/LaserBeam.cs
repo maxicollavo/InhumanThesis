@@ -8,6 +8,10 @@ public class LaserBeam : MonoBehaviour
     [SerializeField] GameManager gm;
     [SerializeField] Camera playerCamera;
     [SerializeField] Transform laserSpawn;
+
+    [SerializeField] AudioSource tpRealSound;
+    [SerializeField] AudioSource tpDarkSound;
+
     public List<Transform> realTP = new List<Transform>();
     public List<Transform> upsideTP = new List<Transform>();
     public int tpCounter;
@@ -64,9 +68,15 @@ public class LaserBeam : MonoBehaviour
         StartCoroutine(TeleportCooldown());
 
         if (!playerOnUpside)
+        {
             transform.parent.position = upsideTP[tpCounter].position;
+            tpRealSound.Play();
+        }
         else
+        {
             transform.parent.position = realTP[tpCounter].position;
+            tpDarkSound.Play();
+        }
 
         playerOnUpside = !playerOnUpside;
     }

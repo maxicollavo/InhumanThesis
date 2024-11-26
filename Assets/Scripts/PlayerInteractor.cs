@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerInteractor : MonoBehaviour
 {
@@ -10,6 +11,11 @@ public class PlayerInteractor : MonoBehaviour
 
             if (doorCloser != null)
                 doorCloser.Close();
+        }
+
+        if (other.gameObject.CompareTag("Finisher"))
+        {
+            SceneManager.LoadScene("EndDemoScene");
         }
     }
 }

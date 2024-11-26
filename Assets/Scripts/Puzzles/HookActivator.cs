@@ -4,6 +4,7 @@ using UnityEngine;
 public class HookActivator : MonoBehaviour, Interactor
 {
     public List<HookBehaviour> hooks = new List<HookBehaviour>();
+    [SerializeField] AudioSource audio;
 
     public void Interact()
     {
@@ -12,5 +13,6 @@ public class HookActivator : MonoBehaviour, Interactor
             hook.Mover();
             hook.WinChecker();
         }
+        audio.Play();
     }
 }
