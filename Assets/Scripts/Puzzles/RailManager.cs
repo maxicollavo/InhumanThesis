@@ -11,6 +11,7 @@ public class RailManager : MonoBehaviour
     [SerializeField] CameraShake camShake;
 
     private int counter;
+    private bool hasWon;
 
     public static RailManager Instance { get; private set; }
 
@@ -21,13 +22,15 @@ public class RailManager : MonoBehaviour
 
     public void CheckWin()
     {
+        if (hasWon) return;
+
         foreach (var item in GameManager.Instance.rail)
         {
             if (item)
             {
                 counter++;
 
-                if (counter == 3)
+                if (counter == 4)
                 {
                     StartCoroutine(Win());
                 }
@@ -42,6 +45,7 @@ public class RailManager : MonoBehaviour
 
     private IEnumerator Win()
     {
+        hasWon = true;
         Timer.Instance.hasWon = true;
         winBell.Play();
         camShake.TriggerShake(2f);

@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class CableInteractor : MonoBehaviour, Interactor
@@ -28,6 +29,9 @@ public class CableInteractor : MonoBehaviour, Interactor
     [SerializeField] Material railBlue;
     [SerializeField] Material railYellow;
     [SerializeField] Material railGreen;
+
+    [SerializeField] List<GameObject> railLights;
+
     float counter = 5f;
 
     #region Sounds
@@ -80,6 +84,11 @@ public class CableInteractor : MonoBehaviour, Interactor
     void TurnRailOn()
     {
         //clockAnim.speed = 0;
+        foreach (var item in railLights)
+        {
+            item.SetActive(true);
+        }
+
         foreach (var redRail in GameManager.Instance.redRailList)
         {
             var renderer = redRail.GetComponent<Renderer>();
