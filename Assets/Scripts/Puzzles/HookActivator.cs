@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -5,6 +6,13 @@ public class HookActivator : MonoBehaviour, Interactor
 {
     public List<HookBehaviour> hooks = new List<HookBehaviour>();
     [SerializeField] AudioSource audio;
+
+    BoxCollider boxCollider;
+
+    private void Awake()
+    {
+        boxCollider = GetComponent<BoxCollider>();
+    }
 
     public void Interact()
     {
@@ -14,5 +22,14 @@ public class HookActivator : MonoBehaviour, Interactor
             hook.WinChecker();
         }
         audio.Play();
+
+        StartCoroutine(BoxCollToggle());
+    }
+
+    IEnumerator BoxCollToggle()
+    {
+        boxCollider.enabled = false;
+        yield return new WaitForSeconds(2.7f);
+        boxCollider.enabled = true;
     }
 }
