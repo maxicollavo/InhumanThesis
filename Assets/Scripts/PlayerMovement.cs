@@ -84,8 +84,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void StopPlayer()
     {
-        Debug.Log("Se llama método StopPlayer");
-
         _rb.velocity = Vector3.zero;
         _rb.angularVelocity = Vector3.zero;
         stepsSound.Stop();

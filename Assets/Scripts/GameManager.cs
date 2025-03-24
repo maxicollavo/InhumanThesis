@@ -89,6 +89,8 @@ public class GameManager : MonoBehaviour
     public List<GameObject> railButtons;
     public List<GameObject> railSolved;
 
+    public List<GameObject> TPWaypoints;
+
     public List<GameObject> screamers;
 
     public List<Transform> spawnerUpside = new List<Transform>();

@@ -1,9 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class LaserBeam : MonoBehaviour
 {
+    [SerializeField] GameObject player;
+    private GameObject closestWp;
+    private bool isTeleporting;
+    private bool isTeleported;
+
+
     [SerializeField] LineRenderer lineRenderer;
     [SerializeField] GameManager gm;
     [SerializeField] Camera playerCamera;
@@ -53,11 +60,57 @@ public class LaserBeam : MonoBehaviour
                 ShootLaser();
                 break;
             case PowerStates.OnDimension:
-                TeleportPlayer();
+                NewTeleport();
                 break;
             default:
                 break;
         }
+    }
+
+    void NewTeleport()
+    {
+        if (!GameManager.Instance.ableToTeleport || isTeleporting)
+            return;
+
+        isTeleporting = true;
+        StartCoroutine(TeleportCooldown());
+
+        var currentPos = player.transform.position;
+
+        Vector3 newPos = new Vector3(currentPos.x, currentPos.y, currentPos.z + (isTeleported ? -50 : 50));
+
+        Transform closestWp = null;
+        float closestDistance = Mathf.Infinity;
+
+        foreach (var wp in GameManager.Instance.TPWaypoints)
+        {
+            float distance = Vector3.Distance(newPos, wp.transform.position);
+
+            if (distance < closestDistance)
+            {
+                closestDistance = distance;
+                closestWp = wp.transform;
+            }
+        }
+
+        if (closestWp != null)
+        {
+            player.transform.position = closestWp.position;
+        }
+        else
+        {
+            player.transform.position = newPos;
+        }
+
+        isTeleported = !isTeleported;
+
+        StartCoroutine(ResetTeleporting());
+    }
+
+    IEnumerator ResetTeleporting()
+    {
+        yield return new WaitForSeconds(0.2f);
+        isTeleporting = false;
     }
 
     void TeleportPlayer()
