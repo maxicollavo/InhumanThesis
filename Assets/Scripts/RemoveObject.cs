@@ -4,6 +4,6 @@ public class RemoveObject : MonoBehaviour, Interactor
 {
     public void Interact()
     {
-
+        gameObject.SetActive(false);
     }
 }
