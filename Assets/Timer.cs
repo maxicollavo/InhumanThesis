@@ -17,11 +17,6 @@ public class Timer : MonoBehaviour
         Instance = this;
     }
 
-    private void Start()
-    {
-        GameManager.Instance.DecreaseLevelTime();
-    }
-
     void Update()
     {
         if (!hasWon)
@@ -38,7 +33,6 @@ public class Timer : MonoBehaviour
             if (remainingTime <= 30 && !last30)
             {
                 last30 = true;
-                GameManager.Instance.DecreaseLevelTime();
             }
 
             int minutes = Mathf.FloorToInt(remainingTime / 60);

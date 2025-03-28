@@ -46,7 +46,7 @@ public class LaserBeam : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0) && _fireTimer > fireRate && gm.canShoot)
         {
-            ActivatePower();
+            //ActivatePower();
         }
     }
 

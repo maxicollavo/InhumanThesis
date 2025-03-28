@@ -200,18 +200,6 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        if (Timer.Instance.remainingTime <= 1)
-        {
-            if (!LaserBeam.Instance.playerOnUpside)
-            {
-                StartCoroutine(JumpscareLookAt(jumpscare));
-            }
-            else
-            {
-                StartCoroutine(JumpscareLookAt(jumpscareUpside));
-            }
-        }
-
         if (torchWin)
         {
             foreach (var item in torches)
@@ -321,74 +309,6 @@ public class GameManager : MonoBehaviour
 
     #endregion Puzzles
 
-    public IEnumerator JumpscareLookAt(Transform jumpscare)
-    {
-        canMove = false;
-        yield return new WaitForSeconds(0.5f);
-
-        float rotationSpeed = 1f;
-        Quaternion targetRotation = Quaternion.LookRotation(jumpscare.position - cameraTransform.position);
-
-        while (Quaternion.Angle(cameraTransform.rotation, targetRotation) > 0.1f)
-        {
-            cameraTransform.rotation = Quaternion.RotateTowards(cameraTransform.rotation, targetRotation, rotationSpeed);
-            yield return null;
-        }
-
-        //Abrir puertas
-        if (LaserBeam.Instance.playerOnUpside)
-        {
-            firstPuzzleUpsideLeftDoor.SetBool("IsTrue", true);
-            firstPuzzleUpsideRightDoor.SetBool("IsTrue", true);
-        }
-        else
-        {
-            firstPuzzleRealLeftDoor.SetBool("IsTrue", true);
-            firstPuzzleRealRightDoor.SetBool("IsTrue", true);
-        }
-
-        //Sonido de abrir puertas
-        doorOpenSound.Play();
-        yield return new WaitForSeconds(0.5f);
-
-
-        cameraShake.TriggerShake(4f);
-        //Efecto estática de camera
-        //Bicho hacia el jugador, solo el que comparta mundo, el otro dejarlo quieto
-        if (LaserBeam.Instance.playerOnUpside)
-        {
-            upsideScreamer.TeleportToPlayer();
-        }
-        else
-        {
-            realScreamer.TeleportToPlayer();
-        }
-        //Sonido fuerte
-        jumpscareSound.Play();
-
-        yield return new WaitForSeconds(2f);
-        SceneManager.LoadScene("LostScene");
-    }
-
-    public void DecreaseLevelTime()
-    {
-        firstBeats.Play();
-
-        if (Timer.Instance.last30)
-        {
-            firstBeats.Stop();
-            last30Secs.Play();
-            mirror.Play();
-
-            foreach (var item in screamers)
-            {
-                item.SetActive(true);
-                //Sonido de aviso de miedo
-                //Algun mini shake de camera
-                //Algun efecto en la cámara como de estática
-            }
-        }
-    }
 
     public void TorchSoundStop()
     {

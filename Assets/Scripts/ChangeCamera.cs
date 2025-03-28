@@ -8,6 +8,7 @@ public class ChangeCamera : MonoBehaviour, Interactor
     [SerializeField] GameObject changeCam;
 
     [SerializeField] GameObject bodyLight;
+    [SerializeField] GameObject crosshair;
 
     public void Interact()
     {
@@ -22,7 +23,7 @@ public class ChangeCamera : MonoBehaviour, Interactor
 
             changeCam.SetActive(true);
             bodyLight.SetActive(true);
-
+            crosshair.SetActive(false);
         }
         else
         {
@@ -35,6 +36,7 @@ public class ChangeCamera : MonoBehaviour, Interactor
 
             changeCam.SetActive(false);
             bodyLight.SetActive(false);
+            crosshair.SetActive(true);
         }
     }
 }

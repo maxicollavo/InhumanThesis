@@ -26,13 +26,18 @@ public class PlayerCam : MonoBehaviour
         Camera2.SetActive(true);
     }
 
+    private void Update()
+    {
+        if (gameObject.activeInHierarchy)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
+    }
+
     private void LateUpdate()
     {
-        if (!GameManager.Instance.canMove)
-        {
-            Debug.Log("Se detiene la cámara");
-            return;
-        }
+        if (!GameManager.Instance.canMove) return;
 
         sensX = SensX.value;
         sensY = SensY.value;
