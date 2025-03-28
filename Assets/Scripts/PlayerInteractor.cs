@@ -1,21 +1,30 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class PlayerInteractor : MonoBehaviour
 {
+    private Interactor currentInteractor;
+
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Closer"))
+        if (other.TryGetComponent(out Interactor interactor))
         {
-            var doorCloser = other.GetComponent<DoorCloser>();
-
-            if (doorCloser != null)
-                doorCloser.Close();
+            currentInteractor = interactor;
         }
+    }
 
-        if (other.gameObject.CompareTag("Finisher"))
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.TryGetComponent(out Interactor interactor) && interactor == currentInteractor)
         {
-            SceneManager.LoadScene("EndDemoScene");
+            currentInteractor = null;
+        }
+    }
+
+    private void Update()
+    {
+        if (currentInteractor != null && Input.GetKeyDown(KeyCode.E))
+        {
+            currentInteractor.Interact();
         }
     }
 }
