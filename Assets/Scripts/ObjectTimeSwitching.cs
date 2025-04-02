@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectTimeSwitching : MonoBehaviour
+public class ObjectTimeSwitching : MonoBehaviour, ISwitcheable
 {
     [SerializeField] GameObject futObj;
     [SerializeField] GameObject pastObj;
 
-    private bool isAiming;
+    public bool isAiming;
+    //Hacer que cuando deje de apuntar isAiming pase a false
 
     private void Awake()
     {
@@ -18,22 +19,17 @@ public class ObjectTimeSwitching : MonoBehaviour
     }
 
     //Metodo para cuando solo apuntamos al objeto
-    private void Aiming()
+    public void Aiming()
     {
-
-    }
-
-    //Metodo para cuando queremos cambiar el objeto
-    private void Interact()
-    {
-
+        ToggleOutline();
+        Debug.Log("Is Aiming");
     }
 
     private void TurnObjects()
     {
         //Activar shader desaparecer del objeto futuro
-        futObj.SetActive(false);
-        pastObj.SetActive(true);
+        futObj.SetActive(!futObj.activeSelf);
+        pastObj.SetActive(!pastObj.activeSelf);
         //Activar shader aparecer del objeto pasado
     }
 
@@ -47,5 +43,10 @@ public class ObjectTimeSwitching : MonoBehaviour
         {
             //Activar OUTLINE del objeto pasado
         }
+    }
+
+    public void Switch()
+    {
+        TurnObjects();
     }
 }
