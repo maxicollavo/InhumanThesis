@@ -6,15 +6,18 @@ public class Detection : MonoBehaviour
     public Powers currentPower = Powers.OnRead;
 
     private bool onClick;
+    private Material detMat;
 
     void Update()
     {
-        Detect();
-
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             onClick = true;
         }
+
+        Detect();
+
+        onClick = false;
 
         float scroll = Input.GetAxis("Mouse ScrollWheel");
         if (scroll > 0f)
@@ -53,21 +56,23 @@ public class Detection : MonoBehaviour
                         break;
 
                 }
-                onClick = false;
             }
             else
             {
                 switch (currentPower)
                 {
                     case Powers.OnTime:
-                        if (hit.collider.TryGetComponent(out ISwitcheable switcheable) &&
-                            hit.collider.TryGetComponent(out ObjectTimeSwitching obj))
+                        if (hit.collider.TryGetComponent(out ObjectTimeSwitching obj))
                         {
                             obj.Aiming();
                         }
                         break;
                 }
             }
+        }
+        else
+        {
+            GameManager.Instance.isAimingAtObject = false;
         }
     }
 

@@ -123130,6 +123130,7 @@ GameObject:
   - component: {fileID: 601767460}
   - component: {fileID: 601767463}
   - component: {fileID: 601767462}
+  - component: {fileID: 601767464}
   m_Layer: 3
   m_Name: Cube
   m_TagString: Untagged
@@ -123202,6 +123203,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 601767459}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &601767464
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 601767459}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01e213c6a49302d4ba304cbbd309cbc6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &601802351
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -340436,13 +340449,14 @@ GameObject:
   - component: {fileID: 1736584955}
   - component: {fileID: 1736584958}
   - component: {fileID: 1736584957}
+  - component: {fileID: 1736584959}
   m_Layer: 3
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1736584955
 Transform:
   m_ObjectHideFlags: 0
@@ -340508,6 +340522,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1736584954}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1736584959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1736584954}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01e213c6a49302d4ba304cbbd309cbc6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1737241039
 GameObject:
   m_ObjectHideFlags: 0
@@ -343718,8 +343744,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1764430819}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0.0000001490116}
-  m_LocalPosition: {x: 173.5, y: 1.39, z: 153.4}
+  m_LocalRotation: {x: -0, y: 0.6087616, z: -0, w: 0.7933532}
+  m_LocalPosition: {x: 168.31, y: 1.39, z: 45.48}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -343729,7 +343755,7 @@ Transform:
   - {fileID: 514630611}
   - {fileID: 1528032881}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 75, z: 0}
 --- !u!81 &1764430824
 AudioListener:
   m_ObjectHideFlags: 0

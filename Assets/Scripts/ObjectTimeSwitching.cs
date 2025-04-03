@@ -1,21 +1,24 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ObjectTimeSwitching : MonoBehaviour, ISwitcheable
 {
-    [SerializeField] GameObject futObj;
-    [SerializeField] GameObject pastObj;
+    [SerializeField] List<GameObject> T_Objects;
 
-    public bool isAiming;
-    //Hacer que cuando deje de apuntar isAiming pase a false
 
-    private void Awake()
+    private bool hasMat;
+    private Material originalMat;
+    private Material tempMat;
+    [SerializeField] Material newMat;
+
+    private void Update()
     {
-        futObj.SetActive(true);
-        pastObj.SetActive(false);
-
-        isAiming = false;
+        if (!GameManager.Instance.isAimingAtObject && hasMat)
+        {
+            RestoreOriginalMaterial();
+            Debug.Log("Devuelve el material original");
+            hasMat = false;
+        }
     }
 
     //Metodo para cuando solo apuntamos al objeto
@@ -28,20 +31,42 @@ public class ObjectTimeSwitching : MonoBehaviour, ISwitcheable
     private void TurnObjects()
     {
         //Activar shader desaparecer del objeto futuro
-        futObj.SetActive(!futObj.activeSelf);
-        pastObj.SetActive(!pastObj.activeSelf);
+        foreach (var obj in T_Objects)
+        {
+            obj.SetActive(!obj.activeSelf);
+        }
         //Activar shader aparecer del objeto pasado
     }
 
     private void ToggleOutline()
     {
-        if (futObj.activeInHierarchy)
+        GameManager.Instance.isAimingAtObject = true;
+
+        if (hasMat) return;
+
+        foreach (var obj in T_Objects)
         {
-            //Activar OUTLINE del objeto futuro
+            if (obj.activeSelf)
+            {
+                Debug.Log("Cambia el material del objeto");
+                var renderer = obj.GetComponent<Renderer>();
+                originalMat = renderer.material;
+                renderer.material = newMat;
+
+                hasMat = true;
+            }
         }
-        else
+    }
+
+    private void RestoreOriginalMaterial()
+    {
+        foreach (var obj in T_Objects)
         {
-            //Activar OUTLINE del objeto pasado
+            if (obj.activeSelf)
+            {
+                var renderer = obj.GetComponent<Renderer>();
+                renderer.material = originalMat;
+            }
         }
     }
 

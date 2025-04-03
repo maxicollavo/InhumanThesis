@@ -122,12 +122,16 @@ public class GameManager : MonoBehaviour
 
     public CameraShake cameraShake;
 
+    public bool isAimingAtObject;
+
     public static GameManager Instance { get; set; }
 
     private void Awake()
     {
         Instance = this;
         paintSound.Stop();
+
+        isAimingAtObject = false;
     }
 
     private void Start()
