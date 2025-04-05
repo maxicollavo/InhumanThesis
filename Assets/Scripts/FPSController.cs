@@ -19,7 +19,7 @@ public class FPSController : MonoBehaviour
     private Vector3 currentMovement = Vector3.zero;
     private float verticalRotation;
 
-    private void Awake()
+    private void Start()
     {
         characterController = GetComponent<CharacterController>();
         mainCamera = Camera.main;
