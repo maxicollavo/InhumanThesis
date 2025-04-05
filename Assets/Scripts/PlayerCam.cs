@@ -17,13 +17,13 @@ public class PlayerCam : MonoBehaviour
 
     public bool menuPressed;
     [SerializeField] GameObject pauseMenu;
-    public GameObject Camera2;
+    //public GameObject Camera2;
 
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        Camera2.SetActive(true);
+        //Camera2.SetActive(true);
     }
 
     private void Update()
@@ -37,7 +37,7 @@ public class PlayerCam : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (!GameManager.Instance.canMove) return;
+        //if (!GameManager.Instance.canMove) return;
 
         sensX = SensX.value;
         sensY = SensY.value;

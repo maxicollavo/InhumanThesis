@@ -8,6 +8,7 @@ public class ActivateObject : MonoBehaviour, Interactor
 
     public void Interact()
     {
+        Debug.Log("Interactua");
         anim.SetTrigger("Interact");
     }
 }

@@ -13,12 +13,12 @@ public class ObjectTimeSwitching : MonoBehaviour, ISwitcheable
 
     private void Update()
     {
-        if (!GameManager.Instance.isAimingAtObject && hasMat)
-        {
-            RestoreOriginalMaterial();
-            Debug.Log("Devuelve el material original");
-            hasMat = false;
-        }
+        //if (!GameManager.Instance.isAimingAtObject && hasMat)
+        //{
+        //    RestoreOriginalMaterial();
+        //    Debug.Log("Devuelve el material original");
+        //    hasMat = false;
+        //}
     }
 
     //Metodo para cuando solo apuntamos al objeto

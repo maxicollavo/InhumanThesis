@@ -44,10 +44,11 @@ public class LaserBeam : MonoBehaviour
     {
         _fireTimer += Time.deltaTime;
 
-        if (Input.GetMouseButtonDown(0) && _fireTimer > fireRate && gm.canShoot)
-        {
-            //ActivatePower();
-        }
+        //Disparar poder
+        //if (Input.GetMouseButtonDown(0) && _fireTimer > fireRate && gm.canShoot)
+        //{
+        //    //ActivatePower();
+        //}
     }
 
     void ActivatePower()
@@ -57,7 +58,7 @@ public class LaserBeam : MonoBehaviour
         switch (gm.state)
         {
             case PowerStates.OnLaser:
-                ShootLaser();
+                //ShootLaser();
                 break;
             case PowerStates.OnDimension:
                 NewTeleport();
@@ -141,54 +142,47 @@ public class LaserBeam : MonoBehaviour
         GameManager.Instance.ableToTeleport = true;
     }
 
-    void ShootLaser()
-    {
-        laserSound.Play();
-        Vector3 rayOirigin = playerCamera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0));
-        RaycastHit hit;
+    //void ShootLaser()
+    //{
+    //    laserSound.Play();
+    //    Vector3 rayOirigin = playerCamera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0));
+    //    RaycastHit hit;
 
-        if (Physics.Raycast(rayOirigin, playerCamera.transform.forward, out hit, gunRange, ~limit4th))
-        {
-            var interactor = hit.collider.GetComponent<Interactor>();
-            if (interactor != null)
-            {
-                interactor.Interact();
-            }
+    //    if (Physics.Raycast(rayOirigin, playerCamera.transform.forward, out hit, gunRange, ~limit4th))
+    //    {
+    //        var interactor = hit.collider.GetComponent<Interactor>();
+    //        if (interactor != null)
+    //        {
+    //            interactor.Interact();
+    //        }
 
-            var teleportable = hit.collider.GetComponent<ITeleportable>();
-            if (teleportable != null)
-            {
-                teleportable.Interact();
-            }
-        }
-        else
-        {
-            hit.point = rayOirigin + playerCamera.transform.forward * 20f;
-        }
+    //        var teleportable = hit.collider.GetComponent<ITeleportable>();
+    //        if (teleportable != null)
+    //        {
+    //            teleportable.Interact();
+    //        }
+    //    }
+    //    else
+    //    {
+    //        hit.point = rayOirigin + playerCamera.transform.forward * 20f;
+    //    }
 
-        StartCoroutine(ShootLaserCor(hit.point));
-        StartCoroutine(ShootTimer());
-    }
+    //    StartCoroutine(ShootLaserCor(hit.point));
+    //    StartCoroutine(ShootTimer());
+    //}
 
-    IEnumerator ShootTimer()
-    {
-        gm.canShoot = false;
-        yield return new WaitForSeconds(0.25f);
-        gm.canShoot = true;
-    }
-
-    IEnumerator ShootLaserCor(Vector3 hit)
-    {
-        float elapsedTime = 0;
-        lineRenderer.enabled = true;
-        while (elapsedTime <= 0.05f)
-        {
-            lineRenderer.SetPosition(0, laserSpawn.position);
-            Vector3 rayOirigin = playerCamera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0));
-            lineRenderer.SetPosition(1, hit);
-            yield return new WaitForEndOfFrame();
-            elapsedTime += Time.deltaTime;
-        }
-        lineRenderer.enabled = false;
-    }
+    //IEnumerator ShootLaserCor(Vector3 hit)
+    //{
+    //    float elapsedTime = 0;
+    //    lineRenderer.enabled = true;
+    //    while (elapsedTime <= 0.05f)
+    //    {
+    //        lineRenderer.SetPosition(0, laserSpawn.position);
+    //        Vector3 rayOirigin = playerCamera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0));
+    //        lineRenderer.SetPosition(1, hit);
+    //        yield return new WaitForEndOfFrame();
+    //        elapsedTime += Time.deltaTime;
+    //    }
+    //    lineRenderer.enabled = false;
+    //}
 }
