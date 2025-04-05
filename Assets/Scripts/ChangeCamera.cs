@@ -61,11 +61,11 @@ public class ChangeCamera : MonoBehaviour, Interactor
 
         if (OnInteractor)
         {
-            EventManager.Instance.Dispatch(GameEventTypes.OnGameplay, this, EventArgs.Empty);
+            EventManager.Instance.Dispatch(GameEventTypes.OnCinematic, this, EventArgs.Empty);
         }
         else
         {
-            EventManager.Instance.Dispatch(GameEventTypes.OnCinematic, this, EventArgs.Empty);
+            EventManager.Instance.Dispatch(GameEventTypes.OnGameplay, this, EventArgs.Empty);
         }
     }
 }

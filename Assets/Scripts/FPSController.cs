@@ -30,6 +30,8 @@ public class FPSController : MonoBehaviour
 
     private void Update()
     {
+        if (!GameManager.Instance.canMove) return;
+
         HandleMovement();
         HandleRotation();
     }

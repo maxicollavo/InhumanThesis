@@ -8,6 +8,7 @@ public class PlayerInteractor : MonoBehaviour
     {
         if (other.TryGetComponent(out Interactor interactor))
         {
+            Debug.Log("Entro al Trigger");
             currentInteractor = interactor;
         }
     }
@@ -24,6 +25,7 @@ public class PlayerInteractor : MonoBehaviour
     {
         if (currentInteractor != null && Input.GetKeyDown(KeyCode.E))
         {
+            Debug.Log("Aprieto la E");
             currentInteractor.Interact();
         }
     }

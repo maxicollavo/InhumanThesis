@@ -1,27 +1,27 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    [Header("Input Manager")]
     [HideInInspector]
     public bool canMove = true;
 
+    [Header("Power Manager")]
     public bool ableToTeleport;
 
-    private Transform cameraTransform;
-
-
+    [Header("States Manager")]
     [HideInInspector]
     public PowerStates state;
 
+    [Header("Pause Manager")]
     [SerializeField] GameObject pauseMenu;
     private bool menuPressed;
     [HideInInspector]
 
+    [Header("Gameplay")]
     public List<GameObject> TPWaypoints;
 
     //public PostProcessProfile profile;
@@ -43,8 +43,6 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        cameraTransform = Camera.main.transform;
-
         //ca = profile.GetSetting<UnityEngine.Rendering.PostProcessing.ChromaticAberration>();
         //cg = profile.GetSetting<UnityEngine.Rendering.PostProcessing.ColorGrading>();
         //ca.intensity.Override(0);
@@ -53,12 +51,6 @@ public class GameManager : MonoBehaviour
 
     public void Update()
     {
-        if (!canMove)
-        {
-            Debug.Log("Se detiene el GameManager");
-            return;
-        }
-
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             menuPressed = !menuPressed;
