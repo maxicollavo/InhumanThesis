@@ -35,6 +35,8 @@ public class Detection : MonoBehaviour
         Ray ray = new Ray(transform.position, transform.forward);
         RaycastHit hit;
 
+        Debug.DrawRay(ray.origin, ray.direction * detectionRange, Color.red);
+
         if (Physics.Raycast(ray, out hit, detectionRange))
         {
             if (onClick)
@@ -42,17 +44,11 @@ public class Detection : MonoBehaviour
                 switch (currentPower)
                 {
                     case Powers.OnRead:
-                        if (hit.collider.TryGetComponent(out IRead readable))
-                        {
-                            readable.Read();
-                        }
+                        if (hit.collider.TryGetComponent(out IRead readable)) readable.Read();
                         break;
 
                     case Powers.OnTime:
-                        if (hit.collider.TryGetComponent(out ISwitcheable switcheable))
-                        {
-                            switcheable.Switch();
-                        }
+                        if (hit.collider.TryGetComponent(out ISwitcheable switcheable)) switcheable.Switch();
                         break;
 
                 }
@@ -62,10 +58,7 @@ public class Detection : MonoBehaviour
                 switch (currentPower)
                 {
                     case Powers.OnTime:
-                        if (hit.collider.TryGetComponent(out ObjectTimeSwitching obj))
-                        {
-                            obj.Aiming();
-                        }
+                        if (hit.collider.TryGetComponent(out ObjectTimeSwitching obj)) obj.Aiming();
                         break;
                 }
             }
