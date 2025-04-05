@@ -921,7 +921,7 @@ GameObject:
   - component: {fileID: 81057198}
   - component: {fileID: 81057197}
   - component: {fileID: 81057199}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: LockCamera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1213,7 +1213,7 @@ GameObject:
   - component: {fileID: 99175869}
   - component: {fileID: 99175868}
   - component: {fileID: 99175871}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Lock (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2516,7 +2516,7 @@ GameObject:
   - component: {fileID: 265364618}
   - component: {fileID: 265364619}
   - component: {fileID: 265364620}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Interactor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2573,9 +2573,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainCams:
   - {fileID: 685926640}
-  - {fileID: 0}
   changeCam: {fileID: 81057195}
-  bodyLight: {fileID: 0}
   crosshair: {fileID: 2073688160}
 --- !u!1 &310966544
 GameObject:
@@ -4089,6 +4087,7 @@ GameObject:
   - component: {fileID: 476523038}
   - component: {fileID: 476523037}
   - component: {fileID: 476523036}
+  - component: {fileID: 476523039}
   m_Layer: 0
   m_Name: Camera
   m_TagString: MainCamera
@@ -4171,6 +4170,18 @@ Transform:
   - {fileID: 1061620440}
   m_Father: {fileID: 1050253660}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!114 &476523039
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 476523035}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0c9e8544e12694489f34df68e2a792a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &500106319
 GameObject:
   m_ObjectHideFlags: 0
@@ -8020,7 +8031,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1039200896}
   - component: {fileID: 1039200897}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Block
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10759,7 +10770,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1395044248}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: LookAt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10793,7 +10804,7 @@ GameObject:
   - component: {fileID: 1402350291}
   - component: {fileID: 1402350290}
   - component: {fileID: 1402350289}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12969,7 +12980,7 @@ GameObject:
   - component: {fileID: 1646082954}
   - component: {fileID: 1646082953}
   - component: {fileID: 1646082956}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Lock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13265,7 +13276,7 @@ GameObject:
   - component: {fileID: 1658926203}
   - component: {fileID: 1658926202}
   - component: {fileID: 1658926205}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Lock (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15522,7 +15533,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1909172629}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Lock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15888,7 +15899,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2003945318}
   - component: {fileID: 2003945319}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: LockLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
