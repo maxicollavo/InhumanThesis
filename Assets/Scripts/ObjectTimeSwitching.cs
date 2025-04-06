@@ -5,27 +5,24 @@ public class ObjectTimeSwitching : MonoBehaviour, ISwitcheable
 {
     [SerializeField] List<GameObject> T_Objects;
 
+    [SerializeField] List<Outline> outlines;
 
-    private bool hasMat;
-    private Material originalMat;
-    private Material tempMat;
-    [SerializeField] Material newMat;
-
-    private void Update()
+    private void Start()
     {
-        //if (!GameManager.Instance.isAimingAtObject && hasMat)
-        //{
-        //    RestoreOriginalMaterial();
-        //    Debug.Log("Devuelve el material original");
-        //    hasMat = false;
-        //}
+        DisableOutline();
     }
 
     //Metodo para cuando solo apuntamos al objeto
     public void Aiming()
     {
-        ToggleOutline();
         Debug.Log("Is Aiming");
+        EnableOutline();
+    }
+
+    public void Switch()
+    {
+        Debug.Log("Switch Object");
+        TurnObjects();
     }
 
     private void TurnObjects()
@@ -38,40 +35,19 @@ public class ObjectTimeSwitching : MonoBehaviour, ISwitcheable
         //Activar shader aparecer del objeto pasado
     }
 
-    private void ToggleOutline()
+    void EnableOutline()
     {
-        GameManager.Instance.isAimingAtObject = true;
-
-        if (hasMat) return;
-
-        foreach (var obj in T_Objects)
+        foreach(var o in outlines)
         {
-            if (obj.activeSelf)
-            {
-                Debug.Log("Cambia el material del objeto");
-                var renderer = obj.GetComponent<Renderer>();
-                originalMat = renderer.material;
-                renderer.material = newMat;
-
-                hasMat = true;
-            }
+            o.enabled = true;
         }
     }
 
-    private void RestoreOriginalMaterial()
+    public void DisableOutline()
     {
-        foreach (var obj in T_Objects)
+        foreach (var o in outlines)
         {
-            if (obj.activeSelf)
-            {
-                var renderer = obj.GetComponent<Renderer>();
-                renderer.material = originalMat;
-            }
+            o.enabled = false;
         }
-    }
-
-    public void Switch()
-    {
-        TurnObjects();
     }
 }

@@ -2,11 +2,12 @@ using UnityEngine;
 
 public class Detection : MonoBehaviour
 {
-    public float detectionRange = 10f;
+    public float playerReach = 10f;
     public Powers currentPower = Powers.OnRead;
 
     private bool onClick;
-    private Material detMat;
+
+    private ISwitcheable lastSwitcheable = null;
 
     void Update()
     {
@@ -32,41 +33,45 @@ public class Detection : MonoBehaviour
 
     void Detect()
     {
-        Ray ray = new Ray(transform.position, transform.forward);
         RaycastHit hit;
+        Ray ray = new Ray(transform.position, transform.forward);
 
-        Debug.DrawRay(ray.origin, ray.direction * detectionRange, Color.red);
+        ISwitcheable currentSwitcheable = null;
 
-        if (Physics.Raycast(ray, out hit, detectionRange))
+        Debug.DrawRay(ray.origin, ray.direction * playerReach, Color.red, 2.0f);
+
+        if (Physics.Raycast(ray, out hit, playerReach))
         {
-            if (onClick)
+            if (currentPower == Powers.OnTime)
             {
-                switch (currentPower)
+                if (hit.collider.TryGetComponent(out currentSwitcheable))
                 {
-                    case Powers.OnRead:
-                        if (hit.collider.TryGetComponent(out IRead readable)) readable.Read();
-                        break;
+                    currentSwitcheable.Aiming();
 
-                    case Powers.OnTime:
-                        if (hit.collider.TryGetComponent(out ISwitcheable switcheable)) switcheable.Switch();
-                        break;
-
+                    if (onClick)
+                    {
+                        currentSwitcheable.Switch();
+                    }
                 }
             }
-            else
+            else if (currentPower == Powers.OnRead)
             {
-                switch (currentPower)
+                if (hit.collider.TryGetComponent(out IRead readable))
                 {
-                    case Powers.OnTime:
-                        if (hit.collider.TryGetComponent(out ObjectTimeSwitching obj)) obj.Aiming();
-                        break;
+                    if (onClick)
+                    {
+                        readable.Read();
+                    }
                 }
             }
         }
-        else
+
+        if (lastSwitcheable != null && lastSwitcheable != currentSwitcheable)
         {
-            GameManager.Instance.isAimingAtObject = false;
+            lastSwitcheable.DisableOutline();
         }
+
+        lastSwitcheable = currentSwitcheable;
     }
 
     void ChangePower(int direction)
