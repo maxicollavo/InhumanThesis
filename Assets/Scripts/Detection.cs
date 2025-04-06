@@ -9,6 +9,8 @@ public class Detection : MonoBehaviour
 
     private ISwitcheable lastSwitcheable = null;
 
+    [SerializeField] private LayerMask ignoreMask;
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Mouse0))
@@ -35,12 +37,11 @@ public class Detection : MonoBehaviour
     {
         RaycastHit hit;
         Ray ray = new Ray(transform.position, transform.forward);
+        int layerMask = ~ignoreMask.value;
 
         ISwitcheable currentSwitcheable = null;
 
-        Debug.DrawRay(ray.origin, ray.direction * playerReach, Color.red, 2.0f);
-
-        if (Physics.Raycast(ray, out hit, playerReach))
+        if (Physics.Raycast(ray, out hit, playerReach, layerMask))
         {
             if (currentPower == Powers.OnTime)
             {

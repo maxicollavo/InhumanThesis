@@ -4197,6 +4197,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerReach: 10
   currentPower: 0
+  ignoreMask:
+    serializedVersion: 2
+    m_Bits: 4
 --- !u!1 &500106319
 GameObject:
   m_ObjectHideFlags: 0
@@ -11555,7 +11558,7 @@ GameObject:
   - component: {fileID: 1486855796}
   - component: {fileID: 1486855797}
   - component: {fileID: 1486855798}
-  m_Layer: 7
+  m_Layer: 2
   m_Name: PlayerInteractor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11596,8 +11599,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.2243805, y: 2.2808528, z: 1}
-  m_Center: {x: 0.11219025, y: 0.09084654, z: 0}
+  m_Size: {x: 1.2243805, y: 2.5680737, z: 1}
+  m_Center: {x: 0.11219025, y: 0.23445696, z: -0.000000013374113}
 --- !u!114 &1486855797
 MonoBehaviour:
   m_ObjectHideFlags: 0
