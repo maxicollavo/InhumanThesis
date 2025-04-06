@@ -1,33 +1,28 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 
-public class ChangeCamera : MonoBehaviour, Interactor
+public class LockInteractor : MonoBehaviour, Interactor
 {
     [SerializeField] List<GameObject> mainCams;
-    [SerializeField] GameObject changeCam;
+    [SerializeField] List<GameObject> lockGOs;
 
-    //[SerializeField] GameObject bodyLight;
-    [SerializeField] GameObject crosshair;
-
-    private bool OnInteractor;
+    private bool OnLock;
 
     private void Start()
     {
-        EventManager.Instance.Register(GameEventTypes.OnCinematic, LockEnabled);
+        EventManager.Instance.Register(GameEventTypes.OnPuzzle, LockEnabled);
         EventManager.Instance.Register(GameEventTypes.OnGameplay, LockDisabled);
     }
 
     private void OnDestroy()
     {
-        EventManager.Instance.Unregister(GameEventTypes.OnCinematic, LockEnabled);
+        EventManager.Instance.Unregister(GameEventTypes.OnPuzzle, LockEnabled);
         EventManager.Instance.Unregister(GameEventTypes.OnGameplay, LockDisabled);
     }
 
     void LockEnabled(object sender, EventArgs e)
     {
-        Debug.Log("LockEnabled");
         GameManager.Instance.canMove = false;
 
         foreach (var cam in mainCams)
@@ -35,14 +30,14 @@ public class ChangeCamera : MonoBehaviour, Interactor
             cam.SetActive(false);
         }
 
-        changeCam.SetActive(true);
-        //bodyLight.SetActive(true);
-        crosshair.SetActive(false);
+        foreach (var go in lockGOs)
+        {
+            go.SetActive(true);
+        }
     }
 
     void LockDisabled(object sender, EventArgs e)
     {
-        Debug.Log("LockDisabled");
         GameManager.Instance.canMove = true;
 
         foreach (var cam in mainCams)
@@ -50,18 +45,19 @@ public class ChangeCamera : MonoBehaviour, Interactor
             cam.SetActive(true);
         }
 
-        changeCam.SetActive(false);
-        //bodyLight.SetActive(false);
-        crosshair.SetActive(true);
+        foreach (var go in lockGOs)
+        {
+            go.SetActive(false);
+        }
     }
 
     public void Interact()
     {
-        OnInteractor = !OnInteractor;
+        OnLock = !OnLock;
 
-        if (OnInteractor)
+        if (OnLock)
         {
-            EventManager.Instance.Dispatch(GameEventTypes.OnCinematic, this, EventArgs.Empty);
+            EventManager.Instance.Dispatch(GameEventTypes.OnPuzzle, this, EventArgs.Empty);
         }
         else
         {

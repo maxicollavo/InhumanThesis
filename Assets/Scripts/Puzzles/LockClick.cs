@@ -7,6 +7,8 @@ public class LockClick : MonoBehaviour
     private Renderer renderer;
     private int currentIndex = 0;
 
+    private LockSystem lockSystem;
+
     private void Awake()
     {
         renderer = GetComponent<Renderer>();
@@ -14,11 +16,19 @@ public class LockClick : MonoBehaviour
         {
             renderer.material = mats[currentIndex];
         }
+
+        lockSystem = GetComponent<LockSystem>();
     }
 
     private void OnMouseDown()
     {
         ChangeColor();
+        UpdateLockStatus();
+    }
+
+    private void UpdateLockStatus()
+    {
+        lockSystem.SendLock();
     }
 
     private void ChangeColor()
