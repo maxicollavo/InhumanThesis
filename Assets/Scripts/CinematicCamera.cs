@@ -45,7 +45,7 @@ public class CinematicCamera : MonoBehaviour
 
     void Cinematic(object sender, EventArgs e)
     {
-        Debug.Log("enciende la camara");
+        Debug.Log("enciende la camara");    
 
         transform.position = _playerCam.transform.position;
         transform.rotation = _playerCam.transform.rotation;

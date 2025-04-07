@@ -10,7 +10,6 @@ public class LaserBeam : MonoBehaviour
     private bool isTeleporting;
     private bool isTeleported;
 
-
     [SerializeField] LineRenderer lineRenderer;
     [SerializeField] GameManager gm;
     [SerializeField] Camera playerCamera;
@@ -23,15 +22,6 @@ public class LaserBeam : MonoBehaviour
     public List<Transform> upsideTP = new List<Transform>();
     public int tpCounter;
     public bool playerOnUpside;
-    [SerializeField] float gunRange = 20f;
-    [SerializeField] float fireRate = 0.2f;
-    private float _fireTimer;
-    public LayerMask limit4th;
-    private float cooldown;
-
-    #region Shooting
-    [SerializeField] AudioSource laserSound;
-    #endregion Shooting
 
     public static LaserBeam Instance { get; private set; }
 
@@ -42,8 +32,6 @@ public class LaserBeam : MonoBehaviour
 
     void Update()
     {
-        _fireTimer += Time.deltaTime;
-
         //Disparar poder
         //if (Input.GetMouseButtonDown(0) && _fireTimer > fireRate && gm.canShoot)
         //{
@@ -53,8 +41,6 @@ public class LaserBeam : MonoBehaviour
 
     void ActivatePower()
     {
-        _fireTimer = 0;
-
         switch (gm.state)
         {
             case PowerStates.OnLaser:
