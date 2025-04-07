@@ -5,16 +5,16 @@ public class CameraBehaviour : MonoBehaviour
 {
     private void Start()
     {
-        EventManager.Instance.Register(GameEventTypes.OnCinematic, CursorEnabled);
+        EventManager.Instance.Register(GameEventTypes.OnCinematic, CursorDisabled);
         EventManager.Instance.Register(GameEventTypes.OnGameplay, CursorDisabled);
-        EventManager.Instance.Register(GameEventTypes.OnPuzzle, CursorDisabled);
+        EventManager.Instance.Register(GameEventTypes.OnPuzzle, CursorEnabled);
     }
 
     private void OnDestroy()
     {
-        EventManager.Instance.Unregister(GameEventTypes.OnCinematic, CursorEnabled);
+        EventManager.Instance.Unregister(GameEventTypes.OnCinematic, CursorDisabled);
         EventManager.Instance.Unregister(GameEventTypes.OnGameplay, CursorDisabled);
-        EventManager.Instance.Unregister(GameEventTypes.OnPuzzle, CursorDisabled);
+        EventManager.Instance.Unregister(GameEventTypes.OnPuzzle, CursorEnabled);
     }
 
     void CursorEnabled(object sender, EventArgs e)
@@ -27,6 +27,5 @@ public class CameraBehaviour : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-
     }
 }

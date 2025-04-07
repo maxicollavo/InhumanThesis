@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -9,18 +10,26 @@ public class FakeWallInteractor : MonoBehaviour, Interactor
     [SerializeField] private GameObject interactableUI;
     [SerializeField] private GameObject interactableTrigger;
 
+    [SerializeField] private CinematicCamera cinematicCamera;
+
     public void Interact()
     {
         Destroy(interactableUI);
         Destroy(interactableTrigger);
-        StartCoroutine(MecanismCoroutine());
+
+        MecanismCoroutine();
     }
 
-    private IEnumerator MecanismCoroutine()
+    private void MecanismCoroutine()
     {
-        Debug.Log("Corrutina");
+        EventManager.Instance.Dispatch(GameEventTypes.OnCinematic, this, EventArgs.Empty);
         wallAnim.SetTrigger("Interact");
-        yield return new WaitForSeconds(2f);
+    }
+
+    public IEnumerator OnCinematicMethod()
+    {
+        cinematicCamera.RotateCamera(0);
+        yield return new WaitForSeconds(1f);
         columnAnim.SetTrigger("Interact");
     }
 }

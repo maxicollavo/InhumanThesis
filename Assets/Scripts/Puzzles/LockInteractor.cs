@@ -23,8 +23,6 @@ public class LockInteractor : MonoBehaviour, Interactor
 
     void LockEnabled(object sender, EventArgs e)
     {
-        GameManager.Instance.canMove = false;
-
         foreach (var obj in gameObj)
         {
             obj.SetActive(false);
@@ -38,8 +36,6 @@ public class LockInteractor : MonoBehaviour, Interactor
 
     void LockDisabled(object sender, EventArgs e)
     {
-        GameManager.Instance.canMove = true;
-
         foreach(var obj in gameObj)
         {
             obj.SetActive(true);

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
@@ -43,10 +44,16 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        //ca = profile.GetSetting<UnityEngine.Rendering.PostProcessing.ChromaticAberration>();
-        //cg = profile.GetSetting<UnityEngine.Rendering.PostProcessing.ColorGrading>();
-        //ca.intensity.Override(0);
-        //cg.active = false;
+        EventManager.Instance.Register(GameEventTypes.OnCinematic, OnCinematicMethod);
+        EventManager.Instance.Register(GameEventTypes.OnGameplay, OnGameplayMethod);
+        EventManager.Instance.Register(GameEventTypes.OnPuzzle, OnPuzzleMethod);
+    }
+
+    private void OnDestroy()
+    {
+        EventManager.Instance.Unregister(GameEventTypes.OnCinematic, OnCinematicMethod);
+        EventManager.Instance.Unregister(GameEventTypes.OnGameplay, OnGameplayMethod);
+        EventManager.Instance.Unregister(GameEventTypes.OnPuzzle, OnPuzzleMethod);
     }
 
     public void Update()
@@ -69,6 +76,21 @@ public class GameManager : MonoBehaviour
                 Cursor.visible = false;
             }
         }
+    }
+
+    public void OnCinematicMethod(object sender, EventArgs e)
+    {
+        canMove = false;
+    }
+
+    public void OnPuzzleMethod(object sender, EventArgs e)
+    {
+        canMove = false;
+    }
+
+    public void OnGameplayMethod(object sender, EventArgs e)
+    {
+        canMove = true;
     }
 }
 
