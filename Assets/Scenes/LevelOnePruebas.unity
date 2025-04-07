@@ -2290,7 +2290,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 131071
+    m_Bits: 393215
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -2320,11 +2320,10 @@ MonoBehaviour:
   m_CameraType: 0
   m_Cameras:
   - {fileID: 140131571}
-  - {fileID: 1298149483}
   m_RendererIndex: -1
   m_VolumeLayerMask:
     serializedVersion: 2
-    m_Bits: 513
+    m_Bits: 4294967295
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
   m_RenderPostProcessing: 1
@@ -7995,10 +7994,10 @@ MonoBehaviour:
   m_RendererIndex: -1
   m_VolumeLayerMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 513
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
+  m_RenderPostProcessing: 1
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
   m_StopNaN: 0
@@ -11568,7 +11567,7 @@ GameObject:
   - component: {fileID: 1298149481}
   - component: {fileID: 1298149483}
   - component: {fileID: 1298149482}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: PyramidCam
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11611,7 +11610,7 @@ MonoBehaviour:
   m_RendererIndex: -1
   m_VolumeLayerMask:
     serializedVersion: 2
-    m_Bits: 513
+    m_Bits: 262656
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
   m_RenderPostProcessing: 1
@@ -11653,7 +11652,7 @@ Camera:
   m_ShutterSpeed: 0.005
   m_Aperture: 16
   m_FocusDistance: 10
-  m_FocalLength: 50
+  m_FocalLength: 20.78461
   m_BladeCount: 5
   m_Curvature: {x: 2, y: 11}
   m_BarrelClipping: 0.25
@@ -11668,13 +11667,13 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 60.000004
   orthographic: 0
   orthographic size: 5
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 262144
+    m_Bits: 4294967295
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -19897,7 +19896,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 7c09a8e5027721d498021ac28e7d6825, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -20195,6 +20194,34 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hand Pyramid
       objectReference: {fileID: 0}
+    - target: {fileID: 262510398958318013, guid: 3aabec4780b0f0a47bd1acf02e4c9041, type: 3}
+      propertyPath: m_Layer
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 2771733631116122645, guid: 3aabec4780b0f0a47bd1acf02e4c9041, type: 3}
+      propertyPath: m_Layer
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 4177366154807995182, guid: 3aabec4780b0f0a47bd1acf02e4c9041, type: 3}
+      propertyPath: m_Layer
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 5573547218452856000, guid: 3aabec4780b0f0a47bd1acf02e4c9041, type: 3}
+      propertyPath: m_Layer
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 5997061726837704893, guid: 3aabec4780b0f0a47bd1acf02e4c9041, type: 3}
+      propertyPath: m_Layer
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 7197534740945837508, guid: 3aabec4780b0f0a47bd1acf02e4c9041, type: 3}
+      propertyPath: m_Layer
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 7519837316191628505, guid: 3aabec4780b0f0a47bd1acf02e4c9041, type: 3}
+      propertyPath: m_Layer
+      value: 18
+      objectReference: {fileID: 0}
     - target: {fileID: 7791565571632808935, guid: 3aabec4780b0f0a47bd1acf02e4c9041, type: 3}
       propertyPath: m_LocalScale.x
       value: 13.287632
@@ -20247,6 +20274,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8948561433394556005, guid: 3aabec4780b0f0a47bd1acf02e4c9041, type: 3}
+      propertyPath: anim
+      value: 
+      objectReference: {fileID: 2120057458}
+    - target: {fileID: 9006314734195440985, guid: 3aabec4780b0f0a47bd1acf02e4c9041, type: 3}
+      propertyPath: m_Layer
+      value: 18
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6469159225691451002, guid: 3aabec4780b0f0a47bd1acf02e4c9041, type: 3}
     - {fileID: 3692094944744959579, guid: 3aabec4780b0f0a47bd1acf02e4c9041, type: 3}
@@ -20261,6 +20296,11 @@ PrefabInstance:
 --- !u!4 &2120057456 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7791565571632808935, guid: 3aabec4780b0f0a47bd1acf02e4c9041, type: 3}
+  m_PrefabInstance: {fileID: 2120057455}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &2120057458 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 991467718107908042, guid: 3aabec4780b0f0a47bd1acf02e4c9041, type: 3}
   m_PrefabInstance: {fileID: 2120057455}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &2135782092
