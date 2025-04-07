@@ -14,6 +14,8 @@ public class LockManager : MonoBehaviour
 
     [SerializeField]
     private GameObject lockWall;
+    [SerializeField]
+    private GameObject interactUI;
 
     public static LockManager Instance;
 
@@ -75,5 +77,7 @@ public class LockManager : MonoBehaviour
 
         HasWon = true;
         lockWall.SetActive(false);
+
+        Destroy(interactUI);
     }
 }
