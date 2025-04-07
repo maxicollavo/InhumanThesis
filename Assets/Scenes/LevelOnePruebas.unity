@@ -3775,6 +3775,7 @@ MonoBehaviour:
   maxLocks: 4
   lockWall: {fileID: 2095603314}
   interactUI: {fileID: 1071562263}
+  interactTrigger: {fileID: 0}
 --- !u!1001 &450864793
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4335,7 +4336,9 @@ MonoBehaviour:
   anim: {fileID: 1858619949}
   wall: {fileID: 0}
   newWall: {fileID: 0}
+  interactTrigger: {fileID: 0}
   IsLastColumn: 0
+  cinematicCamera: {fileID: 0}
 --- !u!1 &596941259
 GameObject:
   m_ObjectHideFlags: 0
@@ -6282,6 +6285,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wallAnim: {fileID: 1041206977}
   columnAnim: {fileID: 1768827022}
+  interactableUI: {fileID: 0}
+  interactableTrigger: {fileID: 0}
+  cinematicCamera: {fileID: 0}
 --- !u!1 &773820668
 GameObject:
   m_ObjectHideFlags: 0
@@ -6924,7 +6930,7 @@ Light:
   m_Type: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 69.1
-  m_Range: 14.1
+  m_Range: 9.131826
   m_SpotAngle: 63.108276
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -12227,7 +12233,9 @@ MonoBehaviour:
   anim: {fileID: 521171546}
   wall: {fileID: 0}
   newWall: {fileID: 0}
+  interactTrigger: {fileID: 0}
   IsLastColumn: 0
+  cinematicCamera: {fileID: 0}
 --- !u!1 &1463123102
 GameObject:
   m_ObjectHideFlags: 0
@@ -14417,7 +14425,9 @@ MonoBehaviour:
   anim: {fileID: 1455596694}
   wall: {fileID: 0}
   newWall: {fileID: 0}
+  interactTrigger: {fileID: 0}
   IsLastColumn: 0
+  cinematicCamera: {fileID: 0}
 --- !u!1 &1770713456
 GameObject:
   m_ObjectHideFlags: 0
@@ -15194,7 +15204,9 @@ MonoBehaviour:
   anim: {fileID: 0}
   wall: {fileID: 2070220124}
   newWall: {fileID: 2095603314}
+  interactTrigger: {fileID: 0}
   IsLastColumn: 1
+  cinematicCamera: {fileID: 0}
 --- !u!1001 &1868482199
 PrefabInstance:
   m_ObjectHideFlags: 0
