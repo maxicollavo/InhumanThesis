@@ -29,6 +29,9 @@ public class ObjectTimeSwitching : MonoBehaviour, ISwitcheable
         GameObject activeObj = presentObj.activeSelf ? presentObj : pastObj;
         GameObject inactiveObj = presentObj.activeSelf ? pastObj : presentObj;
 
+        //DisolverController activeDC = activeObj.GetComponent<DisolverController>();
+        //DisolverController inactiveDC = inactiveObj.GetComponent<DisolverController>();
+
         yield return new WaitForSeconds(1f);
 
         //StartCoroutine(activeObj.DissolveCo());
