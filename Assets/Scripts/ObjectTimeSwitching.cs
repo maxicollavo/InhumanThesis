@@ -1,9 +1,11 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ObjectTimeSwitching : MonoBehaviour, ISwitcheable
 {
-    [SerializeField] List<GameObject> T_Objects;
+    [SerializeField] GameObject pastObj;
+    [SerializeField] GameObject presentObj;
 
     [SerializeField] List<Outline> outlines;
 
@@ -12,27 +14,29 @@ public class ObjectTimeSwitching : MonoBehaviour, ISwitcheable
         DisableOutline();
     }
 
-    //Metodo para cuando solo apuntamos al objeto
     public void Aiming()
     {
-        Debug.Log("Is Aiming");
         EnableOutline();
     }
 
     public void Switch()
     {
-        Debug.Log("Switch Object");
         TurnObjects();
     }
 
-    private void TurnObjects()
+    private IEnumerator TurnObjects()
     {
-        //Activar shader desaparecer del objeto futuro
-        foreach (var obj in T_Objects)
-        {
-            obj.SetActive(!obj.activeSelf);
-        }
-        //Activar shader aparecer del objeto pasado
+        GameObject activeObj = presentObj.activeSelf ? presentObj : pastObj;
+        GameObject inactiveObj = presentObj.activeSelf ? pastObj : presentObj;
+
+        yield return new WaitForSeconds(1f);
+
+        //StartCoroutine(activeObj.DissolveCo());
+
+        yield return new WaitForSeconds(0.3f);
+
+        inactiveObj.SetActive(true);
+        //StartCoroutine(inactiveObj.RestoreCo());
     }
 
     void EnableOutline()

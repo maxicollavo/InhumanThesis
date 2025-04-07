@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LockInteractor : MonoBehaviour, Interactor
 {
-    [SerializeField] List<GameObject> mainCams;
+    [SerializeField] List<GameObject> gameObj;
     [SerializeField] List<GameObject> lockGOs;
 
     private bool OnLock;
@@ -25,9 +25,9 @@ public class LockInteractor : MonoBehaviour, Interactor
     {
         GameManager.Instance.canMove = false;
 
-        foreach (var cam in mainCams)
+        foreach (var obj in gameObj)
         {
-            cam.SetActive(false);
+            obj.SetActive(false);
         }
 
         foreach (var go in lockGOs)
@@ -40,9 +40,9 @@ public class LockInteractor : MonoBehaviour, Interactor
     {
         GameManager.Instance.canMove = true;
 
-        foreach (var cam in mainCams)
+        foreach(var obj in gameObj)
         {
-            cam.SetActive(true);
+            obj.SetActive(true);
         }
 
         foreach (var go in lockGOs)

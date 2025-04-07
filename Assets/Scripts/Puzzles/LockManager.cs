@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,6 +11,9 @@ public class LockManager : MonoBehaviour
 
     [SerializeField]
     private int maxLocks;
+
+    [SerializeField]
+    private GameObject lockWall;
 
     public static LockManager Instance;
 
@@ -57,14 +61,19 @@ public class LockManager : MonoBehaviour
         if (newStep != currentStep)
         {
             currentStep = newStep;
-            Debug.Log($"Paso actualizado. Counter: {currentStep}");
 
             if (currentStep == LockDone.Count)
             {
-                Debug.Log("Se abre la puerta");
-                HasWon = true;
+                Win();
             }
         }
     }
 
+    private void Win()
+    {
+        EventManager.Instance.Dispatch(GameEventTypes.OnGameplay, this, EventArgs.Empty);
+
+        HasWon = true;
+        lockWall.SetActive(false);
+    }
 }

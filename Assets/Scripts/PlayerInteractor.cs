@@ -22,6 +22,8 @@ public class PlayerInteractor : MonoBehaviour
 
     private void Update()
     {
+        Debug.Log(currentInteractor);
+
         if (currentInteractor != null && Input.GetKeyDown(KeyCode.E))
         {
             currentInteractor.Interact();
