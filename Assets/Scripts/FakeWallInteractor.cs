@@ -6,8 +6,13 @@ public class FakeWallInteractor : MonoBehaviour, Interactor
     [SerializeField] private Animator wallAnim;
     [SerializeField] private Animator columnAnim;
 
+    [SerializeField] private GameObject interactableUI;
+    [SerializeField] private GameObject interactableTrigger;
+
     public void Interact()
     {
+        Destroy(interactableUI);
+        Destroy(interactableTrigger);
         StartCoroutine(MecanismCoroutine());
     }
 
