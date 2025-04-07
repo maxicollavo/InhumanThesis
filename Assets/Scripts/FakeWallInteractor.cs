@@ -12,17 +12,29 @@ public class FakeWallInteractor : MonoBehaviour, Interactor
 
     [SerializeField] private CinematicCamera cinematicCamera;
 
-    public void Interact()
-    {
-        Destroy(interactableUI);
-        Destroy(interactableTrigger);
+    private BoxCollider boxCollider;
+    private bool HasDone;
 
-        MecanismCoroutine();
+    private void Start()
+    {
+        boxCollider = GetComponent<BoxCollider>();
     }
 
-    private void MecanismCoroutine()
+    public void Interact()
+    {
+        if (HasDone) return;
+        
+        Destroy(interactableUI);
+        Destroy(interactableTrigger);
+        boxCollider.enabled = false;
+
+        Mecanism();
+    }
+
+    private void Mecanism()
     {
         EventManager.Instance.Dispatch(GameEventTypes.OnCinematic, this, EventArgs.Empty);
+        HasDone = true;
         wallAnim.SetTrigger("Interact");
     }
 

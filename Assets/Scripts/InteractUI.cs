@@ -11,7 +11,6 @@ public class InteractUI : MonoBehaviour
         {
             go.SetActive(true);
         }
-
     }
 
     private void OnTriggerExit(Collider other)

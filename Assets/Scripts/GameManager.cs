@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     [Header("Input Manager")]
     [HideInInspector]
     public bool canMove = true;
+    public bool inputblock;
 
     [Header("Power Manager")]
     public bool ableToTeleport;
@@ -81,16 +82,20 @@ public class GameManager : MonoBehaviour
     public void OnCinematicMethod(object sender, EventArgs e)
     {
         canMove = false;
+        inputblock = true;
     }
 
     public void OnPuzzleMethod(object sender, EventArgs e)
     {
         canMove = false;
+        inputblock = false;
+
     }
 
     public void OnGameplayMethod(object sender, EventArgs e)
     {
         canMove = true;
+        inputblock = false;
     }
 }
 

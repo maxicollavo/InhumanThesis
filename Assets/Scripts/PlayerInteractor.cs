@@ -22,7 +22,7 @@ public class PlayerInteractor : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(currentInteractor);
+        if (GameManager.Instance.inputblock) return;
 
         if (currentInteractor != null && Input.GetKeyDown(KeyCode.E))
         {
