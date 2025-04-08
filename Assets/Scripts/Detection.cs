@@ -11,6 +11,9 @@ public class Detection : MonoBehaviour
 
     [SerializeField] private LayerMask ignoreMask;
 
+    [SerializeField] private CursorManager cursor;
+    private bool isCursorOpen = false;
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Mouse0))
@@ -48,6 +51,7 @@ public class Detection : MonoBehaviour
                 if (hit.collider.TryGetComponent(out currentSwitcheable))
                 {
                     currentSwitcheable.Aiming();
+                    ChangeCursor(true);
 
                     if (onClick)
                     {
@@ -59,6 +63,7 @@ public class Detection : MonoBehaviour
             {
                 if (hit.collider.TryGetComponent(out IRead readable))
                 {
+                    ChangeCursor(true);
                     if (onClick)
                     {
                         readable.Read();
@@ -66,6 +71,7 @@ public class Detection : MonoBehaviour
                 }
             }
         }
+        ChangeCursor(false);
 
         if (lastSwitcheable != null && lastSwitcheable != currentSwitcheable)
         {
@@ -83,6 +89,20 @@ public class Detection : MonoBehaviour
         currentPower = (Powers)newPower;
 
         Debug.Log("Poder cambiado a: " + currentPower);
+    }
+
+    void ChangeCursor(bool shouldBeOpen)
+    {
+        if (shouldBeOpen && !isCursorOpen)
+        {
+            cursor.SetToOpen();
+            isCursorOpen = true;
+        }
+        else if (!shouldBeOpen && isCursorOpen)
+        {
+            cursor.SetToIdle();
+            isCursorOpen = false;
+        }
     }
 }
 
