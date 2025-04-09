@@ -4,17 +4,17 @@ using UnityEngine;
 public class LockClick : MonoBehaviour
 {
     [SerializeField] List<Material> mats;
-    private Renderer renderer;
+    private Renderer myRenderer;
     private int currentIndex = 0;
 
     private LockSystem lockSystem;
 
     private void Awake()
     {
-        renderer = GetComponent<Renderer>();
+        myRenderer = GetComponent<Renderer>();
         if (mats.Count > 0)
         {
-            renderer.material = mats[currentIndex];
+            myRenderer.material = mats[currentIndex];
         }
 
         lockSystem = GetComponent<LockSystem>();
@@ -36,6 +36,6 @@ public class LockClick : MonoBehaviour
         if (mats.Count == 0) return;
 
         currentIndex = (currentIndex + 1) % mats.Count;
-        renderer.material = mats[currentIndex];
+        myRenderer.material = mats[currentIndex];
     }
 }

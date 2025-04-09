@@ -8,11 +8,9 @@ public class Detection : MonoBehaviour
     private bool onClick;
 
     private ISwitcheable lastSwitcheable = null;
+    private IRead lastReadeable = null;
 
     [SerializeField] private LayerMask ignoreMask;
-
-    [SerializeField] private CursorManager cursor;
-    private bool isCursorOpen = false;
 
     void Update()
     {
@@ -21,18 +19,24 @@ public class Detection : MonoBehaviour
             onClick = true;
         }
 
+        PowersKeyBinding();
+
         Detect();
 
         onClick = false;
 
-        float scroll = Input.GetAxis("Mouse ScrollWheel");
-        if (scroll > 0f)
+
+    }
+
+    void PowersKeyBinding()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            ChangePower(0);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             ChangePower(1);
-        }
-        else if (scroll < 0f)
-        {
-            ChangePower(-1);
         }
     }
 
@@ -43,6 +47,7 @@ public class Detection : MonoBehaviour
         int layerMask = ~ignoreMask.value;
 
         ISwitcheable currentSwitcheable = null;
+        IRead currentReadeable = null;
 
         if (Physics.Raycast(ray, out hit, playerReach, layerMask))
         {
@@ -51,7 +56,6 @@ public class Detection : MonoBehaviour
                 if (hit.collider.TryGetComponent(out currentSwitcheable))
                 {
                     currentSwitcheable.Aiming();
-                    ChangeCursor(true);
 
                     if (onClick)
                     {
@@ -61,48 +65,38 @@ public class Detection : MonoBehaviour
             }
             else if (currentPower == Powers.OnRead)
             {
-                if (hit.collider.TryGetComponent(out IRead readable))
+                if (hit.collider.TryGetComponent(out currentReadeable))
                 {
-                    ChangeCursor(true);
-                    if (onClick)
+                    currentReadeable.Aiming();
+
+                    if (onClick && !GameManager.Instance.clickBlock)
                     {
-                        readable.Read();
+                        currentReadeable.Read();
                     }
                 }
             }
         }
-        ChangeCursor(false);
 
         if (lastSwitcheable != null && lastSwitcheable != currentSwitcheable)
         {
             lastSwitcheable.DisableOutline();
         }
 
+        if (lastReadeable != null && lastReadeable != currentReadeable)
+        {
+            lastReadeable.DisableOutline();
+        }
+
         lastSwitcheable = currentSwitcheable;
+        lastReadeable = currentReadeable;
     }
 
-    void ChangePower(int direction)
+    void ChangePower(int power)
     {
-        int maxPower = System.Enum.GetValues(typeof(Powers)).Length;
-        int newPower = ((int)currentPower + direction + maxPower) % maxPower;
+        if ((int)currentPower == power)
+            return;
 
-        currentPower = (Powers)newPower;
-
-        Debug.Log("Poder cambiado a: " + currentPower);
-    }
-
-    void ChangeCursor(bool shouldBeOpen)
-    {
-        if (shouldBeOpen && !isCursorOpen)
-        {
-            cursor.SetToOpen();
-            isCursorOpen = true;
-        }
-        else if (!shouldBeOpen && isCursorOpen)
-        {
-            cursor.SetToIdle();
-            isCursorOpen = false;
-        }
+        currentPower = (Powers)power;
     }
 }
 

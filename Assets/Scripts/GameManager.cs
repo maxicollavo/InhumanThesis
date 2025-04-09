@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     [HideInInspector]
     public bool canMove = true;
     public bool inputblock;
+    public bool clickBlock;
 
     [Header("Power Manager")]
     public bool ableToTeleport;
@@ -30,7 +31,7 @@ public class GameManager : MonoBehaviour
     //private UnityEngine.Rendering.PostProcessing.ChromaticAberration ca;
     //private UnityEngine.Rendering.PostProcessing.ColorGrading cg;
 
-    public CameraShake cameraShake;
+    //public CameraShake cameraShake;
 
     public bool isAimingAtObject;
 
