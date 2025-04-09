@@ -27,6 +27,8 @@ public class GameManager : MonoBehaviour
     [Header("Gameplay")]
     public List<GameObject> TPWaypoints;
 
+    [SerializeField] LockInteractor lockInt;
+
     //public PostProcessProfile profile;
     //private UnityEngine.Rendering.PostProcessing.ChromaticAberration ca;
     //private UnityEngine.Rendering.PostProcessing.ColorGrading cg;
@@ -77,6 +79,11 @@ public class GameManager : MonoBehaviour
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
             }
+        }
+
+        if (lockInt.OnLock && Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            lockInt.LockDisabled();
         }
     }
 

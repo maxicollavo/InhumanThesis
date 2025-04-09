@@ -7,22 +7,27 @@ public class LockInteractor : MonoBehaviour, Interactor
     [SerializeField] List<GameObject> gameObj;
     [SerializeField] List<GameObject> lockGOs;
 
-    private bool OnLock;
+    [HideInInspector]
+    public bool OnLock;
+
+    [SerializeField] Outline outline;
 
     private void Start()
     {
         EventManager.Instance.Register(GameEventTypes.OnPuzzle, LockEnabled);
-        EventManager.Instance.Register(GameEventTypes.OnGameplay, LockDisabled);
+
+        outline.enabled = false;
     }
 
     private void OnDestroy()
     {
         EventManager.Instance.Unregister(GameEventTypes.OnPuzzle, LockEnabled);
-        EventManager.Instance.Unregister(GameEventTypes.OnGameplay, LockDisabled);
     }
 
     void LockEnabled(object sender, EventArgs e)
     {
+        DisableOutline();
+
         foreach (var obj in gameObj)
         {
             obj.SetActive(false);
@@ -34,9 +39,12 @@ public class LockInteractor : MonoBehaviour, Interactor
         }
     }
 
-    void LockDisabled(object sender, EventArgs e)
+    public void LockDisabled()
     {
-        foreach(var obj in gameObj)
+        OnLock = !OnLock;
+        EventManager.Instance.Dispatch(GameEventTypes.OnGameplay, this, EventArgs.Empty);
+
+        foreach (var obj in gameObj)
         {
             obj.SetActive(true);
         }
@@ -51,23 +59,21 @@ public class LockInteractor : MonoBehaviour, Interactor
     {
         OnLock = !OnLock;
 
-        if (OnLock)
-        {
-            EventManager.Instance.Dispatch(GameEventTypes.OnPuzzle, this, EventArgs.Empty);
-        }
-        else
-        {
-            EventManager.Instance.Dispatch(GameEventTypes.OnGameplay, this, EventArgs.Empty);
-        }
+        EventManager.Instance.Dispatch(GameEventTypes.OnPuzzle, this, EventArgs.Empty);
     }
 
     public void DisableOutline()
     {
-        throw new NotImplementedException();
+        outline.enabled = false;
+    }
+
+    void EnableOutline()
+    {
+        outline.enabled = true;
     }
 
     public void Aiming()
     {
-        throw new NotImplementedException();
+        EnableOutline();
     }
 }
