@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -18,6 +19,8 @@ public class LockManager : MonoBehaviour
     private GameObject interactUI;
     [SerializeField]
     private GameObject interactTrigger;
+
+    [SerializeField] AnimacionesPyramid pyramid;
 
     public static LockManager Instance;
 
@@ -68,12 +71,12 @@ public class LockManager : MonoBehaviour
 
             if (currentStep == LockDone.Count)
             {
-                Win();
+                StartCoroutine(Win());
             }
         }
     }
 
-    private void Win()
+    private IEnumerator Win()
     {
         EventManager.Instance.Dispatch(GameEventTypes.OnGameplay, this, EventArgs.Empty);
 
@@ -82,5 +85,8 @@ public class LockManager : MonoBehaviour
 
         Destroy(interactUI);
         Destroy(interactTrigger);
+
+        yield return new WaitForSeconds(0.1f);
+        pyramid.RestartAnim();
     }
 }

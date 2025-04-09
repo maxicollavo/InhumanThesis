@@ -9,22 +9,12 @@ public class AnimacionesPyramid : MonoBehaviour
 
     [SerializeField] Animator anim;
 
-    private void Start()
-    {
-        EventManager.Instance.Register(GameEventTypes.OnGameplay, RestartAnim);
-    }
-
-    private void OnDestroy()
-    {
-        EventManager.Instance.Register(GameEventTypes.OnGameplay, RestartAnim);
-    }
-
     void Close()
     {
         Instantiate(chispas, top.transform);
     }
 
-    void RestartAnim(object sender, EventArgs e)
+    public void RestartAnim()
     {
         Debug.Log("Reinicia anim piramide");
         anim.Play("PyramidStartLevitation", -1, 0f);

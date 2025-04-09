@@ -1,11 +1,10 @@
 using System;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class CinematicCamera : MonoBehaviour
 {
-    [SerializeField] private GameObject _playerCam;
+    [SerializeField] private Transform _playerCam;
     [SerializeField] private float rotationSpeed = 2f;
 
     [Header("Cinematic Targets")]
@@ -36,6 +35,12 @@ public class CinematicCamera : MonoBehaviour
             Quaternion targetRotation = Quaternion.LookRotation(targetToLookAt.position - transform.position);
             transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
 
+            if (_playerCam != null)
+            {
+                Quaternion camTargetRot = Quaternion.LookRotation(targetToLookAt.position - _playerCam.position);
+                _playerCam.rotation = Quaternion.Lerp(_playerCam.rotation, camTargetRot, Time.deltaTime * rotationSpeed);
+            }
+
             if (Quaternion.Angle(transform.rotation, targetRotation) < 0.1f)
             {
                 rotatingToTarget = false;
@@ -50,12 +55,13 @@ public class CinematicCamera : MonoBehaviour
         transform.position = _playerCam.transform.position;
         transform.rotation = _playerCam.transform.rotation;
 
-        _playerCam.SetActive(false);
+        _playerCam.gameObject.SetActive(false);
         gameObject.SetActive(true);
     }
 
     public void RotateCamera(int targetIndex)
     {
+        Debug.Log("Rota la camara");
         if (targetIndex >= 0 && targetIndex < lookTargets.Length)
         {
             targetToLookAt = lookTargets[targetIndex];
@@ -65,7 +71,7 @@ public class CinematicCamera : MonoBehaviour
 
     public void ResetCamera()
     {
-        _playerCam.SetActive(true);
+        _playerCam.gameObject.SetActive(true);
 
         _playerCam.transform.position = transform.position;
         _playerCam.transform.rotation = transform.rotation;
@@ -75,7 +81,7 @@ public class CinematicCamera : MonoBehaviour
         EventManager.Instance.Dispatch(GameEventTypes.OnGameplay, this, EventArgs.Empty);
     }
 
-    IEnumerator ResetAfterDelay(float delay)
+    public IEnumerator ResetAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
         ResetCamera();
