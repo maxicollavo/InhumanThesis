@@ -649,6 +649,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   subtitle: {fileID: 521585628}
   text: "\"A Osiris le gustaba guardar objetos personales dentro de vasijas de colecci\xF3n\""
+  outline: {fileID: 0}
 --- !u!135 &28163700
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -4735,11 +4736,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canMove: 1
+  inputblock: 0
+  clickBlock: 0
   ableToTeleport: 0
   state: 0
   pauseMenu: {fileID: 1047208518}
   TPWaypoints: []
-  cameraShake: {fileID: 0}
+  lockInt: {fileID: 0}
   isAimingAtObject: 0
 --- !u!1 &562200109
 GameObject:
@@ -14569,9 +14572,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad282b3e52d07f44b9b7d76b7e340a49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  T_Objects:
-  - {fileID: 601767459}
-  - {fileID: 1736584954}
+  pastObj: {fileID: 0}
+  presentObj: {fileID: 0}
   outlines:
   - {fileID: 601767464}
   - {fileID: 1736584959}
