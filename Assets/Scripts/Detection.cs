@@ -3,12 +3,16 @@ using UnityEngine;
 public class Detection : MonoBehaviour
 {
     public float playerReach = 10f;
+
+    float interactDistance = 5f;
+
     public Powers currentPower = Powers.OnRead;
 
     private bool onClick;
 
     private ISwitcheable lastSwitcheable = null;
     private IRead lastReadeable = null;
+    private Interactor lastInteractor = null;
 
     [SerializeField] private LayerMask ignoreMask;
 
@@ -24,8 +28,6 @@ public class Detection : MonoBehaviour
         Detect();
 
         onClick = false;
-
-
     }
 
     void PowersKeyBinding()
@@ -48,9 +50,23 @@ public class Detection : MonoBehaviour
 
         ISwitcheable currentSwitcheable = null;
         IRead currentReadeable = null;
+        Interactor currentInteractor = null;
 
         if (Physics.Raycast(ray, out hit, playerReach, layerMask))
         {
+            if (hit.distance <= interactDistance)
+            {
+                if (hit.collider.TryGetComponent(out currentInteractor))
+                {
+                    currentInteractor.Aiming();
+
+                    if (onClick)
+                    {
+                        currentInteractor.Interact();
+                    }
+                }
+            }
+
             if (currentPower == Powers.OnTime)
             {
                 if (hit.collider.TryGetComponent(out currentSwitcheable))
@@ -87,8 +103,14 @@ public class Detection : MonoBehaviour
             lastReadeable.DisableOutline();
         }
 
+        if (lastInteractor != null && lastInteractor != currentInteractor)
+        {
+            lastInteractor.DisableOutline();
+        }
+
         lastSwitcheable = currentSwitcheable;
         lastReadeable = currentReadeable;
+        lastInteractor = currentInteractor;
     }
 
     void ChangePower(int power)

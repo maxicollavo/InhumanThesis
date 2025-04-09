@@ -6,6 +6,16 @@ public class ActivateObject : MonoBehaviour, Interactor
 {
     [SerializeField] Animator anim;
 
+    public void Aiming()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void DisableOutline()
+    {
+        throw new System.NotImplementedException();
+    }
+
     public void Interact()
     {
         Debug.Log("Interactua");

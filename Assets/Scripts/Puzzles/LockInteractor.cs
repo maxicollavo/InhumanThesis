@@ -60,4 +60,14 @@ public class LockInteractor : MonoBehaviour, Interactor
             EventManager.Instance.Dispatch(GameEventTypes.OnGameplay, this, EventArgs.Empty);
         }
     }
+
+    public void DisableOutline()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void Aiming()
+    {
+        throw new NotImplementedException();
+    }
 }
