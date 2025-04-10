@@ -9,9 +9,16 @@ public class ObjectTimeSwitching : MonoBehaviour, ISwitcheable
 
     [SerializeField] List<Outline> outlines;
 
-    private void Start()
+    private WaitForSeconds wfs = new WaitForSeconds(1.3f);
+
+    private void Awake()
     {
         DisableOutline();
+    }
+
+    private void Start()
+    {
+        pastObj.SetActive(false);
     }
 
     public void Aiming()
@@ -21,7 +28,7 @@ public class ObjectTimeSwitching : MonoBehaviour, ISwitcheable
 
     public void Switch()
     {
-       StartCoroutine(TurnObjects());
+        StartCoroutine(TurnObjects());
     }
 
     private IEnumerator TurnObjects()
@@ -29,22 +36,22 @@ public class ObjectTimeSwitching : MonoBehaviour, ISwitcheable
         GameObject activeObj = presentObj.activeSelf ? presentObj : pastObj;
         GameObject inactiveObj = presentObj.activeSelf ? pastObj : presentObj;
 
-       DisolveController activeDC = activeObj.GetComponent<DisolveController>();
-       DisolveController inactiveDC = inactiveObj.GetComponent<DisolveController>();
+        DisolveController activeDC = activeObj.GetComponent<DisolveController>();
+        DisolveController inactiveDC = inactiveObj.GetComponent<DisolveController>();
 
-       StartCoroutine(activeDC.DissolveCo());
-        yield return new WaitForSeconds(1f);
+        StartCoroutine(activeDC.DissolveCo());
 
+        yield return wfs;
 
-        yield return new WaitForSeconds(0.3f);
-        StartCoroutine(inactiveDC.DissolveCo());
+        StartCoroutine(inactiveDC.RestoreCo());
         inactiveObj.SetActive(true);
-        Debug.Log("inactiveObj activado: " + inactiveObj.name);
+        activeObj.SetActive(false);
+
     }
 
     void EnableOutline()
     {
-        foreach(var o in outlines)
+        foreach (var o in outlines)
         {
             o.enabled = true;
         }

@@ -9409,7 +9409,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db64b9d1f8a1f9c4c87f859c56579fa2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pyramid: {fileID: 0}
+  pyramid: {fileID: 543450652020924233}
 --- !u!114 &813431609
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9459,7 +9459,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &815892227
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11390,8 +11390,8 @@ Transform:
   m_GameObject: {fileID: 963358253}
   serializedVersion: 2
   m_LocalRotation: {x: -0.4082178, y: 0.23457031, z: -0.10938192, w: 0.87542593}
-  m_LocalPosition: {x: 211.19, y: 21.41, z: 15.5}
-  m_LocalScale: {x: 5.3678107, y: 9.734048, z: 0.74672353}
+  m_LocalPosition: {x: 211.0519, y: 24.2276, z: 12.2662}
+  m_LocalScale: {x: 6.3844223, y: 18.310719, z: 0.5326304}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 655098086}
@@ -12038,7 +12038,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  outlineMode: 0
+  outlineMode: 1
   outlineColor: {r: 1, g: 0.41037738, b: 0.41037738, a: 1}
   outlineWidth: 5
   precomputeOutline: 0
@@ -20468,8 +20468,8 @@ Transform:
   m_GameObject: {fileID: 1874103060}
   serializedVersion: 2
   m_LocalRotation: {x: -0.4082178, y: 0.23457031, z: -0.10938192, w: 0.87542593}
-  m_LocalPosition: {x: 241.92, y: 45.58, z: 36.44}
-  m_LocalScale: {x: 5.3678107, y: 9.734048, z: 0.74672353}
+  m_LocalPosition: {x: 242.1129, y: 48.792, z: 33.24}
+  m_LocalScale: {x: 6.480869, y: 18.768316, z: 0.74672353}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 655098086}
@@ -23914,6 +23914,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 26889617720061386, guid: 3aabec4780b0f0a47bd1acf02e4c9041, type: 3}
   m_PrefabInstance: {fileID: 2327830296359533594}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &543450652020924233 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7909936757997533725, guid: 3aabec4780b0f0a47bd1acf02e4c9041, type: 3}
+  m_PrefabInstance: {fileID: 2327830296359533594}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9da51915761c29140a6569b7a1a973ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2327830296359533594
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23962,9 +23973,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2960570119595839074, guid: 3aabec4780b0f0a47bd1acf02e4c9041, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3658571929996731453, guid: 3aabec4780b0f0a47bd1acf02e4c9041, type: 3}
       propertyPath: m_Name
       value: Hand Pyramid
+      objectReference: {fileID: 0}
+    - target: {fileID: 4459581934503584387, guid: 3aabec4780b0f0a47bd1acf02e4c9041, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7487953272937513063, guid: 3aabec4780b0f0a47bd1acf02e4c9041, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8058366273470262246, guid: 3aabec4780b0f0a47bd1acf02e4c9041, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
