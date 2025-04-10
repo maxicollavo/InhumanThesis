@@ -29,17 +29,17 @@ public class ObjectTimeSwitching : MonoBehaviour, ISwitcheable
         GameObject activeObj = presentObj.activeSelf ? presentObj : pastObj;
         GameObject inactiveObj = presentObj.activeSelf ? pastObj : presentObj;
 
-        //DisolverController activeDC = activeObj.GetComponent<DisolverController>();
-        //DisolverController inactiveDC = inactiveObj.GetComponent<DisolverController>();
+       DisolveController activeDC = activeObj.GetComponent<DisolveController>();
+       DisolveController inactiveDC = inactiveObj.GetComponent<DisolveController>();
 
         yield return new WaitForSeconds(1f);
 
-        //StartCoroutine(activeObj.DissolveCo());
+       StartCoroutine(activeObj.DissolveCo());
 
         yield return new WaitForSeconds(0.3f);
 
         inactiveObj.SetActive(true);
-        //StartCoroutine(inactiveObj.RestoreCo());
+        StartCoroutine(inactiveObj.RestoreCo());
     }
 
     void EnableOutline()
