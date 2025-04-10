@@ -9452,6 +9452,7 @@ GameObject:
   - component: {fileID: 815892229}
   - component: {fileID: 815892228}
   - component: {fileID: 815892227}
+  - component: {fileID: 815892231}
   m_Layer: 3
   m_Name: Sphere
   m_TagString: Untagged
@@ -9500,7 +9501,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -876546973899608171, guid: 91c18f648ee72ba4aa2cbe6ac06df7c6, type: 3}
+  - {fileID: 2100000, guid: 45d92bed298a875449361f45cd5d2438, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -9545,6 +9546,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 938869067}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &815892231
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 815892226}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c041a35250095b6488592c4ad24e681d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dissolverRate: 0.0125
+  refreshRate: 0.025
+  MeshRender: {fileID: 815892228}
+  Materials:
+  - {fileID: 2100000, guid: 45d92bed298a875449361f45cd5d2438, type: 2}
 --- !u!1 &818878463
 GameObject:
   m_ObjectHideFlags: 0
@@ -11171,8 +11189,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad282b3e52d07f44b9b7d76b7e340a49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pastObj: {fileID: 815892226}
-  presentObj: {fileID: 2045549387}
+  pastObj: {fileID: 2045549387}
+  presentObj: {fileID: 815892226}
   outlines:
   - {fileID: 2045549388}
   - {fileID: 815892227}
@@ -22436,6 +22454,7 @@ GameObject:
   - component: {fileID: 2045549390}
   - component: {fileID: 2045549389}
   - component: {fileID: 2045549388}
+  - component: {fileID: 2045549392}
   m_Layer: 3
   m_Name: Cube
   m_TagString: Untagged
@@ -22529,6 +22548,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 938869067}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2045549392
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2045549387}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c041a35250095b6488592c4ad24e681d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dissolverRate: 0.0125
+  refreshRate: 0.025
+  MeshRender: {fileID: 2045549389}
+  Materials:
+  - {fileID: 2100000, guid: 63b0b4f67de617049a11f38164b49ff2, type: 2}
 --- !u!1 &2045561002
 GameObject:
   m_ObjectHideFlags: 0

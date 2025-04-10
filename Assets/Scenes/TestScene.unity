@@ -2654,10 +2654,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee49b0c2cad0d764dbeb7acc30214aa2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainCams:
-  - {fileID: 476523035}
-  changeCam: {fileID: 81057195}
-  crosshair: {fileID: 2073688160}
 --- !u!1 &310966544
 GameObject:
   m_ObjectHideFlags: 0
@@ -4742,7 +4738,7 @@ MonoBehaviour:
   state: 0
   pauseMenu: {fileID: 1047208518}
   TPWaypoints: []
-  lockInt: {fileID: 0}
+  lockInt: {fileID: 2052655724}
   isAimingAtObject: 0
 --- !u!1 &562200109
 GameObject:
@@ -5077,7 +5073,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -3033667219593020291, guid: 8a1c415210a48994c8a1c8eb6d50cf5b, type: 3}
+  - {fileID: 2100000, guid: 63b0b4f67de617049a11f38164b49ff2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -14277,7 +14273,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -3033667219593020291, guid: 8a1c415210a48994c8a1c8eb6d50cf5b, type: 3}
+  - {fileID: 2100000, guid: 63b0b4f67de617049a11f38164b49ff2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -14572,8 +14568,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad282b3e52d07f44b9b7d76b7e340a49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pastObj: {fileID: 0}
-  presentObj: {fileID: 0}
+  pastObj: {fileID: 1736584954}
+  presentObj: {fileID: 601767459}
   outlines:
   - {fileID: 601767464}
   - {fileID: 1736584959}

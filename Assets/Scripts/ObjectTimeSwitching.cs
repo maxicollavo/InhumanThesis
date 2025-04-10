@@ -21,7 +21,7 @@ public class ObjectTimeSwitching : MonoBehaviour, ISwitcheable
 
     public void Switch()
     {
-        TurnObjects();
+       StartCoroutine(TurnObjects());
     }
 
     private IEnumerator TurnObjects()
@@ -32,14 +32,14 @@ public class ObjectTimeSwitching : MonoBehaviour, ISwitcheable
        DisolveController activeDC = activeObj.GetComponent<DisolveController>();
        DisolveController inactiveDC = inactiveObj.GetComponent<DisolveController>();
 
+       StartCoroutine(activeDC.DissolveCo());
         yield return new WaitForSeconds(1f);
 
-       StartCoroutine(activeObj.DissolveCo());
 
         yield return new WaitForSeconds(0.3f);
-
+        StartCoroutine(inactiveDC.DissolveCo());
         inactiveObj.SetActive(true);
-        StartCoroutine(inactiveObj.RestoreCo());
+        Debug.Log("inactiveObj activado: " + inactiveObj.name);
     }
 
     void EnableOutline()
