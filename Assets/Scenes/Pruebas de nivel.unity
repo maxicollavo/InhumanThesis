@@ -9474,7 +9474,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   outlineMode: 0
   outlineColor: {r: 1, g: 1, b: 1, a: 1}
-  outlineWidth: 1.62
+  outlineWidth: 2
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
@@ -9501,7 +9501,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 63b0b4f67de617049a11f38164b49ff2, type: 2}
+  - {fileID: 2100000, guid: 45d92bed298a875449361f45cd5d2438, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -9553,7 +9553,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 815892226}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c041a35250095b6488592c4ad24e681d, type: 3}
   m_Name: 
@@ -11189,8 +11189,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad282b3e52d07f44b9b7d76b7e340a49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pastObj: {fileID: 815892226}
-  presentObj: {fileID: 2045549387}
+  pastObj: {fileID: 2045549387}
+  presentObj: {fileID: 815892226}
   outlines:
   - {fileID: 2045549388}
   - {fileID: 815892227}
