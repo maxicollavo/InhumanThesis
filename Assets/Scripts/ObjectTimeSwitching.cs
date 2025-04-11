@@ -18,7 +18,7 @@ public class ObjectTimeSwitching : MonoBehaviour, ISwitcheable
 
     private void Start()
     {
-        pastObj.SetActive(false);
+        //pastObj.SetActive(false);
     }
 
     public void Aiming()
