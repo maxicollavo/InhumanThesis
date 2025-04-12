@@ -1,10 +1,12 @@
 using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class FPSController : MonoBehaviour
 {
     [Header("Speed Settings")]
     [SerializeField] private float moveSpeed = 3f;
+    [SerializeField] private float crouchSpeed = 1.5f;
 
     [Header("Camera Settings")]
     [SerializeField] private bool invertYAxis = false;
@@ -19,11 +21,28 @@ public class FPSController : MonoBehaviour
     private Vector3 currentMovement = Vector3.zero;
     private float verticalRotation;
 
+    private Vector3 originalCameraLocalPosition;
+    private Vector3 crouchedCameraLocalPosition;
+
+    private float originalHeight;
+    private float crouchedHeight = 1.0f;
+    private float currentSpeed;
+
+    private float currentYPosition = 1.44f;
+
     private void Start()
     {
         characterController = GetComponent<CharacterController>();
         mainCamera = Camera.main;
         inputHandler = PlayerInputHandler.Instance;
+        originalCameraLocalPosition = mainCamera.transform.localPosition;
+        crouchedCameraLocalPosition = new Vector3(originalCameraLocalPosition.x, originalCameraLocalPosition.y - 0.5f, originalCameraLocalPosition.z);
+
+        originalHeight = characterController.height;
+        currentSpeed = moveSpeed;
+
+        characterController.center = Vector3.zero;
+        mainCamera.transform.localPosition = originalCameraLocalPosition;
 
         EventManager.Instance.Dispatch(GameEventTypes.OnGameplay, this, EventArgs.Empty);
     }
@@ -45,17 +64,33 @@ public class FPSController : MonoBehaviour
 
         verticalRotation -= mouseYInput * mouseSensitivity;
         verticalRotation = Mathf.Clamp(verticalRotation, -clampRange, clampRange);
-        mainCamera.transform.localRotation = Quaternion.Euler(verticalRotation,0,0);
+        mainCamera.transform.localRotation = Quaternion.Euler(verticalRotation, 0, 0);
     }
 
     private void HandleMovement()
     {
-        Vector3 inputDirection = new Vector3(inputHandler.MoveInput.x, 0f, inputHandler.MoveInput.y);
-        Vector3 worldDirection = transform.TransformDirection(inputDirection);
-        worldDirection.Normalize();
+        bool isCrouching = Keyboard.current.cKey.isPressed;
 
-        currentMovement.x = worldDirection.x * moveSpeed;
-        currentMovement.z = worldDirection.z * moveSpeed;
+        float targetYPosition = isCrouching ? 1f : 1.44f;
+
+        currentYPosition = Mathf.Lerp(currentYPosition, targetYPosition, Time.deltaTime * 10f);
+
+        float targetHeight = isCrouching ? crouchedHeight : originalHeight;
+        characterController.height = Mathf.Lerp(characterController.height, targetHeight, Time.deltaTime * 10f);
+
+        Vector3 targetCamPos = isCrouching ? crouchedCameraLocalPosition : originalCameraLocalPosition;
+        mainCamera.transform.localPosition = Vector3.Lerp(mainCamera.transform.localPosition, targetCamPos, Time.deltaTime * 10f);
+
+        currentSpeed = isCrouching ? crouchSpeed : moveSpeed;
+
+        Vector3 inputDirection = new Vector3(inputHandler.MoveInput.x, 0f, inputHandler.MoveInput.y);
+        Vector3 worldDirection = transform.TransformDirection(inputDirection).normalized;
+
+        currentMovement.x = worldDirection.x * currentSpeed;
+        currentMovement.z = worldDirection.z * currentSpeed;
+
+        float yDifference = currentYPosition - transform.position.y;
+        currentMovement.y = yDifference * 10f;
 
         characterController.Move(currentMovement * Time.deltaTime);
     }
