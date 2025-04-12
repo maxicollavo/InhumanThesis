@@ -29,6 +29,10 @@ public class FPSController : MonoBehaviour
     private float currentSpeed;
 
     private float currentYPosition = 1.44f;
+    [SerializeField] private float gravity = -9.81f;
+    [SerializeField] private float terminalVelocity = -50f;
+    private float verticalVelocity = 0f;
+    private bool isGrounded = false;
 
     private void Start()
     {
@@ -72,7 +76,6 @@ public class FPSController : MonoBehaviour
         bool isCrouching = Keyboard.current.cKey.isPressed;
 
         float targetYPosition = isCrouching ? 1f : 1.44f;
-
         currentYPosition = Mathf.Lerp(currentYPosition, targetYPosition, Time.deltaTime * 10f);
 
         float targetHeight = isCrouching ? crouchedHeight : originalHeight;
@@ -89,9 +92,21 @@ public class FPSController : MonoBehaviour
         currentMovement.x = worldDirection.x * currentSpeed;
         currentMovement.z = worldDirection.z * currentSpeed;
 
-        float yDifference = currentYPosition - transform.position.y;
-        currentMovement.y = yDifference * 10f;
+        isGrounded = characterController.isGrounded;
+
+        if (isGrounded && verticalVelocity < 0)
+        {
+            verticalVelocity = -2f;
+        }
+        else
+        {
+            verticalVelocity += gravity * Time.deltaTime;
+            verticalVelocity = Mathf.Max(verticalVelocity, terminalVelocity);
+        }
+
+        currentMovement.y = verticalVelocity;
 
         characterController.Move(currentMovement * Time.deltaTime);
     }
+
 }

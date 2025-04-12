@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class LockInteractor : MonoBehaviour, Interactor
 {
-    [SerializeField] List<GameObject> gameObj;
-    [SerializeField] List<GameObject> lockGOs;
+    [SerializeField] GameObject gameObj;
+    [SerializeField] GameObject lockGOs;
 
     [HideInInspector]
     public bool OnLock;
@@ -26,33 +26,12 @@ public class LockInteractor : MonoBehaviour, Interactor
 
     void LockEnabled(object sender, EventArgs e)
     {
-        DisableOutline();
-
-        foreach (var obj in gameObj)
-        {
-            obj.SetActive(false);
-        }
-
-        foreach (var go in lockGOs)
-        {
-            go.SetActive(true);
-        }
+        OnPuzzleMethod();
     }
 
     public void LockDisabled()
     {
-        OnLock = !OnLock;
-        EventManager.Instance.Dispatch(GameEventTypes.OnGameplay, this, EventArgs.Empty);
-
-        foreach (var obj in gameObj)
-        {
-            obj.SetActive(true);
-        }
-
-        foreach (var go in lockGOs)
-        {
-            go.SetActive(false);
-        }
+        OnGameplayMethod();
     }
 
     public void Interact()
@@ -70,6 +49,23 @@ public class LockInteractor : MonoBehaviour, Interactor
     void EnableOutline()
     {
         outline.enabled = true;
+    }
+
+    void OnPuzzleMethod()
+    {
+        DisableOutline();
+        gameObj.SetActive(false);
+        lockGOs.SetActive(true);
+        GameManager.Instance.lockInt = this;
+    }
+
+    void OnGameplayMethod()
+    {
+        OnLock = !OnLock;
+        EventManager.Instance.Dispatch(GameEventTypes.OnGameplay, this, EventArgs.Empty);
+        gameObj.SetActive(true);
+        lockGOs.SetActive(false);
+        GameManager.Instance.lockInt = null;
     }
 
     public void Aiming()

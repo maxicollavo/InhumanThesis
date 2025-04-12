@@ -27,7 +27,8 @@ public class GameManager : MonoBehaviour
     [Header("Gameplay")]
     public List<GameObject> TPWaypoints;
 
-    [SerializeField] LockInteractor lockInt;
+    [HideInInspector]
+    public LockInteractor lockInt;
 
     //public PostProcessProfile profile;
     //private UnityEngine.Rendering.PostProcessing.ChromaticAberration ca;
@@ -82,9 +83,13 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        if (lockInt.OnLock && Input.GetKeyDown(KeyCode.Mouse0))
+        if (lockInt == null) return;
+        else
         {
-            lockInt.LockDisabled();
+            if (lockInt.OnLock && Input.GetKeyDown(KeyCode.Mouse1))
+            {
+                lockInt.LockDisabled();
+            }
         }
     }
 
