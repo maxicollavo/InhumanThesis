@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class LockInteractor : MonoBehaviour, Interactor
 {
-    [SerializeField] GameObject gameObj;
-    [SerializeField] GameObject lockGOs;
+    [SerializeField] GameObject playerCam;
+    [SerializeField] GameObject lockCam;
 
     [HideInInspector]
     public bool OnLock;
@@ -54,8 +54,8 @@ public class LockInteractor : MonoBehaviour, Interactor
     void OnPuzzleMethod()
     {
         DisableOutline();
-        gameObj.SetActive(false);
-        lockGOs.SetActive(true);
+        playerCam.SetActive(false);
+        lockCam.SetActive(true);
         GameManager.Instance.lockInt = this;
     }
 
@@ -63,8 +63,8 @@ public class LockInteractor : MonoBehaviour, Interactor
     {
         OnLock = !OnLock;
         EventManager.Instance.Dispatch(GameEventTypes.OnGameplay, this, EventArgs.Empty);
-        gameObj.SetActive(true);
-        lockGOs.SetActive(false);
+        playerCam.SetActive(true);
+        lockCam.SetActive(false);
         GameManager.Instance.lockInt = null;
     }
 

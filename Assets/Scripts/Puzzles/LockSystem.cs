@@ -9,6 +9,8 @@ public class LockSystem : MonoBehaviour
     [SerializeField] private int desiredPos;
     [SerializeField] private int lockNum;
 
+    [SerializeField] LockManager lockManager;
+
     private void Awake()
     {
         posCounter = minCounter;
@@ -28,6 +30,7 @@ public class LockSystem : MonoBehaviour
             posCounter = minCounter;
         }
 
+        Debug.Log(posCounter);
         UpdateLockState();
     }
 
@@ -40,13 +43,13 @@ public class LockSystem : MonoBehaviour
     {
         if (posCounter == desiredPos)
         {
-            LockManager.Instance.LockDone[lockNum] = true;
+            lockManager.LockDone[lockNum] = true;
         }
         else
         {
-            LockManager.Instance.LockDone[lockNum] = false;
+            lockManager.LockDone[lockNum] = false;
         }
 
-        LockManager.Instance.CheckLock();
+        lockManager.CheckLock();
     }
 }

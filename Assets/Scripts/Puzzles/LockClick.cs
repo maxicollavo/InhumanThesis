@@ -3,26 +3,23 @@ using UnityEngine;
 
 public class LockClick : MonoBehaviour
 {
-    [SerializeField] List<Material> mats;
-    private Renderer myRenderer;
+    [SerializeField] private List<GameObject> lockStates;
     private int currentIndex = 0;
-
     private LockSystem lockSystem;
 
     private void Awake()
     {
-        myRenderer = GetComponent<Renderer>();
-        if (mats.Count > 0)
-        {
-            myRenderer.material = mats[currentIndex];
-        }
-
         lockSystem = GetComponent<LockSystem>();
+
+        for (int i = 0; i < lockStates.Count; i++)
+        {
+            lockStates[i].SetActive(i == currentIndex);
+        }
     }
 
     private void OnMouseDown()
     {
-        ChangeColor();
+        ChangeState();
         UpdateLockStatus();
     }
 
@@ -31,11 +28,14 @@ public class LockClick : MonoBehaviour
         lockSystem.SendLock();
     }
 
-    private void ChangeColor()
+    private void ChangeState()
     {
-        if (mats.Count == 0) return;
+        if (lockStates.Count == 0) return;
 
-        currentIndex = (currentIndex + 1) % mats.Count;
-        myRenderer.material = mats[currentIndex];
+        lockStates[currentIndex].SetActive(false);
+
+        currentIndex = (currentIndex + 1) % lockStates.Count;
+
+        lockStates[currentIndex].SetActive(true);
     }
 }

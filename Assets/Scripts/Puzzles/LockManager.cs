@@ -8,19 +8,16 @@ public class LockManager : MonoBehaviour
     [HideInInspector] public List<bool> LockDone = new List<bool>();
     [HideInInspector] public bool HasWon;
 
-    private int currentStep = 0;
-
     [SerializeField]
     private int maxLocks;
 
     [SerializeField]
-    private GameObject lockWall;
-    [SerializeField]
-    private GameObject interactUI;
-    [SerializeField]
     private GameObject interactTrigger;
 
     [SerializeField] AnimacionesPyramid pyramid;
+
+    [SerializeField] GameObject playerCam;
+    [SerializeField] GameObject lockCam;
 
     public static LockManager Instance;
 
@@ -51,39 +48,29 @@ public class LockManager : MonoBehaviour
     {
         if (HasWon) return;
 
-        int newStep = 0;
-
+        int solved = 0;
         for (int i = 0; i < LockDone.Count; i++)
         {
             if (LockDone[i])
             {
-                newStep++;
-            }
-            else
-            {
-                break;
+                solved++;
             }
         }
 
-        if (newStep != currentStep)
+        if (solved == LockDone.Count)
         {
-            currentStep = newStep;
-
-            if (currentStep == LockDone.Count)
-            {
-                StartCoroutine(Win());
-            }
+            StartCoroutine(Win());
         }
     }
+
 
     private IEnumerator Win()
     {
         EventManager.Instance.Dispatch(GameEventTypes.OnGameplay, this, EventArgs.Empty);
 
         HasWon = true;
-        lockWall.SetActive(false);
-
-        Destroy(interactUI);
+        playerCam.SetActive(true);
+        lockCam.SetActive(false);
         Destroy(interactTrigger);
 
         yield return new WaitForSeconds(0.1f);
