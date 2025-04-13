@@ -14,31 +14,24 @@ public class LockInteractor : MonoBehaviour, Interactor
 
     private void Start()
     {
-        EventManager.Instance.Register(GameEventTypes.OnPuzzle, LockEnabled);
+        EventManager.Instance.Register(GameEventTypes.OnGameplay, LockDisabled);
 
         outline.enabled = false;
     }
 
     private void OnDestroy()
     {
-        EventManager.Instance.Unregister(GameEventTypes.OnPuzzle, LockEnabled);
+        EventManager.Instance.Unregister(GameEventTypes.OnGameplay, LockDisabled);
     }
 
-    void LockEnabled(object sender, EventArgs e)
-    {
-        OnPuzzleMethod();
-    }
-
-    public void LockDisabled()
+    public void LockDisabled(object o, EventArgs e)
     {
         OnGameplayMethod();
     }
 
     public void Interact()
     {
-        OnLock = !OnLock;
-
-        EventManager.Instance.Dispatch(GameEventTypes.OnPuzzle, this, EventArgs.Empty);
+        OnPuzzleMethod();
     }
 
     public void DisableOutline()
@@ -53,18 +46,26 @@ public class LockInteractor : MonoBehaviour, Interactor
 
     void OnPuzzleMethod()
     {
+        EventManager.Instance.Dispatch(GameEventTypes.OnPuzzle, this, EventArgs.Empty);
+        OnLock = true;
         DisableOutline();
-        playerCam.SetActive(false);
+
         lockCam.SetActive(true);
+        playerCam.SetActive(false);
+
         GameManager.Instance.lockInt = this;
     }
 
     void OnGameplayMethod()
     {
-        OnLock = !OnLock;
-        EventManager.Instance.Dispatch(GameEventTypes.OnGameplay, this, EventArgs.Empty);
+        if (!OnLock) return;
+        Debug.Log("On gameplay");
+
+        OnLock = false;
+
         playerCam.SetActive(true);
         lockCam.SetActive(false);
+
         GameManager.Instance.lockInt = null;
     }
 

@@ -88,7 +88,7 @@ public class GameManager : MonoBehaviour
         {
             if (lockInt.OnLock && Input.GetKeyDown(KeyCode.Mouse1))
             {
-                lockInt.LockDisabled();
+                lockInt.LockDisabled(null, null);
             }
         }
     }
