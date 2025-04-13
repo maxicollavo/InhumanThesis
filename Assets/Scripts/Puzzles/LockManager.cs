@@ -69,8 +69,6 @@ public class LockManager : MonoBehaviour
         EventManager.Instance.Dispatch(GameEventTypes.OnGameplay, this, EventArgs.Empty);
 
         HasWon = true;
-        playerCam.SetActive(true);
-        lockCam.SetActive(false);
         Destroy(interactTrigger);
 
         yield return new WaitForSeconds(0.1f);

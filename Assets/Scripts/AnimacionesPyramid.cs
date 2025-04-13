@@ -17,6 +17,6 @@ public class AnimacionesPyramid : MonoBehaviour
     public void RestartAnim()
     {
         Debug.Log("Reinicia anim piramide");
-        anim.Play("PyramidStartLevitation", -1, 0f);
+        //anim.Play("PyramidStartLevitation", -1, 0f);
     }
 }
