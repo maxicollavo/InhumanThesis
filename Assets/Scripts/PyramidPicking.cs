@@ -8,6 +8,7 @@ public class PyramidPicking : MonoBehaviour, Interactor
     [SerializeField] GameObject grabbedPyramid;
     [SerializeField] GameObject door;
 
+
     private void Start()
     {
         outline.enabled = false;
