@@ -5,13 +5,19 @@ using UnityEngine;
 
 public class EventManager : MonoBehaviour
 {
-    public static EventManager Instance = new EventManager();
+    public static EventManager Instance { get; private set; }
 
     Dictionary<GameEventTypes, EventHandler> events = new Dictionary<GameEventTypes, EventHandler>();
 
-    private EventManager()
+    private void Awake()
     {
-
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
     }
 
     public void Register(GameEventTypes eventName, EventHandler handler)
@@ -25,12 +31,18 @@ public class EventManager : MonoBehaviour
 
     public void Unregister(GameEventTypes eventName, EventHandler handler)
     {
-        events[eventName] -= handler;
+        if (events.ContainsKey(eventName))
+        {
+            events[eventName] -= handler;
+        }
     }
 
     public void Dispatch(GameEventTypes eventName, object sender, EventArgs args)
     {
-        events[eventName].Invoke(sender, args);
+        if (events.ContainsKey(eventName) && events[eventName] != null)
+        {
+            events[eventName].Invoke(sender, args);
+        }
     }
 }
 

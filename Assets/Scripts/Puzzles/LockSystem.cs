@@ -30,7 +30,6 @@ public class LockSystem : MonoBehaviour
             posCounter = minCounter;
         }
 
-        Debug.Log(posCounter);
         UpdateLockState();
     }
 

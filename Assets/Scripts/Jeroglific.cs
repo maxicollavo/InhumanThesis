@@ -9,6 +9,11 @@ public class Jeroglific : MonoBehaviour, IRead
 
     [SerializeField] Outline outline;
 
+    [SerializeField] bool StartsLevel;
+    [SerializeField] GameObject door;
+    [SerializeField] GameObject subText;
+    [SerializeField] GameObject subTrigger;
+
     private void Awake()
     {
         outline = GetComponent<Outline>();
@@ -28,7 +33,26 @@ public class Jeroglific : MonoBehaviour, IRead
 
     public void Read()
     {
+        if (StartsLevel)
+        {
+            StartCoroutine(StartLevelCoroutine());
+            UIManager.Instance.ChangeCursor(false);
+
+            return;
+        }
+
+        UIManager.Instance.ChangeCursor(false);
         StartCoroutine(SetSubtitle());
+    }
+
+    IEnumerator StartLevelCoroutine()
+    {
+        StartCoroutine(SetSubtitle());
+        Destroy(subTrigger);
+        subText.SetActive(false);
+        yield return new WaitForSeconds(3f);
+        door.SetActive(false);
+        gameObject.SetActive(false);
     }
 
     IEnumerator SetSubtitle()
