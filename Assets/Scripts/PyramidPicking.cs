@@ -16,6 +16,8 @@ public class PyramidPicking : MonoBehaviour, Interactor
     public void DisableOutline()
     {
         outline.enabled = false;
+
+        UIManager.Instance.ChangeCursor(false);
     }
 
     void EnableOutline()
@@ -26,6 +28,8 @@ public class PyramidPicking : MonoBehaviour, Interactor
     public void Aiming()
     {
         EnableOutline();
+
+        UIManager.Instance.ChangeCursor(true);
     }
 
     private void GrabPyramid()
@@ -33,6 +37,8 @@ public class PyramidPicking : MonoBehaviour, Interactor
         handPyramid.SetActive(true);
         grabbedPyramid.SetActive(false);
         door.SetActive(false);
+
+        UIManager.Instance.ChangeCursor(false);
     }
 
     public void Interact()

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Unity.Collections.AllocatorManager;
 
 public class LockManager : MonoBehaviour
 {
@@ -63,12 +64,18 @@ public class LockManager : MonoBehaviour
         }
     }
 
+    private void BackToGameplayCamera()
+    {
+        playerCam.SetActive(true);
+        lockCam.SetActive(false);
+    }
 
     private IEnumerator Win()
     {
         EventManager.Instance.Dispatch(GameEventTypes.OnGameplay, this, EventArgs.Empty);
-
+        BackToGameplayCamera();
         HasWon = true;
+
         Destroy(interactTrigger);
 
         yield return new WaitForSeconds(0.1f);

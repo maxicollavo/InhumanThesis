@@ -33,11 +33,14 @@ public class FakeWallInteractor : MonoBehaviour, Interactor
         DisableOutline();
         boxCollider.enabled = false;
         timelineDirector.Play();
+        UIManager.Instance.ChangeCursor(false);
     }
 
     public void DisableOutline()
     {
         outline.enabled = false;
+
+        UIManager.Instance.ChangeCursor(false);
     }
 
     void EnableOutline()
@@ -48,5 +51,7 @@ public class FakeWallInteractor : MonoBehaviour, Interactor
     public void Aiming()
     {
         EnableOutline();
+
+        UIManager.Instance.ChangeCursor(true);
     }
 }

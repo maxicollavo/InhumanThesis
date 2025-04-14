@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
 using UnityEngine.SceneManagement;
+using static Unity.Collections.AllocatorManager;
 
 public class GameManager : MonoBehaviour
 {
     [Header("Input Manager")]
-    [HideInInspector]
+    //[HideInInspector]
     public bool canMove = true;
     public bool inputblock;
     public bool clickBlock;
@@ -88,7 +89,8 @@ public class GameManager : MonoBehaviour
         {
             if (lockInt.OnLock && Input.GetKeyDown(KeyCode.Mouse1))
             {
-                lockInt.LockDisabled(null, null);
+                Debug.Log(lockInt.OnLock);
+                lockInt.LockDisabled();
             }
         }
     }
