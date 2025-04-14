@@ -9,6 +9,15 @@ public class AnimacionesPyramid : MonoBehaviour
 
     [SerializeField] Animator anim;
 
+    private void Start()
+    {
+        anim = GetComponent<Animator>();
+    }
+
+    private void OnEnable()
+    {
+        anim.SetTrigger("Start");
+    }
     void Close()
     {
         Instantiate(chispas, top.transform);
