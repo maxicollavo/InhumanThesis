@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour
     public List<GameObject> TPWaypoints;
 
     [HideInInspector]
-    public LockInteractor lockInt;
+    public bool OnPuzzle;
 
     //public PostProcessProfile profile;
     //private UnityEngine.Rendering.PostProcessing.ChromaticAberration ca;
@@ -84,13 +84,12 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        if (lockInt == null) return;
+        if (!OnPuzzle) return;
         else
         {
-            if (lockInt.OnLock && Input.GetKeyDown(KeyCode.Mouse1))
+            if (OnPuzzle && Input.GetKeyDown(KeyCode.Mouse1))
             {
-                Debug.Log(lockInt.OnLock);
-                lockInt.LockDisabled();
+                OnPuzzle = false;
             }
         }
     }
@@ -99,19 +98,21 @@ public class GameManager : MonoBehaviour
     {
         canMove = false;
         inputblock = true;
+        OnPuzzle = false;
     }
 
     public void OnPuzzleMethod(object sender, EventArgs e)
     {
         canMove = false;
         inputblock = false;
-
+        OnPuzzle = true;
     }
 
     public void OnGameplayMethod(object sender, EventArgs e)
     {
         canMove = true;
         inputblock = false;
+        OnPuzzle = false;
     }
 }
 

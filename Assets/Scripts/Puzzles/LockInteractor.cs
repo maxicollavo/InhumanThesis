@@ -23,7 +23,6 @@ public class LockInteractor : MonoBehaviour, Interactor
         OnLock = false;
         playerCam.SetActive(true);
         lockCam.SetActive(false);
-        GameManager.Instance.lockInt = null;
     }
 
     public void Interact()
@@ -33,7 +32,6 @@ public class LockInteractor : MonoBehaviour, Interactor
         OnLock = true;
         lockCam.SetActive(true);
         playerCam.SetActive(false);
-        GameManager.Instance.lockInt = this;
     }
 
     public void DisableOutline()
