@@ -28,6 +28,8 @@ public class GameManager : MonoBehaviour
     [Header("Gameplay")]
     public List<GameObject> TPWaypoints;
 
+    public GameObject FPController;
+
     [HideInInspector]
     public bool OnPuzzle;
 
@@ -89,7 +91,7 @@ public class GameManager : MonoBehaviour
         {
             if (OnPuzzle && Input.GetKeyDown(KeyCode.Mouse1))
             {
-                OnPuzzle = false;
+                EventManager.Instance.Dispatch(GameEventTypes.OnGameplay, this, EventArgs.Empty);
             }
         }
     }
@@ -106,6 +108,7 @@ public class GameManager : MonoBehaviour
         canMove = false;
         inputblock = false;
         OnPuzzle = true;
+        FPController.SetActive(false);
     }
 
     public void OnGameplayMethod(object sender, EventArgs e)
@@ -113,6 +116,7 @@ public class GameManager : MonoBehaviour
         canMove = true;
         inputblock = false;
         OnPuzzle = false;
+        FPController.SetActive(true);
     }
 }
 

@@ -4903,7 +4903,6 @@ GameObject:
   - component: {fileID: 202247502}
   - component: {fileID: 202247506}
   - component: {fileID: 202247505}
-  - component: {fileID: 202247504}
   - component: {fileID: 202247503}
   - component: {fileID: 202247507}
   m_Layer: 0
@@ -4948,18 +4947,6 @@ MonoBehaviour:
   ignoreMask:
     serializedVersion: 2
     m_Bits: 4
---- !u!114 &202247504
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 202247501}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0c9e8544e12694489f34df68e2a792a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!81 &202247505
 AudioListener:
   m_ObjectHideFlags: 0
@@ -31124,6 +31111,50 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1836381192}
   m_SourcePrefab: {fileID: 100100000, guid: 138afa00f3758b04bb9d599f1b5946d3, type: 3}
+--- !u!1 &1275212294
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1275212296}
+  - component: {fileID: 1275212295}
+  m_Layer: 0
+  m_Name: CameraBehaviour
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1275212295
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1275212294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0c9e8544e12694489f34df68e2a792a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1275212296
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1275212294}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 141.67386, y: 2.031523, z: 158.88536}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1277514066
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -37964,6 +37995,7 @@ MonoBehaviour:
   state: 0
   pauseMenu: {fileID: 893517074}
   TPWaypoints: []
+  FPController: {fileID: 596941259}
   OnPuzzle: 0
   isAimingAtObject: 0
 --- !u!4 &1600673506
@@ -41247,6 +41279,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1737974341}
+  - component: {fileID: 1737974342}
   m_Layer: 0
   m_Name: PuzzleManager
   m_TagString: Untagged
@@ -41270,6 +41303,29 @@ Transform:
   - {fileID: 408467558}
   m_Father: {fileID: 1580862476}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1737974342
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1737974340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d00310de7274a044eada1d68049e5293, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  puzzleBoxColliders:
+  - {fileID: 562125325}
+  inPuzzleColliders:
+  - {fileID: 1256819364}
+  - {fileID: 895491776}
+  - {fileID: 2079486373}
+  - {fileID: 814340391}
+  - {fileID: 829450124}
+  - {fileID: 1593032176}
+  - {fileID: 1216779429}
+  - {fileID: 1130535087}
 --- !u!1 &1739103812 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 138afa00f3758b04bb9d599f1b5946d3, type: 3}
@@ -50268,7 +50324,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2088859172
 Transform:
   m_ObjectHideFlags: 0
@@ -51033,8 +51089,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2135550128}
   - component: {fileID: 2135550131}
-  - component: {fileID: 2135550130}
   - component: {fileID: 2135550129}
+  - component: {fileID: 2135550132}
   m_Layer: 0
   m_Name: MainPuzzleCamera
   m_TagString: Untagged
@@ -51101,14 +51157,6 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
---- !u!81 &2135550130
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2135550127}
-  m_Enabled: 1
 --- !u!20 &2135550131
 Camera:
   m_ObjectHideFlags: 0
@@ -51160,6 +51208,18 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!114 &2135550132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2135550127}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0c9e8544e12694489f34df68e2a792a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2136411028
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -51424,3 +51484,4 @@ SceneRoots:
   m_Roots:
   - {fileID: 153282256}
   - {fileID: 1601765429}
+  - {fileID: 1275212296}
