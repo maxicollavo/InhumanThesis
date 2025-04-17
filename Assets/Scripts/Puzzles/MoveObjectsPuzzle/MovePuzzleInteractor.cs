@@ -5,6 +5,11 @@ public class MovePuzzleInteractor : MonoBehaviour, Interactor
 {
     Outline outline;
     [SerializeField] Camera puzzleCam;
+    [SerializeField] GameObject boardPiece;
+    [SerializeField] GameObject handPiece;
+
+    private bool CanPlay;
+    private bool hasInteracted = false;
 
     private void Awake()
     {
@@ -37,8 +42,22 @@ public class MovePuzzleInteractor : MonoBehaviour, Interactor
 
     public void Interact()
     {
-        EventManager.Instance.Dispatch(GameEventTypes.OnPuzzle, this, EventArgs.Empty);
-        puzzleCam.enabled = true;
-        DisableOutline();
+        if (!GameManager.Instance.HasPiece) return;
+
+        if (!hasInteracted)
+        {
+            CanPlay = true;
+            boardPiece.SetActive(true);
+            handPiece.SetActive(false);
+            hasInteracted = true;
+            return;
+        }
+
+        if (CanPlay)
+        {
+            EventManager.Instance.Dispatch(GameEventTypes.OnPuzzle, this, EventArgs.Empty);
+            puzzleCam.enabled = true;
+            DisableOutline();
+        }
     }
 }

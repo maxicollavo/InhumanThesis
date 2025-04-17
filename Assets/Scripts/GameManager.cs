@@ -33,6 +33,7 @@ public class GameManager : MonoBehaviour
 
     [HideInInspector]
     public bool OnPuzzle;
+    public bool HasPiece;
 
     //public PostProcessProfile profile;
     //private UnityEngine.Rendering.PostProcessing.ChromaticAberration ca;

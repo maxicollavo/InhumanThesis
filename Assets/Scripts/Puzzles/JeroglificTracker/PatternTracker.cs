@@ -38,7 +38,7 @@ public class PatternTracker : MonoBehaviour
     {
         Ray ray = trackCamera.ScreenPointToRay(Input.mousePosition);
 
-        if (Physics.Raycast(ray, out RaycastHit hit, 100f, detectionLayer))
+        if (Physics.Raycast(ray, out RaycastHit hit, 100f))
         {
             GameObject hitObj = hit.collider.gameObject;
 
@@ -58,7 +58,7 @@ public class PatternTracker : MonoBehaviour
             }
             else
             {
-                Debug.Log("Nodo inválido tocado. Reiniciando patrón.");
+                Debug.Log($"Nodo inválido tocado: {hitObj.name}. Reiniciando patrón.");
                 currentPath.Clear();
                 isTracking = false;
             }
