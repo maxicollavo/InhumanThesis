@@ -50,5 +50,6 @@ public enum GameEventTypes
 {
     OnGameplay,
     OnCinematic,
-    OnPuzzle
+    OnPuzzle,
+    OnPickeable
 }

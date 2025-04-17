@@ -1,0 +1,70 @@
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PatternTracker : MonoBehaviour
+{
+    [Header("Configuración")]
+    public List<GameObject> validNodes;
+    public LayerMask detectionLayer;
+
+    private List<GameObject> currentPath = new List<GameObject>();
+    private bool isTracking = false;
+    public Camera trackCamera;
+
+    void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            currentPath.Clear();
+            isTracking = true;
+        }
+
+        if (Input.GetMouseButtonUp(0))
+        {
+            isTracking = false;
+            CheckPattern();
+        }
+
+        if (isTracking)
+        {
+            TrackMouse();
+        }
+    }
+
+    void TrackMouse()
+    {
+        Ray ray = trackCamera.ScreenPointToRay(Input.mousePosition);
+
+        if (Physics.Raycast(ray, out RaycastHit hit, 100f, detectionLayer))
+        {
+            GameObject hitObj = hit.collider.gameObject;
+
+            if (validNodes.Contains(hitObj))
+            {
+                if (!currentPath.Contains(hitObj))
+                {
+                    currentPath.Add(hitObj);
+                    Debug.Log($"Nodo válido agregado: {hitObj.name}");
+                }
+            }
+            else
+            {
+                Debug.Log("Nodo inválido tocado. Reiniciando patrón.");
+                currentPath.Clear();
+                isTracking = false;
+            }
+        }
+    }
+
+    void CheckPattern()
+    {
+        if (currentPath.Count == validNodes.Count)
+        {
+            Debug.Log("¡Patrón completo correctamente!");
+        }
+        else
+        {
+            Debug.Log("Patrón incompleto.");
+        }
+    }
+}

@@ -39,5 +39,6 @@ public class MovePuzzleInteractor : MonoBehaviour, Interactor
     {
         EventManager.Instance.Dispatch(GameEventTypes.OnPuzzle, this, EventArgs.Empty);
         puzzleCam.enabled = true;
+        DisableOutline();
     }
 }

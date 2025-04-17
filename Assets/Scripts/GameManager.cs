@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour
     public List<GameObject> TPWaypoints;
 
     public GameObject FPController;
+    public GameObject crosshair;
 
     [HideInInspector]
     public bool OnPuzzle;
@@ -55,6 +56,7 @@ public class GameManager : MonoBehaviour
         EventManager.Instance.Register(GameEventTypes.OnCinematic, OnCinematicMethod);
         EventManager.Instance.Register(GameEventTypes.OnGameplay, OnGameplayMethod);
         EventManager.Instance.Register(GameEventTypes.OnPuzzle, OnPuzzleMethod);
+        EventManager.Instance.Register(GameEventTypes.OnPickeable, OnPickeableMethod);
     }
 
     private void OnDestroy()
@@ -62,6 +64,8 @@ public class GameManager : MonoBehaviour
         EventManager.Instance.Unregister(GameEventTypes.OnCinematic, OnCinematicMethod);
         EventManager.Instance.Unregister(GameEventTypes.OnGameplay, OnGameplayMethod);
         EventManager.Instance.Unregister(GameEventTypes.OnPuzzle, OnPuzzleMethod);
+        EventManager.Instance.Unregister(GameEventTypes.OnPickeable, OnPickeableMethod);
+
     }
 
     public void Update()
@@ -109,6 +113,7 @@ public class GameManager : MonoBehaviour
         inputblock = false;
         OnPuzzle = true;
         FPController.SetActive(false);
+        crosshair.SetActive(false);
     }
 
     public void OnGameplayMethod(object sender, EventArgs e)
@@ -117,6 +122,14 @@ public class GameManager : MonoBehaviour
         inputblock = false;
         OnPuzzle = false;
         FPController.SetActive(true);
+        crosshair.SetActive(true);
+    }
+
+    public void OnPickeableMethod(object sender, EventArgs e)
+    {
+        canMove = false;
+        inputblock = false;
+        crosshair.SetActive(false);
     }
 }
 

@@ -21,12 +21,4 @@ public class Waypoints : MonoBehaviour
         if (waypointLeft != null) neighbors[4] = waypointLeft;
         if (waypointRight != null) neighbors[5] = waypointRight;
     }
-
-    void Start()
-    {
-        foreach (var pair in neighbors)
-        {
-            Debug.Log($"{gameObject.name} tiene vecino en dirección {pair.Key} a {pair.Value.name}");
-        }
-    }
 }

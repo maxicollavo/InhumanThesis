@@ -48,25 +48,21 @@ public class TouchButton : MonoBehaviour
         {
             target = actualWp.waypointRight.transform;
             nextWaypoint = actualWp.waypointRight;
-            actualWp.waypointRight.IsUsing = true;
         }
         else if (direction == Vector3.left && actualWp.waypointLeft != null && !actualWp.waypointLeft.IsUsing)
         {
             target = actualWp.waypointLeft.transform;
             nextWaypoint = actualWp.waypointLeft;
-            actualWp.waypointLeft.IsUsing = true;
         }
         else if (direction == Vector3.up && actualWp.waypointUp != null && !actualWp.waypointUp.IsUsing)
         {
             target = actualWp.waypointUp.transform;
             nextWaypoint = actualWp.waypointUp;
-            actualWp.waypointUp.IsUsing = true;
         }
         else if (direction == Vector3.down && actualWp.waypointDown != null && !actualWp.waypointDown.IsUsing)
         {
             target = actualWp.waypointDown.transform;
             nextWaypoint = actualWp.waypointDown;
-            actualWp.waypointDown.IsUsing = true;
         }
 
         if (target != null)

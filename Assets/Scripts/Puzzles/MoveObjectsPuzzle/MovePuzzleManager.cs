@@ -1,15 +1,26 @@
+using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Playables;
 
 public class MovePuzzleManager : MonoBehaviour
 {
+    [Header("Timeline")]
+    [SerializeField] private PlayableDirector winTimeline;
+
     [HideInInspector]
     public Waypoints wp { get; set; }
 
+    public List<BoxCollider> allColliders;
     public List<BoxCollider> buttonsColliders;
+    [HideInInspector]
     public List<bool> OnTargetList;
 
+    [HideInInspector]
     public TouchFigure selectedFigure;
+    public Transform cinematicCam;
+    public Transform playerCam;
 
     public static MovePuzzleManager instance;
 
@@ -84,7 +95,31 @@ public class MovePuzzleManager : MonoBehaviour
 
         if (allPositionsWon)
         {
-            Debug.Log("¡Has ganado!");
+            Win();
         }
+    }
+
+    void Win()
+    {
+        Debug.Log("Win");
+        foreach (var coll in allColliders)
+        {
+            Destroy(coll);
+        }
+
+        cinematicCam.gameObject.SetActive(true);
+        cinematicCam.transform.position = playerCam.transform.position;
+        cinematicCam.transform.rotation = playerCam.transform.rotation;
+
+        EventManager.Instance.Dispatch(GameEventTypes.OnCinematic, this, EventArgs.Empty);
+
+        winTimeline.Play();
+        StartCoroutine(WaitForTimeline());
+    }
+
+    IEnumerator WaitForTimeline()
+    {
+        yield return new WaitUntil(() => winTimeline.state != PlayState.Playing);
+        EventManager.Instance.Dispatch(GameEventTypes.OnGameplay, this, EventArgs.Empty);
     }
 }

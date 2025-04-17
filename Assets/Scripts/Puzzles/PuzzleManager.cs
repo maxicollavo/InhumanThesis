@@ -23,12 +23,14 @@ public class PuzzleManager : MonoBehaviour
     {
         foreach (var coll in puzzleBoxColliders)
         {
-            coll.enabled = false;
+            if (coll != null)
+                coll.enabled = false;
         }
 
         foreach (var puz in inPuzzleColliders)
         {
-            puz.enabled = true;
+            if (puz != null)
+                puz.enabled = true;
         }
     }
 
@@ -36,12 +38,14 @@ public class PuzzleManager : MonoBehaviour
     {
         foreach (var coll in puzzleBoxColliders)
         {
-            coll.enabled = true;
+            if (coll != null)
+                coll.enabled = true;
         }
 
         foreach (var puz in inPuzzleColliders)
         {
-            puz.enabled = false;
+            if (puz != null)
+                puz.enabled = false;
         }
     }
 }
