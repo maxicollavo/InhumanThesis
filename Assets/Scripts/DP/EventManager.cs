@@ -17,7 +17,6 @@ public class EventManager : MonoBehaviour
             return;
         }
         Instance = this;
-        DontDestroyOnLoad(gameObject);
     }
 
     public void Register(GameEventTypes eventName, EventHandler handler)

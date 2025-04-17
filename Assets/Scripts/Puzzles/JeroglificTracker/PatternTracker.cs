@@ -8,11 +8,14 @@ public class PatternTracker : MonoBehaviour
     public LayerMask detectionLayer;
 
     private List<GameObject> currentPath = new List<GameObject>();
-    private bool isTracking = false;
+    public bool isTracking { get; private set; }
     public Camera trackCamera;
+    [SerializeField] TrailManager manager;
 
     void Update()
     {
+        if (!manager.OnJeroglific) return;
+
         if (Input.GetMouseButtonDown(0))
         {
             currentPath.Clear();
@@ -45,6 +48,12 @@ public class PatternTracker : MonoBehaviour
                 {
                     currentPath.Add(hitObj);
                     Debug.Log($"Nodo válido agregado: {hitObj.name}");
+
+                    if (currentPath.Count == validNodes.Count)
+                    {
+                        isTracking = false;
+                        CheckPattern();
+                    }
                 }
             }
             else
@@ -60,7 +69,8 @@ public class PatternTracker : MonoBehaviour
     {
         if (currentPath.Count == validNodes.Count)
         {
-            Debug.Log("¡Patrón completo correctamente!");
+            manager.ReactivateGameplay(true);
+            isTracking = false;
         }
         else
         {
