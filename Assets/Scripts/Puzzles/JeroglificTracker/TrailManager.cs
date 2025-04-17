@@ -42,7 +42,7 @@ public class TrailManager : MonoBehaviour
     private void ParticleTracking(bool IsTracking)
     {
         if (IsTracking)
-            particle.Play();
+            particle.Play();    
         else
         {
             particle.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);

@@ -5880,7 +5880,7 @@ GameObject:
   - component: {fileID: 275693172}
   - component: {fileID: 275693171}
   - component: {fileID: 275693170}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: Mesh venda
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14645,7 +14645,7 @@ GameObject:
   - component: {fileID: 724517095}
   - component: {fileID: 724517094}
   - component: {fileID: 724517093}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: Mesh venda (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16876,6 +16876,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 00aa185eedd724d449875076e67239a3, type: 3}
       propertyPath: m_Name
       value: Manga Mesh
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 00aa185eedd724d449875076e67239a3, type: 3}
+      propertyPath: m_Layer
+      value: 18
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -27293,9 +27297,21 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 7ad23a65fad20a14390c0f34562ccfbe, type: 2}
+    - target: {fileID: -3539870677672492352, guid: 834060ccb4baa38499b25009661ce4c0, type: 3}
+      propertyPath: m_Layer
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: -754477357073527682, guid: 834060ccb4baa38499b25009661ce4c0, type: 3}
+      propertyPath: m_Layer
+      value: 18
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 834060ccb4baa38499b25009661ce4c0, type: 3}
       propertyPath: m_Name
       value: Brazoo para unity
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 834060ccb4baa38499b25009661ce4c0, type: 3}
+      propertyPath: m_Layer
+      value: 18
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

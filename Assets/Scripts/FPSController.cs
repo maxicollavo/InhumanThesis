@@ -73,18 +73,20 @@ public class FPSController : MonoBehaviour
 
     private void HandleMovement()
     {
-        bool isCrouching = Keyboard.current.cKey.isPressed;
+        bool wantsToStand = !Keyboard.current.cKey.isPressed;
+        bool ceilingAbove = IsCeilingAbove();
+        bool shouldCrouch = Keyboard.current.cKey.isPressed || ceilingAbove;
 
-        float targetYPosition = isCrouching ? 1f : 1.44f;
+        float targetYPosition = shouldCrouch ? 1f : 1.44f;
         currentYPosition = Mathf.Lerp(currentYPosition, targetYPosition, Time.deltaTime * 10f);
 
-        float targetHeight = isCrouching ? crouchedHeight : originalHeight;
+        float targetHeight = shouldCrouch ? crouchedHeight : originalHeight;
         characterController.height = Mathf.Lerp(characterController.height, targetHeight, Time.deltaTime * 10f);
 
-        Vector3 targetCamPos = isCrouching ? crouchedCameraLocalPosition : originalCameraLocalPosition;
+        Vector3 targetCamPos = shouldCrouch ? crouchedCameraLocalPosition : originalCameraLocalPosition;
         mainCamera.transform.localPosition = Vector3.Lerp(mainCamera.transform.localPosition, targetCamPos, Time.deltaTime * 10f);
 
-        currentSpeed = isCrouching ? crouchSpeed : moveSpeed;
+        currentSpeed = shouldCrouch ? crouchSpeed : moveSpeed;
 
         Vector3 inputDirection = new Vector3(inputHandler.MoveInput.x, 0f, inputHandler.MoveInput.y);
         Vector3 worldDirection = transform.TransformDirection(inputDirection).normalized;
@@ -107,6 +109,23 @@ public class FPSController : MonoBehaviour
         currentMovement.y = verticalVelocity;
 
         characterController.Move(currentMovement * Time.deltaTime);
+    }
+
+    private bool IsCeilingAbove()
+    {
+        // Punto de origen del raycast: desde el centro del jugador
+        Vector3 origin = transform.position + Vector3.up * (characterController.height / 2f);
+
+        // Distancia hasta donde vamos a chequear el techo
+        float checkDistance = 0.6f;
+
+        // Capa opcional si querés filtrar (usalo con LayerMask si querés)
+        bool hasHit = Physics.Raycast(origin, Vector3.up, out RaycastHit hit, checkDistance, ~0, QueryTriggerInteraction.Ignore);
+
+        // Debug visual
+        Debug.DrawRay(origin, Vector3.up * checkDistance, hasHit ? Color.red : Color.green);
+
+        return hasHit;
     }
 
 }
