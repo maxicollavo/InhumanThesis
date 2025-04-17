@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 
 public class DisolveController : MonoBehaviour
-{
+{/*
     [SerializeField] float dissolverRate = 0.0125f;
     [SerializeField] float refreshRate = 0.025f;
     [SerializeField] Renderer MeshRender;
@@ -73,6 +73,52 @@ public class DisolveController : MonoBehaviour
         for (int i = 0; i < Materials.Length; i++)
         {
             Materials[i].SetFloat("_DissolverAmount", amount);
+        }
+    }*/
+
+    [Header("Dissolve Settings")]
+    [SerializeField] float dissolverRate = 0.0125f;
+    [SerializeField] float refreshRate = 0.025f;
+
+    [SerializeField] Renderer MeshRender;
+    private bool isTransitioning = false;
+
+    void Start()
+    {
+        if (MeshRender == null)
+            MeshRender = GetComponent<Renderer>();
+    }
+
+    public IEnumerator DissolveAndRestore(DisolveController other)
+    {
+        isTransitioning = true;
+        float counter = 0f;
+
+        Material[] myMats = MeshRender.materials;
+        Material[] otherMats = other.MeshRender.materials;
+
+        while (counter <= 1f)
+        {
+            foreach (var mat in myMats)
+                mat.SetFloat("_DissolverAmount", counter);
+
+            foreach (var mat in otherMats)
+                mat.SetFloat("_DissolverAmount", 1f - counter);
+
+            counter += dissolverRate;
+            yield return new WaitForSeconds(refreshRate);
+        }
+
+        isTransitioning = false;
+    }
+
+    public void SetDissolveAmount(float amount)
+    {
+        if (MeshRender == null) return;
+
+        foreach (var mat in MeshRender.materials)
+        {
+            mat.SetFloat("_DissolverAmount", amount);
         }
     }
 }

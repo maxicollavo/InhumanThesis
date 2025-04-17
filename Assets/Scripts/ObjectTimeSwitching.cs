@@ -16,11 +16,6 @@ public class ObjectTimeSwitching : MonoBehaviour, ISwitcheable
         DisableOutline();
     }
 
-    private void Start()
-    {
-        //pastObj.SetActive(false);
-    }
-
     public void Aiming()
     {
         EnableOutline();
@@ -39,14 +34,15 @@ public class ObjectTimeSwitching : MonoBehaviour, ISwitcheable
         DisolveController activeDC = activeObj.GetComponent<DisolveController>();
         DisolveController inactiveDC = inactiveObj.GetComponent<DisolveController>();
 
-        StartCoroutine(activeDC.DissolveCo());
+        if (activeDC != null && inactiveDC != null)
+        {
+            inactiveObj.SetActive(true); // Mostrar antes de restaurar
+            StartCoroutine(activeDC.DissolveAndRestore(inactiveDC));
+        }
 
         yield return wfs;
 
-        StartCoroutine(inactiveDC.RestoreCo());
-        inactiveObj.SetActive(true);
         activeObj.SetActive(false);
-
     }
 
     void EnableOutline()
