@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Detection : MonoBehaviour
@@ -13,9 +14,13 @@ public class Detection : MonoBehaviour
     private ISwitcheable lastSwitcheable = null;
     private IRead lastReadeable = null;
     private Interactor lastInteractor = null;
+    public FadeScript fadeUI;
 
     [SerializeField] private LayerMask ignoreMask;
+    private void Start()
+    {
 
+    }
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Mouse0))
@@ -30,15 +35,17 @@ public class Detection : MonoBehaviour
         onClick = false;
     }
 
-    void PowersKeyBinding()
+    public void PowersKeyBinding()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             ChangePower(0);
+            fadeUI.ShowUI((int)currentPower);
         }
         else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             ChangePower(1);
+            fadeUI.ShowUI((int)currentPower);
         }
     }
 
