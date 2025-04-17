@@ -9,6 +9,9 @@ public class TrailManager : MonoBehaviour
     [SerializeField] Camera playerCam;
     [SerializeField] Camera cam;
 
+    [Header("On Win")]
+    [SerializeField] GameObject openBox;
+
     public bool OnJeroglific { get; set; }
 
     private void Start()
@@ -42,7 +45,7 @@ public class TrailManager : MonoBehaviour
     private void ParticleTracking(bool IsTracking)
     {
         if (IsTracking)
-            particle.Play();    
+            particle.Play();
         else
         {
             particle.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
@@ -61,15 +64,19 @@ public class TrailManager : MonoBehaviour
 
     public void ReactivateGameplay(bool HasWon)
     {
-        if (HasWon) Debug.Log("Gano!");
-        else Debug.Log("Fracaso");
-
+        if (HasWon)
+        {
+            Debug.Log("Gano");
+            openBox.SetActive(false);
+            Destroy(coll.gameObject);
+        }
+        else
+        {
+            coll.enabled = true;
+        }
         ParticleTracking(false);
-
         cam.enabled = false;
-        coll.enabled = true;
         OnJeroglific = false;
-
         EventManager.Instance.Dispatch(GameEventTypes.OnGameplay, this, EventArgs.Empty);
     }
 }
