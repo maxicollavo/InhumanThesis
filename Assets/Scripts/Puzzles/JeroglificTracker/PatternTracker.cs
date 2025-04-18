@@ -14,8 +14,6 @@ public class PatternTracker : MonoBehaviour
 
     void Update()
     {
-        if (!manager.OnJeroglific) return;
-
         if (Input.GetMouseButtonDown(0))
         {
             currentPath.Clear();
@@ -69,7 +67,6 @@ public class PatternTracker : MonoBehaviour
     {
         if (currentPath.Count == validNodes.Count)
         {
-            manager.ReactivateGameplay(true);
             isTracking = false;
         }
         else

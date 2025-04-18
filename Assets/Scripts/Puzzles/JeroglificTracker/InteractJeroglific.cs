@@ -34,7 +34,7 @@ public class InteractJeroglific : MonoBehaviour, Interactor
     public void Interact()
     {
         DisableOutline();
-        manager.OnJeroglific = true;
-        manager.EnterToJeroglific();
+        //manager.OnJeroglific = true;
+        //manager.EnterToJeroglific();
     }
 }

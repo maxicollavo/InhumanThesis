@@ -1,44 +1,113 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class TrailManager : MonoBehaviour
 {
-    [SerializeField] PatternTracker tracker;
+    [Header("Nodes")]
+    public Node[] nodes;
+    public List<Node> validNodes;
+
+    [Header("Particle")]
     [SerializeField] ParticleSystem particle;
-    [SerializeField] BoxCollider coll;
+
+    [Header("Tracker")]
+    private List<Node> currentPath = new List<Node>();
+    public bool isTracking { get; private set; }
+
+    [Header("Settings")]
+    private bool OnJeroglific;
+    [SerializeField] Camera trackCam;
     [SerializeField] Camera playerCam;
-    [SerializeField] Camera cam;
-
-    [Header("On Win")]
-    [SerializeField] GameObject openBox;
-
-    public bool OnJeroglific { get; set; }
 
     private void Start()
     {
-        cam.enabled = false;
+        foreach (var n in nodes)
+        {
+            n.OnNodeTouched += GetNodeTouched;
+        }
+    }
+
+    void GetNodeTouched(Node node)
+    {
+        CheckIfValid(node);
+    }
+
+    void CheckIfValid(Node node)
+    {
+        if (validNodes.Contains(node) && !currentPath.Contains(node))
+        {
+            currentPath.Add(node);
+        }
     }
 
     void Update()
     {
-        if (!OnJeroglific) return;
-
-        if (tracker.isTracking)
+        if (Input.GetMouseButtonDown(0))
         {
-            if (!particle.isPlaying)
-                ParticleTracking(true);
+            currentPath.Clear();
+            isTracking = true;
         }
-        else
+
+        if (Input.GetMouseButtonUp(0))
         {
-            if (particle.isPlaying)
-            {
-                ParticleTracking(false);
-            }
+            isTracking = false;
+            CheckPattern();
+        }
+
+        if (isTracking)
+        {
+            TrackMouse();
         }
 
         if (Input.GetKeyDown(KeyCode.Mouse1))
         {
-            ReactivateGameplay(false);
+            //ReactivateGameplay(false);
+        }
+    }
+
+    void CheckPattern()
+    {
+        if (currentPath.Count == validNodes.Count)
+        {
+            isTracking = false;
+            Debug.Log("Gane");
+        }
+        else
+        {
+            Debug.Log("Patrón incompleto.");
+        }
+    }
+
+    void TrackMouse()
+    {
+        Ray ray = trackCam.ScreenPointToRay(Input.mousePosition);
+
+        if (Physics.Raycast(ray, out RaycastHit hit, 100f))
+        {
+            Node hitNode = hit.collider.GetComponent<Node>();
+
+            if (validNodes.Contains(hitNode))
+            {
+                if (!currentPath.Contains(hitNode))
+                {
+                    currentPath.Add(hitNode);
+                    Debug.Log($"Nodo válido agregado: {hitNode.name}");
+
+                    if (currentPath.Count == validNodes.Count)
+                    {
+                        isTracking = false;
+                        CheckPattern();
+                    }
+                }
+            }
+            else
+            {
+                Debug.Log($"Nodo inválido tocado: {hitNode.name}. Reiniciando patrón.");
+                currentPath.Clear();
+                isTracking = false;
+            }
         }
     }
 
@@ -53,30 +122,27 @@ public class TrailManager : MonoBehaviour
         }
     }
 
-    public void EnterToJeroglific()
-    {
-        cam.enabled = true;
-        coll.enabled = false;
-        OnJeroglific = true;
+    //public void EnterToJeroglific()
+    //{
+    //    cam.enabled = true;
+    //    coll.enabled = false;
+    //    OnJeroglific = true;
 
-        EventManager.Instance.Dispatch(GameEventTypes.OnPuzzle, this, EventArgs.Empty);
-    }
+    //    EventManager.Instance.Dispatch(GameEventTypes.OnPuzzle, this, EventArgs.Empty);
+    //}
 
-    public void ReactivateGameplay(bool HasWon)
-    {
-        if (HasWon)
-        {
-            Debug.Log("Gano");
-            openBox.SetActive(false);
-            Destroy(coll.gameObject);
-        }
-        else
-        {
-            coll.enabled = true;
-        }
-        ParticleTracking(false);
-        cam.enabled = false;
-        OnJeroglific = false;
-        EventManager.Instance.Dispatch(GameEventTypes.OnGameplay, this, EventArgs.Empty);
-    }
+    //public void ReactivateGameplay(bool HasWon)
+    //{
+    //    if (HasWon)
+    //    {
+    //        Debug.Log("Gano");
+    //    }
+    //    else
+    //    {
+    //    }
+    //    ParticleTracking(false);
+    //    cam.enabled = false;
+    //    OnJeroglific = false;
+    //    EventManager.Instance.Dispatch(GameEventTypes.OnGameplay, this, EventArgs.Empty);
+    //}
 }

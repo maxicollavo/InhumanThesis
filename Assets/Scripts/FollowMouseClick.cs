@@ -3,7 +3,14 @@ using UnityEngine;
 public class FollowMouseClick : MonoBehaviour
 {
     [SerializeField] Camera cam;
+    [HideInInspector]
+    public ParticleSystem particle;
     float fixedZ;
+
+    private void Awake()
+    {
+        particle = GetComponent<ParticleSystem>();
+    }
 
     private void Start()
     {
