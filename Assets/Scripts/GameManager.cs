@@ -71,7 +71,6 @@ public class GameManager : MonoBehaviour
 
     public void Update()
     {
-
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             menuPressed = !menuPressed;
@@ -88,15 +87,6 @@ public class GameManager : MonoBehaviour
                 Time.timeScale = 1;
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
-            }
-        }
-
-        if (!OnPuzzle) return;
-        else
-        {
-            if (OnPuzzle && Input.GetKeyDown(KeyCode.Mouse1))
-            {
-                EventManager.Instance.Dispatch(GameEventTypes.OnGameplay, this, EventArgs.Empty);
             }
         }
     }

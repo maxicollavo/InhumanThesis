@@ -15,6 +15,7 @@ public class BoardPuzzleManager : MonoBehaviour
     [Header("Pieces")]
     public BoardPiece[] pieces;
     private BoardPiece selectedPiece;
+    public GameObject pieceGo;
 
     [Header("Waypoints")]
     private BoardWaypoint currentWp;
@@ -26,10 +27,25 @@ public class BoardPuzzleManager : MonoBehaviour
     private BoardButton pressedButton;
     private Vector2 direction;
 
+    [Header("Colliders")]
+    [SerializeField] List<BoxCollider> colliders;
+    private bool previousState;
+
+    [Header("Settings")]
+    [SerializeField] BoxCollider interactorCollider;
+    public bool OnPuzzle { get; private set; }
+    [SerializeField] Camera puzzleCam;
+    private bool HasPiece;
+    private bool HasWon;
+
     private Dictionary<BoardPiece, BoardWaypoint> pieceTargetMap = new Dictionary<BoardPiece, BoardWaypoint>();
+
+    [SerializeField] PuzzleInteractor interactor;
 
     private void Start()
     {
+        puzzleCam.enabled = false;
+
         foreach (var p in pieces)
         {
             p.OnPieceSelected += GetSelectedPiece;
@@ -43,6 +59,69 @@ public class BoardPuzzleManager : MonoBehaviour
         for (int i = 0; i < pieces.Length; i++)
         {
             pieceTargetMap[pieces[i]] = targets[i];
+        }
+
+        foreach (var c in colliders)
+        {
+            c.enabled = false;
+        }
+
+        interactor.PuzzleAction += OnPuzzleMethod;
+    }
+
+    private void Update()
+    {
+        bool currentState = OnPuzzle;
+
+        if (currentState != previousState)
+        {
+            SwitchColliders(currentState);
+            previousState = currentState;
+        }
+
+        if (currentState && Input.GetKeyDown(KeyCode.Mouse1))
+        {
+            BackToGameplay();
+        }
+    }
+
+    void OnPuzzleMethod(PuzzleInteractor interactor)
+    {
+        if (HasWon) return;
+
+        if (GameManager.Instance.HasPiece)
+        {
+            HasPiece = true;
+            pieceGo.SetActive(true);
+            GameManager.Instance.HasPiece = false;
+            return;
+        }
+
+        if (!HasPiece) return;
+
+        interactor.DisableOutline();
+        puzzleCam.enabled = true;
+        interactorCollider.enabled = false;
+        OnPuzzle = true;
+        EventManager.Instance.Dispatch(GameEventTypes.OnPuzzle, this, EventArgs.Empty);
+    }
+
+    public void BackToGameplay()
+    {
+        puzzleCam.enabled = false;
+        OnPuzzle = false;
+        EventManager.Instance.Dispatch(GameEventTypes.OnGameplay, this, EventArgs.Empty);
+        if (HasWon) return;
+
+        interactorCollider.enabled = true;
+    }
+
+    void SwitchColliders(bool state)
+    {
+        Debug.Log("Cambia el estado");
+        foreach (var c in colliders)
+        {
+            c.enabled = state;
         }
     }
 
@@ -137,7 +216,13 @@ public class BoardPuzzleManager : MonoBehaviour
             if (!piece.OnPositionWinner) return;
         }
 
-        //Win();
+        Win();
+    }
+
+    void Win()
+    {
+        HasWon = true;
+        BackToGameplay();
     }
 
     //void Win()

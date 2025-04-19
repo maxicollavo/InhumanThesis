@@ -6,44 +6,51 @@ using UnityEngine;
 public class TrailManager : MonoBehaviour
 {
     [Header("Nodes")]
-    public Node[] nodes;
-    public List<Node> validNodes;
+    [SerializeField] List<GameObject> actionNodes; //Referencia a su action
+    [SerializeField] List<GameObject> validNodes; //Los nodos que tengo que tocar
+    private List<GameObject> currentPath = new List<GameObject>(); //Los nodos que toco
+    [SerializeField] private LayerMask nodeLayerMask;
 
     [Header("Particle")]
     [SerializeField] ParticleSystem particle;
 
     [Header("Tracker")]
-    private List<Node> currentPath = new List<Node>();
     public bool isTracking { get; private set; }
+    [SerializeField] GameObject tracker;
 
     [Header("Settings")]
-    private bool OnJeroglific;
-    [SerializeField] Camera trackCam;
-    [SerializeField] Camera playerCam;
+    [SerializeField] Camera puzzleCam;
+    [SerializeField] PuzzleInteractor interactor;
+    private bool previousState = false;
+    public bool OnPuzzle { get; private set; }
+    [SerializeField] BoxCollider interactorCollider;
+
+    [Header("On Win")]
+    [SerializeField] GameObject closed;
+    private bool HasWon;
 
     private void Start()
     {
-        foreach (var n in nodes)
-        {
-            n.OnNodeTouched += GetNodeTouched;
-        }
-    }
+        interactor.PuzzleAction += OnPuzzleMethod;
 
-    void GetNodeTouched(Node node)
-    {
-        CheckIfValid(node);
-    }
-
-    void CheckIfValid(Node node)
-    {
-        if (validNodes.Contains(node) && !currentPath.Contains(node))
-        {
-            currentPath.Add(node);
-        }
+        puzzleCam.enabled = false;
     }
 
     void Update()
     {
+        if (HasWon) return;
+
+        bool currentState = OnPuzzle;
+
+        if (currentState != previousState)
+        {
+            tracker.SetActive(currentState);
+            previousState = currentState;
+        }
+
+        if (!currentState) return;
+        Debug.Log(currentState);
+
         if (Input.GetMouseButtonDown(0))
         {
             currentPath.Clear();
@@ -53,7 +60,7 @@ public class TrailManager : MonoBehaviour
         if (Input.GetMouseButtonUp(0))
         {
             isTracking = false;
-            CheckPattern();
+            RestartTracking();
         }
 
         if (isTracking)
@@ -61,88 +68,104 @@ public class TrailManager : MonoBehaviour
             TrackMouse();
         }
 
+        ParticleTracking(isTracking);
+
         if (Input.GetKeyDown(KeyCode.Mouse1))
         {
-            //ReactivateGameplay(false);
+            BackToGameplay();
         }
     }
 
-    void CheckPattern()
+    void OnPuzzleMethod(PuzzleInteractor interactor)
     {
-        if (currentPath.Count == validNodes.Count)
-        {
-            isTracking = false;
-            Debug.Log("Gane");
-        }
-        else
-        {
-            Debug.Log("Patrón incompleto.");
-        }
+        interactor.DisableOutline();
+        puzzleCam.enabled = true;
+        interactorCollider.enabled = false;
+        OnPuzzle = true;
+        EventManager.Instance.Dispatch(GameEventTypes.OnPuzzle, this, EventArgs.Empty);
+    }
+
+    public void BackToGameplay()
+    {
+        puzzleCam.enabled = false;
+        OnPuzzle = false;
+        EventManager.Instance.Dispatch(GameEventTypes.OnGameplay, this, EventArgs.Empty);
+        if (HasWon) return;
+
+        interactorCollider.enabled = true;
     }
 
     void TrackMouse()
     {
-        Ray ray = trackCam.ScreenPointToRay(Input.mousePosition);
+        Ray ray = puzzleCam.ScreenPointToRay(Input.mousePosition);
 
-        if (Physics.Raycast(ray, out RaycastHit hit, 100f))
+        if (Physics.Raycast(ray, out RaycastHit hit, 100f, nodeLayerMask))
         {
-            Node hitNode = hit.collider.GetComponent<Node>();
+            GameObject hitObj = hit.collider.gameObject;
 
-            if (validNodes.Contains(hitNode))
-            {
-                if (!currentPath.Contains(hitNode))
-                {
-                    currentPath.Add(hitNode);
-                    Debug.Log($"Nodo válido agregado: {hitNode.name}");
-
-                    if (currentPath.Count == validNodes.Count)
-                    {
-                        isTracking = false;
-                        CheckPattern();
-                    }
-                }
-            }
-            else
-            {
-                Debug.Log($"Nodo inválido tocado: {hitNode.name}. Reiniciando patrón.");
-                currentPath.Clear();
-                isTracking = false;
-            }
+            CheckIfValid(hitObj);
         }
-    }
-
-    private void ParticleTracking(bool IsTracking)
-    {
-        if (IsTracking)
-            particle.Play();
         else
         {
-            particle.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
-            particle.Clear();
+            RestartTracking();
         }
     }
 
-    //public void EnterToJeroglific()
-    //{
-    //    cam.enabled = true;
-    //    coll.enabled = false;
-    //    OnJeroglific = true;
+    void RestartTracking()
+    {
+        isTracking = false;
+        currentPath.Clear();
+        Debug.Log(currentPath.Count);
+    }
 
-    //    EventManager.Instance.Dispatch(GameEventTypes.OnPuzzle, this, EventArgs.Empty);
-    //}
+    void CheckIfValid(GameObject node)
+    {
+        if (validNodes.Contains(node) && !currentPath.Contains(node))
+        {
+            AddNode(node);
+            CheckWin();
+        }
+        {
+            Debug.Log(currentPath.Count);
+        }
+    }
 
-    //public void ReactivateGameplay(bool HasWon)
-    //{
-    //    if (HasWon)
-    //    {
-    //        Debug.Log("Gano");
-    //    }
-    //    else
-    //    {
-    //    }
-    //    ParticleTracking(false);
-    //    cam.enabled = false;
-    //    OnJeroglific = false;
-    //    EventManager.Instance.Dispatch(GameEventTypes.OnGameplay, this, EventArgs.Empty);
-    //}
+    void CheckWin()
+    {
+        if (currentPath.Count == validNodes.Count)
+        {
+            isTracking = false;
+            Win();
+        }
+    }
+
+    void Win()
+    {
+        closed.SetActive(false);
+        HasWon = true;
+        BackToGameplay();
+    }
+
+    void AddNode(GameObject node)
+    {
+        currentPath.Add(node);
+    }
+
+    private void ParticleTracking(bool isTracking)
+    {
+        if (isTracking)
+        {
+            if (!particle.isPlaying)
+            {
+                particle.Play();
+            }
+        }
+        else
+        {
+            if (particle.isPlaying)
+            {
+                particle.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+            }
+        }
+    }
 }

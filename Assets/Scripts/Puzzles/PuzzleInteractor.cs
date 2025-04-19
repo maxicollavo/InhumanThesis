@@ -1,16 +1,12 @@
 using System;
 using UnityEngine;
+using UnityEngine.Playables;
 
-public class PickToInventory : MonoBehaviour, Interactor
+public class PuzzleInteractor : MonoBehaviour, Interactor
 {
-    Outline outline;
-    [SerializeField] GameObject handObj;
-    [SerializeField] PuzzleInteractor interactor;
+    public Action<PuzzleInteractor> PuzzleAction;
 
-    private void Awake()
-    {
-        outline = GetComponent<Outline>();
-    }
+    [SerializeField] Outline outline;
 
     private void Start()
     {
@@ -19,10 +15,12 @@ public class PickToInventory : MonoBehaviour, Interactor
 
     public void Interact()
     {
-        DisableOutline();
-        handObj.SetActive(true);
-        gameObject.SetActive(false);
-        GameManager.Instance.HasPiece = true;
+        PuzzleMethod();
+    }
+
+    public void PuzzleMethod()
+    {
+        PuzzleAction?.Invoke(this);
     }
 
     public void DisableOutline()
