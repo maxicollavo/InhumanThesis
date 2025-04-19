@@ -58,6 +58,8 @@ public class GameManager : MonoBehaviour
         EventManager.Instance.Register(GameEventTypes.OnGameplay, OnGameplayMethod);
         EventManager.Instance.Register(GameEventTypes.OnPuzzle, OnPuzzleMethod);
         EventManager.Instance.Register(GameEventTypes.OnPickeable, OnPickeableMethod);
+
+        EventManager.Instance.Dispatch(GameEventTypes.OnGameplay, this, EventArgs.Empty);
     }
 
     private void OnDestroy()

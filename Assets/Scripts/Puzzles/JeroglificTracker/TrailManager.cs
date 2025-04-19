@@ -5,6 +5,11 @@ using UnityEngine;
 
 public class TrailManager : MonoBehaviour
 {
+    [Header("Start Settings")]
+    bool CanStart;
+    [SerializeField] StatueManager statueManager;
+    [SerializeField] List<GameObject> nodesToEnable;
+
     [Header("Nodes")]
     [SerializeField] List<GameObject> actionNodes; //Referencia a su action
     [SerializeField] List<GameObject> validNodes; //Los nodos que tengo que tocar
@@ -32,13 +37,25 @@ public class TrailManager : MonoBehaviour
     private void Start()
     {
         interactor.PuzzleAction += OnPuzzleMethod;
-
+        statueManager.StatueManagerAction += OnStatueFinish;
         puzzleCam.enabled = false;
+    }
+
+    private void OnStatueFinish(StatueManager manager)
+    {
+        CanStart = true;
+
+        ActivateNodes();
     }
 
     void Update()
     {
-        if (HasWon) return;
+        if (Input.GetKeyDown(KeyCode.Mouse1))
+        {
+            BackToGameplay();
+        }
+
+        if (HasWon || !CanStart) return;
 
         bool currentState = OnPuzzle;
 
@@ -69,10 +86,13 @@ public class TrailManager : MonoBehaviour
         }
 
         ParticleTracking(isTracking);
+    }
 
-        if (Input.GetKeyDown(KeyCode.Mouse1))
+    void ActivateNodes()
+    {
+        foreach (var n in nodesToEnable)
         {
-            BackToGameplay();
+            n.SetActive(true);
         }
     }
 
