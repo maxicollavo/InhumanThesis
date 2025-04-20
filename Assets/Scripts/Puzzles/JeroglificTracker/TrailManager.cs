@@ -6,7 +6,7 @@ using UnityEngine;
 public class TrailManager : MonoBehaviour
 {
     [Header("Start Settings")]
-    bool CanStart;
+    public bool CanStart;
     [SerializeField] StatueManager statueManager;
     [SerializeField] List<GameObject> nodesToEnable;
 
@@ -142,6 +142,7 @@ public class TrailManager : MonoBehaviour
     {
         if (validNodes.Contains(node) && !currentPath.Contains(node))
         {
+            Debug.Log("Agrega nodo");
             AddNode(node);
             CheckWin();
         }

@@ -1,59 +1,38 @@
-using System;
 using UnityEngine;
 
-public class Detection : MonoBehaviour
+public class PowerManager : MonoBehaviour
 {
-    public float playerReach = 10f;
-
-    float interactDistance = 5f;
+    public enum Powers { OnRead, OnTime }
 
     public Powers currentPower = Powers.OnRead;
 
-    private bool onClick;
+    [SerializeField] AnimationManager animManager;
+    [SerializeField] Detection detection;
 
+    [SerializeField] Camera playerCam;
+
+    [SerializeField] private LayerMask ignoreMask;
+    public float playerReach = 10f;
+    float interactDistance = 5f;
     private ISwitcheable lastSwitcheable = null;
     private IRead lastReadeable = null;
     private Interactor lastInteractor = null;
-    public FadeScript fadeUI;
 
-    [SerializeField] private LayerMask ignoreMask;
+    private bool Clicked;
 
-    [SerializeField] AnimationManager animManager;
-
-    void Update()
+    private void Start()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0))
-        {
-            onClick = true;
-        }
-
-        PowersKeyBinding();
-
-        Detect();
-
-        onClick = false;
+        //detection.OnClick += Detect;
     }
 
-    public void PowersKeyBinding()
+    private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            ChangePower(0);
-            SendPowerSelection();
-            //fadeUI.ShowUI((int)currentPower);
-        }
-        //else if (Input.GetKeyDown(KeyCode.Alpha2))
-        //{
-        //    ChangePower(1);
-        //    SendPowerSelection();
-        //    //fadeUI.ShowUI((int)currentPower);
-        //}
     }
 
     void Detect()
     {
         RaycastHit hit;
-        Ray ray = new Ray(transform.position, transform.forward);
+        Ray ray = new Ray(playerCam.transform.position, playerCam.transform.forward);
         int layerMask = ~ignoreMask.value;
 
         ISwitcheable currentSwitcheable = null;
@@ -68,10 +47,10 @@ public class Detection : MonoBehaviour
                 {
                     currentInteractor.Aiming();
 
-                    if (onClick)
-                    {
-                        currentInteractor.Interact();
-                    }
+                    //if (onClick)
+                    //{
+                    //    currentInteractor.Interact();
+                    //}
                 }
             }
 
@@ -81,10 +60,10 @@ public class Detection : MonoBehaviour
                 {
                     currentSwitcheable.Aiming();
 
-                    if (onClick)
-                    {
-                        currentSwitcheable.Switch();
-                    }
+                    //if (onClick)
+                    //{
+                    //    currentSwitcheable.Switch();
+                    //}
                 }
             }
             else if (currentPower == Powers.OnRead)
@@ -93,10 +72,10 @@ public class Detection : MonoBehaviour
                 {
                     currentReadeable.Aiming();
 
-                    if (onClick && !GameManager.Instance.clickBlock)
-                    {
-                        currentReadeable.Read();
-                    }
+                    //if (onClick && !GameManager.Instance.clickBlock)
+                    //{
+                    //    currentReadeable.Read();
+                    //}
                 }
             }
         }
@@ -121,6 +100,22 @@ public class Detection : MonoBehaviour
         lastInteractor = currentInteractor;
     }
 
+    public void PowersKeyBinding()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            ChangePower(0);
+            SendPowerSelection();
+            //fadeUI.ShowUI((int)currentPower);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            ChangePower(1);
+            SendPowerSelection();
+            //fadeUI.ShowUI((int)currentPower);
+        }
+    }
+
     void ChangePower(int power)
     {
         if ((int)currentPower == power)
@@ -131,12 +126,6 @@ public class Detection : MonoBehaviour
 
     public void SendPowerSelection()
     {
-        animManager.ChangeCurrentPower(currentPower);
+        //animManager.ChangeCurrentPower(currentPower);
     }
-}
-
-public enum Powers
-{
-    OnRead,
-    OnTime
 }
