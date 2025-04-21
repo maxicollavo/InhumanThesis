@@ -3,25 +3,7 @@ using UnityEngine.SceneManagement;
 
 public class ScenesManager : MonoBehaviour
 {
-    public bool OnTest;
-
-    private void Update()
-    {
-        if (OnTest)
-        {
-            if (Input.GetKeyDown(KeyCode.F1))
-            {
-                SceneManager.LoadScene("LevelOnePruebas");
-            }
-        }
-        else
-        {
-            if (Input.GetKeyDown(KeyCode.F2))
-            {
-                SceneManager.LoadScene("TestScene");
-            }
-        }
-    }
+    [SerializeField] GameObject optionMenu;
     public void Exit()
     {
         Application.Quit();
@@ -34,12 +16,12 @@ public class ScenesManager : MonoBehaviour
 
     public void Options()
     {
-        SceneManager.LoadScene("Options");
+        optionMenu.SetActive(true);
     }
 
     public void BackToMenu()
     {
-        SceneManager.LoadScene("MenuScene");
+        optionMenu.SetActive(false);
     }
 
 }
