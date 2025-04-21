@@ -14870,8 +14870,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 1.8039901, z: 1}
+  m_Center: {x: 0, y: 0.40199614, z: 0}
 --- !u!23 &349928499
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -15077,7 +15077,7 @@ GameObject:
   - component: {fileID: 355803807}
   - component: {fileID: 355803806}
   - component: {fileID: 355803805}
-  - component: {fileID: 355803804}
+  - component: {fileID: 355803808}
   m_Layer: 0
   m_Name: Estaca (1)
   m_TagString: Untagged
@@ -15085,28 +15085,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!64 &355803804
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 355803803}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 2297425034801156755, guid: 343277e9b4620224b9ee6d3b63eb8195, type: 3}
 --- !u!23 &355803805
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -15175,6 +15153,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -92.383, z: 0}
+--- !u!65 &355803808
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 355803803}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1035.009, y: 420.59174, z: 149.0891}
+  m_Center: {x: 0.00000014887632, y: 102.61491, z: -34.861134}
 --- !u!1 &355997325
 GameObject:
   m_ObjectHideFlags: 0
@@ -34008,7 +34007,7 @@ GameObject:
   - component: {fileID: 764748947}
   - component: {fileID: 764748946}
   - component: {fileID: 764748945}
-  - component: {fileID: 764748944}
+  - component: {fileID: 764748948}
   m_Layer: 0
   m_Name: Estaca (2)
   m_TagString: Untagged
@@ -34016,28 +34015,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!64 &764748944
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 764748943}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 2297425034801156755, guid: 343277e9b4620224b9ee6d3b63eb8195, type: 3}
 --- !u!23 &764748945
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -34106,6 +34083,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -112.083, z: 0}
+--- !u!65 &764748948
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 764748943}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1035.0093, y: 625.82184, z: 406.8756}
+  m_Center: {x: 0.0000048582206, y: 0, z: 163.75438}
 --- !u!1 &764771243
 GameObject:
   m_ObjectHideFlags: 0
@@ -52306,8 +52304,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.01974906, y: 0.0040561478, z: 0.0025301566}
-  m_Center: {x: 9.185948e-17, y: 0.0013352709, z: -0.00018239809}
+  m_Size: {x: 0.01974906, y: 0.0073329937, z: 0.0025301566}
+  m_Center: {x: -2.6700326e-11, y: 0.002973698, z: -0.00018239814}
 --- !u!1001 &1168962638
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -59294,8 +59292,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 1.8086897, z: 1}
+  m_Center: {x: 0, y: 0.40434557, z: 0}
 --- !u!23 &1347123324
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -64086,8 +64084,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.01974906, y: 0.0040561478, z: 0.0025301566}
-  m_Center: {x: 9.185948e-17, y: 0.0013352709, z: -0.00018239809}
+  m_Size: {x: 0.01974906, y: 0.008195402, z: 0.0025301566}
+  m_Center: {x: -4.6483317e-11, y: 0.003404896, z: -0.00018239806}
 --- !u!4 &1528487639 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: f0702b26f8dc6e3419b6942b6b2bd19c, type: 3}
