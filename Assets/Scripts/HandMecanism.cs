@@ -4,17 +4,15 @@ using UnityEngine;
 public class HandMecanism : MonoBehaviour, Interactor
 {
     Outline outline;
-
-    GameObject door;
-
-    [SerializeField] TutorialTriggers tutorialTrigger;
-    [SerializeField] GameObject textTutorial;
+    [SerializeField] Animator doorAnim;
+    
+    private void Awake()
+    {
+        outline = GetComponentInParent<Outline>();
+    }
 
     private void Start()
     {
-        outline = GetComponentInParent<Outline>();
-        door = transform.parent.parent.gameObject;
-
         outline.enabled = false;
     }
 
@@ -23,7 +21,6 @@ public class HandMecanism : MonoBehaviour, Interactor
         outline.enabled = false;
 
         UIManager.Instance.ChangeCursor(false);
-
     }
 
     void EnableOutline()
@@ -40,16 +37,8 @@ public class HandMecanism : MonoBehaviour, Interactor
 
     private void OpenDoor()
     {
-        StartCoroutine(DestroyTrigger());
+        doorAnim.SetTrigger("Open");
         UIManager.Instance.ChangeCursor(false);
-    }
-
-    private IEnumerator DestroyTrigger()
-    {
-        Destroy(textTutorial);
-        yield return new WaitForSeconds(0.1f);
-        Destroy(tutorialTrigger.gameObject);
-        door.SetActive(false);
     }
 
     public void Interact()

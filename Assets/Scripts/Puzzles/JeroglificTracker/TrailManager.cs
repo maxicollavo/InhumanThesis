@@ -31,7 +31,7 @@ public class TrailManager : MonoBehaviour
     [SerializeField] BoxCollider interactorCollider;
 
     [Header("On Win")]
-    [SerializeField] GameObject closed;
+    public Action<TrailManager> JeroglificAction;
     private bool HasWon;
 
     private void Start()
@@ -162,7 +162,7 @@ public class TrailManager : MonoBehaviour
 
     void Win()
     {
-        closed.SetActive(false);
+        JeroglificAction?.Invoke(this);
         HasWon = true;
         BackToGameplay();
     }

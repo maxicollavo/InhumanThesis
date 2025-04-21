@@ -16,6 +16,7 @@ public class BoardPuzzleManager : MonoBehaviour
     public BoardPiece[] pieces;
     private BoardPiece selectedPiece;
     public GameObject pieceGo;
+    public GameObject handPiece;
 
     [Header("Waypoints")]
     private BoardWaypoint currentWp;
@@ -37,6 +38,9 @@ public class BoardPuzzleManager : MonoBehaviour
     [SerializeField] Camera puzzleCam;
     private bool HasPiece;
     private bool HasWon;
+
+    [Header("On Win")]
+    [SerializeField] List<Animator> doors;
 
     private Dictionary<BoardPiece, BoardWaypoint> pieceTargetMap = new Dictionary<BoardPiece, BoardWaypoint>();
 
@@ -93,6 +97,7 @@ public class BoardPuzzleManager : MonoBehaviour
         {
             HasPiece = true;
             pieceGo.SetActive(true);
+            handPiece.SetActive(false);
             GameManager.Instance.HasPiece = false;
             return;
         }
@@ -222,6 +227,8 @@ public class BoardPuzzleManager : MonoBehaviour
     void Win()
     {
         HasWon = true;
+        foreach (var door in doors) door.SetTrigger("Open");
+        foreach (var piece in pieces) piece.DisableOutline();
         BackToGameplay();
     }
 

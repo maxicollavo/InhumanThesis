@@ -6,8 +6,7 @@ public class PyramidPicking : MonoBehaviour, Interactor
 
     [SerializeField] GameObject handPyramid;
     [SerializeField] GameObject grabbedPyramid;
-    [SerializeField] GameObject door;
-
+    [SerializeField] Animator door;
 
     private void Start()
     {
@@ -37,8 +36,7 @@ public class PyramidPicking : MonoBehaviour, Interactor
     {
         handPyramid.SetActive(true);
         grabbedPyramid.SetActive(false);
-        door.SetActive(false);
-
+        door.SetTrigger("Open");
         UIManager.Instance.ChangeCursor(false);
     }
 

@@ -4,47 +4,17 @@ using UnityEngine;
 
 public class TutorialTriggers : MonoBehaviour, ITutorial
 {
-    [SerializeField] GameObject subtitle;
-    [SerializeField] GameObject crouchTrigger;
-    [SerializeField] GameObject door;
-    [SerializeField] string subText;
-
-    TextMeshProUGUI ui;
-
-    [SerializeField] bool DestroysTrigger;
-    [SerializeField] bool StartsLevel;
+    [SerializeField] Animator door;
+    BoxCollider coll;
 
     private void Awake()
     {
-        ui = subtitle.GetComponent<TextMeshProUGUI>();
-    }
-
-    private void Start()
-    {
-        ui.text = subText;
+        coll = GetComponent<BoxCollider>();
     }
 
     public void Exit()
     {
-        subtitle.SetActive(false);
-    }
-
-    public void Interact()
-    {
-        if (DestroysTrigger)
-        {
-            Destroy(crouchTrigger);
-            return;
-        }
-
-        if (StartsLevel)
-        {
-            door.SetActive(true);
-            Destroy(gameObject);
-            return;
-        }
-
-        if (subtitle != null)
-            subtitle.SetActive(true);
+        door.SetTrigger("Close");
+        coll.enabled = false;
     }
 }
