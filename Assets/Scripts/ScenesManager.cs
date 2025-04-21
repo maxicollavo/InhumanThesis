@@ -22,4 +22,24 @@ public class ScenesManager : MonoBehaviour
             }
         }
     }
+    public void Exit()
+    {
+        Application.Quit();
+    }
+
+    public void StartScene()
+    {
+        SceneManager.LoadScene("Level_One");
+    }
+
+    public void Options()
+    {
+        SceneManager.LoadScene("Options");
+    }
+
+    public void BackToMenu()
+    {
+        SceneManager.LoadScene("MenuScene");
+    }
+
 }
